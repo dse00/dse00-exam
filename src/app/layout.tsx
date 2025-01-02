@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import "./globals.css";
 import BaseWebProvider from "@/providers/baseWebProvider";
+import Header from "./_components/Header";
 
 export const metadata: Metadata = {
   title: "Create Next App",
@@ -15,7 +16,10 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body>
-        <BaseWebProvider>{children}</BaseWebProvider>
+        <Header />
+        <BaseWebProvider>
+          <div className="container py-12">{children}</div>
+        </BaseWebProvider>
       </body>
     </html>
   );

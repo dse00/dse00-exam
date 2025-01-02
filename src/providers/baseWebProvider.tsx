@@ -1,14 +1,16 @@
 'use client'
-import { Client as Styletron } from "styletron-engine-monolithic";
 import { Provider as StyletronProvider } from "styletron-react";
-import { LightTheme, BaseProvider, styled } from "baseui";
+import { BaseProvider, styled } from "baseui";
 import { FC, ReactNode } from "react";
 import { styletron } from "./styletron";
+import { baseWebTheme } from "@/theme/baseWebTheme";
+import { ignoreWarn } from "@/utils/warn";
 
 type props = {
     children: ReactNode
 }
 
+ignoreWarn();
 
 const Centered = styled("div", {
     display: "flex",
@@ -18,9 +20,10 @@ const Centered = styled("div", {
 });
 
 const BaseWebProvider: FC<props> = ({ children }) => {
+
     return (
         <StyletronProvider value={styletron}>
-            <BaseProvider theme={LightTheme}>
+            <BaseProvider theme={baseWebTheme}>
                 <Centered>
                     {children}
                 </Centered>
