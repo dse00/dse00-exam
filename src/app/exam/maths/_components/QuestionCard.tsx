@@ -13,7 +13,7 @@ const QuestionCard: FC<props> = ({ question, index }) => {
 
         <div className="border rounded-lg overflow-hidden bg-white">
             <div className="px-4 py-2 bg-primary text-white">
-                <h2>{index + 1}</h2>
+                <h2 className="font-black">Q{index + 1}</h2>
             </div>
             <div className="p-4 grid gap-4">
                 <div >
