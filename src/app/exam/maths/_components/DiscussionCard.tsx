@@ -1,20 +1,39 @@
 import { FC } from "react"
-import { DiscussionType } from "./Discussion"
-import { Avatar } from "baseui/avatar";
 import moment from "moment";
 import CustomAvatar from "@/components/CustomAvatar";
+import { CommentType } from "@/types/comment";
+import { useComment } from "@/hooks";
 
 interface props {
-    discussion: DiscussionType
+    discussion: CommentType
+    isMyComment: boolean
 }
-const DiscussionCard: FC<props> = ({ discussion }) => {
+const DiscussionCard: FC<props> = ({ discussion, isMyComment }) => {
+
+    const { deleteComment } = useComment(discussion._id)
+
+    const onDeleteComment = () => {
+        const confirm = window.confirm('confirm delete?');
+        if (!confirm) return
+        deleteComment(discussion._id)
+    }
     return (
-        <div className="grid gap-2">
-            <div className="flex gap-2">
-                <CustomAvatar />
+        <div className="flex gap-8">
+            <CustomAvatar />
+            <div className="grid grow">
+                <div className="flex">
+                    <span className="font-bold grow">{discussion.user.name}</span>
+                    <span className="text-gray-400 text-xs flex items-center">{moment(discussion.createdAt).from(moment())}</span>
+                </div>
                 <p className="grow">{discussion.comment}</p>
-                <span className="text-gray-400 text-sm flex items-center">{moment(discussion.createdAt).from(moment())}</span>
+                {
+                    isMyComment && <div>
+                        <button className="text-xs text-gray-400" onClick={onDeleteComment}>刪除</button>
+                    </div>
+                }
+
             </div>
+
 
         </div>
     )

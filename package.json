@@ -11,6 +11,7 @@
   "dependencies": {
     "@tanstack/react-query": "^5.62.11",
     "axios": "^1.7.9",
+    "axios-debug-log": "^1.0.0",
     "baseui": "^0.0.0-next-a815e8c08",
     "classnames": "^2.5.1",
     "eslint-plugin-baseui": "^13.0.0",

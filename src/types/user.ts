@@ -46,3 +46,10 @@ export type UserType = {
     tel: string;
     estimatedAge: number;
 }
+
+
+export type CommentUserType = {
+    avatar: string;
+    name: string;
+    user: string;
+}

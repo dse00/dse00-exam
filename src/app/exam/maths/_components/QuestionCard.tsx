@@ -1,7 +1,8 @@
 'use client'
 import { FC } from "react";
-import { QuestionType } from "../data";
 import AnswerDiscussion from "./AnswerDiscussion";
+import { QuestionType } from "@/types/question";
+import Image from "next/image";
 
 interface props {
     question: QuestionType;
@@ -17,7 +18,7 @@ const QuestionCard: FC<props> = ({ question, index }) => {
             </div>
             <div className="p-4 grid gap-4">
                 <div >
-                    <img src='/math/2023Q1.png' className="" />
+                    <Image src={question.questionImage} className="" alt="question" width={1000} height={100} priority/>
                 </div>
                 <AnswerDiscussion question={question} />
             </div>

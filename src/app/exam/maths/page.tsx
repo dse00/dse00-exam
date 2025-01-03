@@ -1,9 +1,14 @@
 import { NextPage } from "next";
-import { questions } from "./data";
 import QuestionCard from "./_components/QuestionCard";
 import Pagination from "./_components/Pagination";
+import services from "@/services";
 
-const ExamMathsPage: NextPage = () => {
+const ExamMathsPage: NextPage = async () => {
+
+    const questions = await services.getQuestions();
+
+    console.log(questions)
+
     return (
         <div className="grid gap-6">
 

@@ -2,9 +2,9 @@
 import { Button } from "baseui/button";
 import { FC, useRef, useState } from "react"
 import Discussion from "./Discussion";
-import { QuestionType } from "../data";
 import CustomAccordion from "@/components/CustomAccordion";
 import AnswerButtons from "./AnswerButtons";
+import { QuestionType } from "@/types/question";
 
 type props = {
     question: QuestionType
@@ -12,6 +12,7 @@ type props = {
 
 
 const AnswerDiscussion: FC<props> = ({ question }) => {
+
 
     const [showAns, setShowAns] = useState(false)
 
@@ -23,12 +24,12 @@ const AnswerDiscussion: FC<props> = ({ question }) => {
                 <Button size="compact" onClick={() => setShowAns(!showAns)}>答案</Button>
                 <Button size="compact" onClick={() => setShowDiscussion(!showDiscussion)}>討論(0)</Button>
             </div>
-            <div className="grid gap-7 py-4">
+            <div className="grid py-4">
                 <CustomAccordion show={showAns} >
                     <AnswerButtons question={question} />
                 </CustomAccordion>
                 <CustomAccordion show={showDiscussion} >
-                    <Discussion />
+                    <Discussion questionId={question._id} />
                 </CustomAccordion>
             </div>
 

@@ -3,17 +3,32 @@ import { Button } from "baseui/button"
 import { FC, useState } from "react"
 import { Textarea } from "baseui/textarea";
 import CustomAvatar from "@/components/CustomAvatar";
-import { userToast } from "@/hooks";
+import { useComment, useToast, useUser } from "@/hooks";
 
-type props = {}
-const DiscussionInput: FC<props> = () => {
+type props = {
+    questionId: string
+}
+const DiscussionInput: FC<props> = ({ questionId }) => {
+
+
     const [value, setValue] = useState("Hello");
-    const { successToast } = userToast()
+    const { userData } = useUser()
+
+    const { successToast } = useToast()
+    const { createComment } = useComment(questionId)
 
     const submit = () => {
-        console.log(value)
+        if (!userData) return successToast("Please login to post a comment")
+
+        const createCommentDto = {
+            question: questionId,
+            user: userData?.user,
+            comment: value,
+        }
+
+        createComment(createCommentDto)
         setValue("")
-        successToast("Your answer has been posted")
+
     }
 
     return (

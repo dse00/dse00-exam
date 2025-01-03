@@ -1,7 +1,7 @@
 import { Check } from "baseui/icon";
 import { DURATION, useSnackbar } from "baseui/snackbar";
 
-export const userToast = () => {
+export const useToast = () => {
     const { enqueue } = useSnackbar();
 
     const successToast = (message: string) => {

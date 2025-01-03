@@ -1,7 +1,7 @@
 import { Button } from "baseui/button"
 import { FC, useState } from "react"
-import { QuestionType } from "../data"
 import CorrectPercentageIndicator from "./CorrectPercentageIndicator"
+import { QuestionType } from "@/types/question"
 
 const answers = ['A', 'B', 'C', 'D']
 
