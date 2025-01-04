@@ -1,5 +1,5 @@
 'use client'
-import { Button } from "baseui/button";
+import { Button } from "@/components/ui/button";
 import { FC, useRef, useState } from "react"
 import Discussion from "./Discussion";
 import CustomAccordion from "@/components/CustomAccordion";
@@ -21,8 +21,8 @@ const AnswerDiscussion: FC<props> = ({ question }) => {
     return (
         <div className="grid gap-2">
             <div className="flex gap-3">
-                <Button size="compact" onClick={() => setShowAns(!showAns)}>答案</Button>
-                <Button size="compact" onClick={() => setShowDiscussion(!showDiscussion)}>討論(0)</Button>
+                <Button onClick={() => setShowAns(!showAns)}>答案</Button>
+                <Button onClick={() => setShowDiscussion(!showDiscussion)}>討論(0)</Button>
             </div>
             <div className="grid py-4">
                 <CustomAccordion show={showAns} >

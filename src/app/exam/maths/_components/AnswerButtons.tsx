@@ -1,8 +1,7 @@
-import { Button } from "baseui/button"
 import { FC, useState } from "react"
 import CorrectPercentageIndicator from "./CorrectPercentageIndicator"
 import { QuestionType } from "@/types/question"
-
+import { Button } from "@/components/ui/button"
 const answers = ['A', 'B', 'C', 'D']
 
 
@@ -42,9 +41,6 @@ const AnswerButtons: FC<props> = ({ question }) => {
                     answers.map((answer, index) =>
                         <Button
                             key={index}
-                            size="compact"
-                            kind="secondary"
-                            colors={{ backgroundColor: getButtonColor(index), color: 'primary' }}
                             onClick={() => handleOnClick(index)}
                         >
                             {answer}
@@ -52,8 +48,6 @@ const AnswerButtons: FC<props> = ({ question }) => {
                 }
                 {
                     (!Number.isInteger(selectedAnswer) && !isSkep) && <Button
-                        kind='tertiary'
-                        size="mini"
                         onClick={() => setIsSkip(true)}
                     >
                         跳過

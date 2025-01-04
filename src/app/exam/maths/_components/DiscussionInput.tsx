@@ -1,9 +1,9 @@
 'use client'
-import { Button } from "baseui/button"
 import { FC, useState } from "react"
-import { Textarea } from "baseui/textarea";
 import CustomAvatar from "@/components/CustomAvatar";
 import { useComment, useToast, useUser } from "@/hooks";
+import { Textarea } from "@/components/ui/textarea";
+import { Button } from "@/components/ui/button";
 
 type props = {
     questionId: string
@@ -40,7 +40,7 @@ const DiscussionInput: FC<props> = ({ questionId }) => {
                     onChange={e => setValue(e.target.value)}
                     placeholder="請解釋你的答案"
                 />
-                <Button className="px-4 py-2 text-white bg-blue-500 rounded-lg" size="mini" onClick={submit}>Post</Button>
+                <Button className="px-4 py-2 text-white bg-blue-500 rounded-lg" onClick={submit}>Post</Button>
             </div>
         </div>
     )

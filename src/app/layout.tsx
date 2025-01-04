@@ -1,7 +1,8 @@
 import type { Metadata } from "next";
 import "./globals.css";
 import RootProvider from "@/providers/root";
-import LayoutProvider from "@/providers/LayoutProvider";
+
+import Header from "./_components/Header";
 
 export const metadata: Metadata = {
   title: "DSE00 Exam",
@@ -17,9 +18,10 @@ export default function RootLayout({
     <html lang="en">
       <body>
         <RootProvider>
-          <LayoutProvider>
-            {children}
-          </LayoutProvider>
+          <div className="flex flex-col items-center">
+            <Header />
+            <div className="container justify-center py-12">{children}</div>
+          </div>
         </RootProvider>
       </body>
     </html>

@@ -1,11 +1,16 @@
 'use client'
 import * as React from "react";
-import { PLACEMENT, StatefulPopover } from "baseui/popover";
 import { useUser } from "@/hooks/useUser";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import Cookies from "js-cookie";
 import Image from "next/image";
+import {
+    Popover,
+    PopoverContent,
+    PopoverTrigger,
+} from "@/components/ui/popover"
+
 
 export const FAKE_USER_ICON = 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQI3vvVZ-pOGsyhaNEm9s-tm96lh7OGxJrpPQ&usqp=CAU'
 
@@ -44,10 +49,11 @@ export default function AvatarAndMenu() {
     }
 
     return (
-        <StatefulPopover
-            placement={PLACEMENT.bottomRight}
-            showArrow
-            content={
+
+
+        <Popover>
+            <PopoverTrigger asChild><img src={FAKE_USER_ICON} alt="" className="w-10 h-10 rounded-full cursor-pointer" /></PopoverTrigger>
+            <PopoverContent className="w-80">
                 <div
                     className="bg-white p-5 rounded-lg grid gap-4"
                 >
@@ -81,10 +87,10 @@ export default function AvatarAndMenu() {
                             <span className="text-sm opacity-50">Sign out</span>
                         </button>
                     </div>
-                </div>}
-            accessibilityType={"tooltip"}
-        >
-            <img src={FAKE_USER_ICON} alt="" className="w-10 h-10 rounded-full cursor-pointer" />
-        </StatefulPopover>
+                </div>
+            </PopoverContent>
+        </Popover>
+
+
     );
 }

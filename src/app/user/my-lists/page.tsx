@@ -1,6 +1,4 @@
 'use client'
-import { ListItem, ListItemLabel } from "baseui/list";
-import { Check } from "baseui/icon";
 
 const UserMyListsPage = () => {
     return (
