@@ -1,12 +1,13 @@
 import { QUERY_KEYS } from '@/constants';
 import services from '@/services';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
-import { useToken } from './useToken';
+import Cookies from 'js-cookie';
+
 
 export const useUser = () => {
     const queryClient = useQueryClient();
 
-    const { token } = useToken();
+    const token = Cookies.get('token');
 
     const { data: userData } = useQuery({
         queryKey: [QUERY_KEYS.USER_PROFILE],

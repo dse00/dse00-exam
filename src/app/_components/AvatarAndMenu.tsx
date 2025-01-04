@@ -5,6 +5,7 @@ import { useUser } from "@/hooks/useUser";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import Cookies from "js-cookie";
+import Image from "next/image";
 
 export const FAKE_USER_ICON = 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQI3vvVZ-pOGsyhaNEm9s-tm96lh7OGxJrpPQ&usqp=CAU'
 
@@ -67,7 +68,7 @@ export default function AvatarAndMenu() {
                                     href={item.href}
                                     className="flex flex-col items-center gap-2 p-2 bg-gray-100 rounded-lg w-20"
                                 >
-                                    <img src={item.icon} alt="" className="w-10 h-10" />
+                                    <Image src={item.icon} alt="" className="w-10 h-10" width={40} height={40} />
                                     <span className="text-xs">{item.title}</span>
                                 </Link>
                             ))

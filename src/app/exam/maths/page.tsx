@@ -7,8 +7,6 @@ const ExamMathsPage: NextPage = async () => {
 
     const questions = await services.getQuestions();
 
-    console.log(questions)
-
     return (
         <div className="grid gap-6">
 

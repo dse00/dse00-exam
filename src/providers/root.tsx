@@ -13,14 +13,18 @@ type props = {
 ignoreWarn();
 
 const RootProvider: FC<props> = ({ children }) => {
+
+
     return (
-        <ReactQueryProvider>
-            <BaseWebProvider>
-                <SnackbarProvider>
-                    {children}
-                </SnackbarProvider>
-            </BaseWebProvider>
-        </ReactQueryProvider>
+        <>
+                <ReactQueryProvider>
+                    <BaseWebProvider>
+                        <SnackbarProvider>
+                            {children}
+                        </SnackbarProvider>
+                    </BaseWebProvider>
+                </ReactQueryProvider>
+        </>
     );
 }
 
