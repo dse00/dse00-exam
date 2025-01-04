@@ -40,6 +40,8 @@ const AnswerButtons: FC<props> = ({ question }) => {
                 {
                     answers.map((answer, index) =>
                         <Button
+                            style={{ backgroundColor: getButtonColor(index) }}
+                            variant='secondary'
                             key={index}
                             onClick={() => handleOnClick(index)}
                         >
@@ -48,6 +50,8 @@ const AnswerButtons: FC<props> = ({ question }) => {
                 }
                 {
                     (!Number.isInteger(selectedAnswer) && !isSkep) && <Button
+                        variant='ghost'
+                        size={'sm'}
                         onClick={() => setIsSkip(true)}
                     >
                         跳過
@@ -56,10 +60,7 @@ const AnswerButtons: FC<props> = ({ question }) => {
             </div>
             {
                 (Number.isInteger(selectedAnswer) || isSkep) && (
-                    <div className="grid grid-cols-3 items-center">
-                        <CorrectPercentageIndicator value={50} />
-                        <div className="text-sm text-gray-500">的同學回答正確</div>
-                    </div>
+                    <CorrectPercentageIndicator value={50} />
                 )
             }
 

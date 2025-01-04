@@ -11,7 +11,7 @@ type props = {
 const DiscussionInput: FC<props> = ({ questionId }) => {
 
 
-    const [value, setValue] = useState("Hello");
+    const [value, setValue] = useState("");
     const { userData } = useUser()
 
     const { successToast } = useToast()
@@ -36,11 +36,12 @@ const DiscussionInput: FC<props> = ({ questionId }) => {
             <CustomAvatar size={40} />
             <div className="w-full flex flex-col items-start gap-2">
                 <Textarea
+                    rows={5}
                     value={value}
                     onChange={e => setValue(e.target.value)}
                     placeholder="請解釋你的答案"
                 />
-                <Button className="px-4 py-2 text-white bg-blue-500 rounded-lg" onClick={submit}>Post</Button>
+                <Button size='sm' onClick={submit}>發佈</Button>
             </div>
         </div>
     )

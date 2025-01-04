@@ -18,10 +18,7 @@ export default function RootLayout({
     <html lang="en">
       <body>
         <RootProvider>
-          <div className="flex flex-col items-center">
-            <Header />
-            <div className="container justify-center py-12">{children}</div>
-          </div>
+          {children}
         </RootProvider>
       </body>
     </html>

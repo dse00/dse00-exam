@@ -18,7 +18,7 @@ const Discussion: FC<props> = ({ questionId }) => {
     return (
         <div className="grid gap-4 max-w-[640px] pt-4">
             {
-                selfComment && <DiscussionInput questionId={questionId} />
+                !selfComment && <DiscussionInput questionId={questionId} />
             }
 
             <div className="grid gap-4">

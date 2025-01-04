@@ -3,6 +3,7 @@
 import { FC } from "react";
 import ReactQueryProvider from "./reactQueryProvider";
 import { ignoreWarn } from "@/utils/warn";
+import LayoutProvider from "./LayoutProvider";
 
 
 type props = {
@@ -16,7 +17,9 @@ const RootProvider: FC<props> = ({ children }) => {
     return (
         <>
             <ReactQueryProvider>
-                {children}
+                <LayoutProvider>
+                    {children}
+                </LayoutProvider>
             </ReactQueryProvider>
         </>
     );

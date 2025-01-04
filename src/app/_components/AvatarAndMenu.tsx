@@ -10,6 +10,7 @@ import {
     PopoverContent,
     PopoverTrigger,
 } from "@/components/ui/popover"
+import { Button } from "@/components/ui/button";
 
 
 export const FAKE_USER_ICON = 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQI3vvVZ-pOGsyhaNEm9s-tm96lh7OGxJrpPQ&usqp=CAU'
@@ -55,7 +56,7 @@ export default function AvatarAndMenu() {
             <PopoverTrigger asChild><img src={FAKE_USER_ICON} alt="" className="w-10 h-10 rounded-full cursor-pointer" /></PopoverTrigger>
             <PopoverContent className="w-80">
                 <div
-                    className="bg-white p-5 rounded-lg grid gap-4"
+                    className=" grid gap-4"
                 >
 
                     <div className="flex gap-4">
@@ -82,10 +83,10 @@ export default function AvatarAndMenu() {
 
                     </div>
                     <div className="grid items-stretch">
-                        <button className="flex items-center gap-3 hover:bg-gray-100 p-2 rounded-lg" onClick={signOut}>
+                        <Button variant={'ghost'} className="flex items-center gap-3 hover:bg-gray-100 p-2 rounded-lg" onClick={signOut}>
                             <img src="/icons/logout.svg" alt="" className="w-[18px] h-[18px] opacity-50" />
                             <span className="text-sm opacity-50">Sign out</span>
-                        </button>
+                        </Button>
                     </div>
                 </div>
             </PopoverContent>

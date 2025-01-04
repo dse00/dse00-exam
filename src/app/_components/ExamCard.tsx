@@ -2,6 +2,8 @@
 import { FC } from "react";
 import { SubjectType } from "../page";
 import { useRouter } from "next/navigation";
+import { Card, CardHeader, CardTitle, CardDescription, CardContent, CardFooter } from "@/components/ui/card";
+import { Button } from "@/components/ui/button";
 
 interface props {
     exam: SubjectType;
@@ -10,9 +12,21 @@ interface props {
 const ExamCard: FC<props> = ({ exam }) => {
     const router = useRouter();
     return (
-        <>
-            香港中學文憑試，數學科，共 120 題
-        </>
+
+        <Card>
+            <CardHeader>
+                <CardTitle>數學科</CardTitle>
+                <CardDescription>香港中學文憑試</CardDescription>
+            </CardHeader>
+            <CardContent>
+                <p>共 120 題</p>
+            </CardContent>
+            <CardFooter>
+                <Button variant='secondary' onClick={() => router.push(`/exam/${exam.path}`)}>開始</Button>
+            </CardFooter>
+        </Card>
+
+
 
     );
 }

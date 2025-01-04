@@ -1,6 +1,6 @@
 import { NextPage } from "next";
 import QuestionCard from "./_components/QuestionCard";
-import Pagination from "./_components/Pagination";
+import PaginationSession from "./_components/PaginationSession";
 import services from "@/services";
 
 const ExamMathsPage: NextPage = async () => {
@@ -17,7 +17,7 @@ const ExamMathsPage: NextPage = async () => {
                         <QuestionCard key={index} question={question} index={index} />
                     )}
             </div>
-            <Pagination numPages={Math.ceil(questions.length / 10)} />
+            <PaginationSession numPages={Math.ceil(questions.length / 10)} />
         </div>
     );
 }

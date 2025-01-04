@@ -19,10 +19,10 @@ const AnswerDiscussion: FC<props> = ({ question }) => {
     const [showDiscussion, setShowDiscussion] = useState(false)
 
     return (
-        <div className="grid gap-2">
+        <div className="grid gap-2 w-full">
             <div className="flex gap-3">
-                <Button onClick={() => setShowAns(!showAns)}>答案</Button>
-                <Button onClick={() => setShowDiscussion(!showDiscussion)}>討論(0)</Button>
+                <Button size='sm' onClick={() => setShowAns(!showAns)}>答案</Button>
+                <Button size='sm' onClick={() => setShowDiscussion(!showDiscussion)}>討論(0)</Button>
             </div>
             <div className="grid py-4">
                 <CustomAccordion show={showAns} >
