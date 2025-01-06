@@ -3,7 +3,7 @@ import CorrectPercentageIndicator from "./CorrectPercentageIndicator"
 import { QuestionType } from "@/types/question"
 import { Button } from "@/components/ui/button"
 import { useUser, useUserAnswer } from "@/hooks"
-const answers = ['a', 'b', 'c', 'd']
+const answers = ['A', 'B', 'C', 'D']
 
 
 type props = {
@@ -13,7 +13,6 @@ type props = {
 const AnswerButtons: FC<props> = ({ question, userAnswer }) => {
 
     const [selectedAnswer, setSelectedAnswer] = useState<string | null>(null)
-
 
     const { userData } = useUser()
 
@@ -82,7 +81,7 @@ const AnswerButtons: FC<props> = ({ question, userAnswer }) => {
             </div>
             {
                 (selectedAnswer || isSkep) && (
-                    <CorrectPercentageIndicator value={50} />
+                    <CorrectPercentageIndicator value={question.correctPercentage} />
                 )
             }
 

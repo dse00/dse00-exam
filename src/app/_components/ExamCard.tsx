@@ -1,12 +1,12 @@
 'use client';
 import { FC } from "react";
-import { SubjectType } from "../(public)/page";
 import { useRouter } from "next/navigation";
 import { Card, CardHeader, CardTitle, CardDescription, CardContent, CardFooter } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
+import { PaperType } from "@/types/question";
 
 interface props {
-    exam: SubjectType;
+    exam: PaperType;
     isFeatured?: boolean;
 }
 

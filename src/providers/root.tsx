@@ -2,8 +2,7 @@
 
 import { FC } from "react";
 import ReactQueryProvider from "./reactQueryProvider";
-import { ignoreWarn } from "@/utils/warn";
-import LayoutProvider from "./LayoutProvider";
+import { ignoreWarn } from "@/lib/warn";
 import { Toaster } from "@/components/ui/toaster";
 
 

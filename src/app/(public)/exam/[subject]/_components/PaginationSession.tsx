@@ -20,7 +20,6 @@ type props = {
 }
 const PaginationSession: FC<props> = ({ numPages, page }) => {
     const pathname = usePathname();
-    console.log('pathname', pathname)
     return (
         <Pagination>
             <PaginationContent>

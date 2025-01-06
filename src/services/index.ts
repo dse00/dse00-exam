@@ -1,13 +1,17 @@
-import { QuestionType } from "@/types/question"
+import { HomeContentType, PaperType, QuestionType } from "@/types/question"
 import { UserType } from "@/types/user"
 import apiClient from '@/services/ExamApiClient';
 import { CommentType, CreateCommentType } from "@/types/comment";
 import { CreateUserAnswerType, UserAnswerType } from "@/types/userAnswer";
+import { ExerciseListItemType, ExerciseType } from "@/types/exercise";
 
 
 const tutorAPI = process.env.NEXT_PUBLIC_TUTOR_API_URL
 
 export default {
+
+    getContent: async (): Promise<HomeContentType> => apiClient.get('/questions/get-content'),
+
     getUserProfile: async (token: string): Promise<UserType> => {
 
         try {
@@ -38,5 +42,13 @@ export default {
     createUserAnswer: async (createAnswerDto: CreateUserAnswerType) => apiClient.post('/answers', createAnswerDto),
 
     deleteUserAnswer: async (answerId: string) => apiClient.delete('/answers/' + answerId),
+
+    createExercise: async (createExerciseDto: any) => apiClient.post('/exercises', createExerciseDto),
+
+    getExercise: async (exerciseId: string): Promise<ExerciseType> => apiClient.get('/exercises/' + exerciseId),
+
+    getUserExercises: async (userId: string): Promise<ExerciseListItemType[]> => apiClient.get('/exercises/user/' + userId),
+
+    getRandomExercise: async (subject: string): Promise<QuestionType[]> => apiClient.get('/exercises/random/' + subject),
 
 }

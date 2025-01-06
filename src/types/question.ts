@@ -7,4 +7,20 @@ export type QuestionType = {
     questionNo: number;
     createdAt: string;
     updatedAt: string;
+    correctPercentage: number;
+}
+
+
+export type PaperType = {
+    path: string,
+    topic: string
+    displayName: string
+    displayNameTc: string
+    numberOfquestions: number
+}
+
+export type HomeContentType = {
+    paperBySubjects: PaperType[],
+    mathPaperByTopic: PaperType[],
+    mathPaperByDifficulty: PaperType[]
 }
