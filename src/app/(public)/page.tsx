@@ -14,8 +14,11 @@ export default function Home() {
     <main className="container mx-auto">
       <div className="grid gap-10">
 
-        <ExamCard key={math.displayName} exam={math} />
-        <div className="grid grid-cols-4 gap-4">
+        <ExamCard key={math.displayName} exam={math} isFeatured />
+        <h1 className="text-xl font-bold">
+          分類操練
+        </h1>
+        <div className="grid grid-cols-2 gap-5 md:grid-cols-3 lg:grid-cols-4">
           {
             topic.map((subject) => (
               <ExamCard key={subject.displayName} exam={subject} />

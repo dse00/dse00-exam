@@ -1,5 +1,4 @@
 'use client'
-import * as React from "react";
 import { useUser } from "@/hooks/useUser";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
@@ -11,6 +10,7 @@ import {
     PopoverTrigger,
 } from "@/components/ui/popover"
 import { Button } from "@/components/ui/button";
+import { useEffect } from "react";
 
 
 export const FAKE_USER_ICON = 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQI3vvVZ-pOGsyhaNEm9s-tm96lh7OGxJrpPQ&usqp=CAU'
@@ -36,17 +36,25 @@ const menuItems = [
 ]
 
 export default function AvatarAndMenu() {
-    const { userData } = useUser();
+    const { userData, isError } = useUser();
 
     const path = usePathname();
-
-    if (!userData) {
-        return <a href={`https://www.dse00.com/p/login.html?origin=${path}`} className="text-white">登入</a>
-    }
 
     const signOut = () => {
         Cookies.remove('token');
         window.location.href = path
+    }
+
+
+    useEffect(() => {
+        if (isError) {
+            signOut()
+        }
+    }, [isError])
+
+
+    if (!userData) {
+        return <a href={`https://www.dse00.com/p/login.html?origin=${path}`} className="text-white">登入</a>
     }
 
     return (

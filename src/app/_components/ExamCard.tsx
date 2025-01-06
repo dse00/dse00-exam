@@ -7,9 +7,10 @@ import { Button } from "@/components/ui/button";
 
 interface props {
     exam: SubjectType;
+    isFeatured?: boolean;
 }
 
-const ExamCard: FC<props> = ({ exam }) => {
+const ExamCard: FC<props> = ({ exam, isFeatured }) => {
     const router = useRouter();
     return (
 
@@ -22,7 +23,7 @@ const ExamCard: FC<props> = ({ exam }) => {
                 <p>共 {exam.numberOfquestions} 題</p>
             </CardContent>
             <CardFooter>
-                <Button variant='secondary' onClick={() => router.push(`/exam/${exam.path}`)}>開始</Button>
+                <Button variant={isFeatured ? 'default' : 'secondary'} onClick={() => router.push(`/exam/${exam.path}`)}>開始</Button>
             </CardFooter>
         </Card>
 

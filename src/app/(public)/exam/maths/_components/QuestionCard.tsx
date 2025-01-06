@@ -19,7 +19,7 @@ interface props {
     questionNo: number;
 }
 
-const QuestionCard: FC<props> = ({ question, index, questionNo }) => {
+const QuestionCard: FC<props> = ({ question, questionNo }) => {
     return (
 
         <Card>

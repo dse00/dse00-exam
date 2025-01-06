@@ -7,10 +7,11 @@ import { useComment } from "@/hooks";
 interface props {
     discussion: CommentType
     isMyComment: boolean
+    questionId: string
 }
-const DiscussionCard: FC<props> = ({ discussion, isMyComment }) => {
+const DiscussionCard: FC<props> = ({ discussion, isMyComment, questionId }) => {
 
-    const { deleteComment } = useComment(discussion._id)
+    const { deleteComment } = useComment(questionId)
 
     const onDeleteComment = () => {
         const confirm = window.confirm('confirm delete?');

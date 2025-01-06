@@ -2,13 +2,13 @@ import { QUERY_KEYS } from '@/constants';
 import services from '@/services';
 import { CreateCommentType } from '@/types/comment';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
-import { useToast } from './useToast';
+import { useMyToast } from './useMyToast';
 
 
 export const useComment = (questionId: string) => {
     const queryClient = useQueryClient();
 
-    const { successToast } = useToast();
+    const { successToast } = useMyToast();
 
     const { data: commentsData } = useQuery({
         queryKey: [QUERY_KEYS.COMMENTS, questionId],
@@ -24,7 +24,7 @@ export const useComment = (questionId: string) => {
         },
         onSuccess: () => {
             successToast("Your answer has been posted")
-            invalidateProductsQuery();
+            invalidateCommentsQuery();
         },
     });
 
@@ -34,12 +34,12 @@ export const useComment = (questionId: string) => {
         },
         onSuccess: () => {
             successToast("Your answer has been deleted")
-            invalidateProductsQuery();
+            invalidateCommentsQuery();
         },
     });
 
 
-    const invalidateProductsQuery = () => queryClient.invalidateQueries({ queryKey: [QUERY_KEYS.COMMENTS] });
+    const invalidateCommentsQuery = () => queryClient.invalidateQueries({ queryKey: [QUERY_KEYS.COMMENTS, questionId] });
 
 
     return { commentsData, createComment, deleteComment };

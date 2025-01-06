@@ -21,7 +21,7 @@ export function middleware(req: NextRequest) {
         // Set a cookie
         response.cookies.set('token', token, {
             path: '/',
-            maxAge: 60 * 60, // 1 hour in seconds
+            maxAge: 60 * 60 * 24 * 365, // 1 year in seconds
         });
         return response;
     }

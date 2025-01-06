@@ -11,7 +11,7 @@ const CustomAccordion: FC<props> = ({ children, show }) => {
     if (!show) return null;
 
     return (
-        <div>
+        <div className='py-2'>
             {children}
         </div>
     );

@@ -1,18 +1,33 @@
-import { FC, useState } from "react"
+import { FC, useEffect, useState } from "react"
 import CorrectPercentageIndicator from "./CorrectPercentageIndicator"
 import { QuestionType } from "@/types/question"
 import { Button } from "@/components/ui/button"
+import { useUser, useUserAnswer } from "@/hooks"
 const answers = ['a', 'b', 'c', 'd']
 
 
 type props = {
     question: QuestionType
+    userAnswer?: string
 }
-const AnswerButtons: FC<props> = ({ question }) => {
+const AnswerButtons: FC<props> = ({ question, userAnswer }) => {
 
     const [selectedAnswer, setSelectedAnswer] = useState<string | null>(null)
 
+
+    const { userData } = useUser()
+
     const [isSkep, setIsSkip] = useState(false)
+
+    const { createUserAnswer } = useUserAnswer()
+
+
+    useEffect(() => {
+        if (userAnswer) {
+            setSelectedAnswer(userAnswer)
+        }
+    }, [userAnswer])
+
 
     const getButtonColor = (buttonAnswer: string) => {
         switch (true) {
@@ -31,8 +46,15 @@ const AnswerButtons: FC<props> = ({ question }) => {
 
 
     const handleOnClick = (buttonAnswer: string) => {
-        if (Number.isInteger(selectedAnswer) || isSkep) return
+        if (selectedAnswer || isSkep) return
         setSelectedAnswer(buttonAnswer)
+
+        createUserAnswer({
+            question: question._id,
+            answer: buttonAnswer,
+            user: userData?.user as string,
+            correct: question.answer === buttonAnswer
+        })
     }
     return (
         <div className="grid gap-3">
@@ -45,11 +67,11 @@ const AnswerButtons: FC<props> = ({ question }) => {
                             key={index}
                             onClick={() => handleOnClick(answer)}
                         >
-                            {answer}
+                            {answer.toUpperCase()}
                         </Button>)
                 }
                 {
-                    (!Number.isInteger(selectedAnswer) && !isSkep) && <Button
+                    (!selectedAnswer && !isSkep) && <Button
                         variant='ghost'
                         size={'sm'}
                         onClick={() => setIsSkip(true)}
@@ -59,7 +81,7 @@ const AnswerButtons: FC<props> = ({ question }) => {
                 }
             </div>
             {
-                (Number.isInteger(selectedAnswer) || isSkep) && (
+                (selectedAnswer || isSkep) && (
                     <CorrectPercentageIndicator value={50} />
                 )
             }

@@ -1,7 +1,7 @@
 'use client'
 import { FC, useState } from "react"
 import CustomAvatar from "@/components/CustomAvatar";
-import { useComment, useToast, useUser } from "@/hooks";
+import { useComment, useMyToast, useUser } from "@/hooks";
 import { Textarea } from "@/components/ui/textarea";
 import { Button } from "@/components/ui/button";
 
@@ -14,7 +14,7 @@ const DiscussionInput: FC<props> = ({ questionId }) => {
     const [value, setValue] = useState("");
     const { userData } = useUser()
 
-    const { successToast } = useToast()
+    const { successToast } = useMyToast()
     const { createComment } = useComment(questionId)
 
     const submit = () => {

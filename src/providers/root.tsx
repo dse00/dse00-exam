@@ -4,6 +4,7 @@ import { FC } from "react";
 import ReactQueryProvider from "./reactQueryProvider";
 import { ignoreWarn } from "@/utils/warn";
 import LayoutProvider from "./LayoutProvider";
+import { Toaster } from "@/components/ui/toaster";
 
 
 type props = {
@@ -19,6 +20,7 @@ const RootProvider: FC<props> = ({ children }) => {
             <ReactQueryProvider>
                 {children}
             </ReactQueryProvider>
+            <Toaster />
         </>
     );
 }
