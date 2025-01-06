@@ -1,6 +1,6 @@
 'use client';
 import { FC } from "react";
-import { SubjectType } from "../page";
+import { SubjectType } from "../(public)/page";
 import { useRouter } from "next/navigation";
 import { Card, CardHeader, CardTitle, CardDescription, CardContent, CardFooter } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
@@ -15,11 +15,11 @@ const ExamCard: FC<props> = ({ exam }) => {
 
         <Card>
             <CardHeader>
-                <CardTitle>數學科</CardTitle>
+                <CardTitle>{exam.displayName}</CardTitle>
                 <CardDescription>香港中學文憑試</CardDescription>
             </CardHeader>
             <CardContent>
-                <p>共 120 題</p>
+                <p>共 {exam.numberOfquestions} 題</p>
             </CardContent>
             <CardFooter>
                 <Button variant='secondary' onClick={() => router.push(`/exam/${exam.path}`)}>開始</Button>

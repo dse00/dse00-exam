@@ -1,6 +1,6 @@
 'use client'
 
-const UserNotebookPage = () => {
+const UserMyListsPage = () => {
     return (
         <div className="flex">
             <div>
@@ -18,4 +18,4 @@ const UserNotebookPage = () => {
     );
 }
 
-export default UserNotebookPage;
+export default UserMyListsPage;

@@ -12,11 +12,11 @@ export const CorrectPercentageIndicator: React.FC<props> = ({ value }) => {
     return (
 
 
-        <div className="grid grid-cols-3 items-center">
-            <div className="col-span-1">
+        <div className="grid grid-cols-2 items-center gap-4">
+            <div className="w-40">
                 <Progress value={value} />
             </div>
-            <div className="text-sm text-gray-500 col-span-2">的同學回答正確</div>
+            <div className="text-sm text-gray-500">的同學回答正確</div>
         </div>
     );
 }

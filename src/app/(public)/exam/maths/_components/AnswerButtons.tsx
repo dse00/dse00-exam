@@ -2,7 +2,7 @@ import { FC, useState } from "react"
 import CorrectPercentageIndicator from "./CorrectPercentageIndicator"
 import { QuestionType } from "@/types/question"
 import { Button } from "@/components/ui/button"
-const answers = ['A', 'B', 'C', 'D']
+const answers = ['a', 'b', 'c', 'd']
 
 
 type props = {
@@ -10,19 +10,19 @@ type props = {
 }
 const AnswerButtons: FC<props> = ({ question }) => {
 
-    const [selectedAnswer, setSelectedAnswer] = useState<number | null>(null)
+    const [selectedAnswer, setSelectedAnswer] = useState<string | null>(null)
 
     const [isSkep, setIsSkip] = useState(false)
 
-    const getButtonColor = (index: number) => {
+    const getButtonColor = (buttonAnswer: string) => {
         switch (true) {
             case selectedAnswer === null && !isSkep:
                 return '#eee'
-            case question.answer === index:  // correct answer
+            case question.answer === buttonAnswer:  // correct answer
                 return '#ecfccb'
-            case selectedAnswer === question.answer && selectedAnswer === index:
+            case selectedAnswer === question.answer && selectedAnswer === buttonAnswer:
                 return '#ecfccb'
-            case selectedAnswer !== question.answer && selectedAnswer === index:
+            case selectedAnswer !== question.answer && selectedAnswer === buttonAnswer:
                 return '#fecaca'
             default:
                 return '#eee'
@@ -30,9 +30,9 @@ const AnswerButtons: FC<props> = ({ question }) => {
     }
 
 
-    const handleOnClick = (index: number) => {
+    const handleOnClick = (buttonAnswer: string) => {
         if (Number.isInteger(selectedAnswer) || isSkep) return
-        setSelectedAnswer(index)
+        setSelectedAnswer(buttonAnswer)
     }
     return (
         <div className="grid gap-3">
@@ -40,10 +40,10 @@ const AnswerButtons: FC<props> = ({ question }) => {
                 {
                     answers.map((answer, index) =>
                         <Button
-                            style={{ backgroundColor: getButtonColor(index) }}
+                            style={{ backgroundColor: getButtonColor(answer) }}
                             variant='secondary'
                             key={index}
-                            onClick={() => handleOnClick(index)}
+                            onClick={() => handleOnClick(answer)}
                         >
                             {answer}
                         </Button>)

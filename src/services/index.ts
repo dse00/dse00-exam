@@ -12,7 +12,11 @@ export default {
         return data.json()
     },
 
-    getQuestions: async (): Promise<QuestionType[]> => apiClient.get('/questions'),
+    getQuestions: async (filter: any): Promise<QuestionType[]> => {
+
+        const query = new URLSearchParams(filter).toString()
+        return apiClient.get('/questions?' + query)
+    },
 
     getCommentsByQuestionId: async (questionId: string): Promise<CommentType[]> => apiClient.get('/comments/' + questionId),
 

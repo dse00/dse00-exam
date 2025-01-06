@@ -17,9 +17,7 @@ const RootProvider: FC<props> = ({ children }) => {
     return (
         <>
             <ReactQueryProvider>
-                <LayoutProvider>
-                    {children}
-                </LayoutProvider>
+                {children}
             </ReactQueryProvider>
         </>
     );

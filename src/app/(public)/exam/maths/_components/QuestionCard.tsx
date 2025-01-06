@@ -16,18 +16,21 @@ import {
 interface props {
     question: QuestionType;
     index: number;
+    questionNo: number;
 }
 
-const QuestionCard: FC<props> = ({ question, index }) => {
+const QuestionCard: FC<props> = ({ question, index, questionNo }) => {
     return (
 
         <Card>
             <CardHeader>
-                <CardTitle>Q{index + 1}</CardTitle>
+                <CardTitle>Q{questionNo}</CardTitle>
                 <CardDescription>Card Description</CardDescription>
             </CardHeader>
             <CardContent>
-                <Image src={question.questionImage} className="" alt="question" width={1000} height={100} priority />
+                <div className="relative max-w-[720px]">
+                    <Image src={question.questionImage} className="" alt="question" width={1000} height={100} priority />
+                </div>
             </CardContent>
             <CardFooter>
                 <AnswerDiscussion question={question} />
