@@ -15,7 +15,7 @@ import { useEffect } from "react";
 
 export const FAKE_USER_ICON = 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQI3vvVZ-pOGsyhaNEm9s-tm96lh7OGxJrpPQ&usqp=CAU'
 
-const menuItems = [
+export const menuItems = [
     {
         title: "我的記錄",
         href: "/user/my-lists",
@@ -27,7 +27,7 @@ const menuItems = [
         icon: "https://leetcode.com/static/webpack_bundles/images/notebook.44bf4230c.png"
     },
     {
-        title: "回答",
+        title: "討論",
         href: "/user/discussion",
         icon: "https://leetcode.com/static/webpack_bundles/images/answer.08334763f.png"
     },

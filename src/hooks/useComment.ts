@@ -25,6 +25,7 @@ export const useComment = (questionId: string) => {
         onSuccess: () => {
             successToast("Your answer has been posted")
             invalidateCommentsQuery();
+
         },
     });
 
@@ -39,7 +40,10 @@ export const useComment = (questionId: string) => {
     });
 
 
-    const invalidateCommentsQuery = () => queryClient.invalidateQueries({ queryKey: [QUERY_KEYS.COMMENTS, questionId] });
+    const invalidateCommentsQuery = () => {
+        queryClient.invalidateQueries({ queryKey: [QUERY_KEYS.COMMENTS, questionId] })
+        queryClient.invalidateQueries({ queryKey: [QUERY_KEYS.USER_COMMENTS] })
+    };
 
 
     return { commentsData, createComment, deleteComment };

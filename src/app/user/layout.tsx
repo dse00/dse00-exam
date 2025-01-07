@@ -11,6 +11,8 @@ import {
     BreadcrumbList,
     BreadcrumbSeparator,
 } from "@/components/ui/breadcrumb"
+import { usePathname } from "next/navigation";
+import { menuItems } from "../_components/AvatarAndMenu";
 
 export type LayoutProps = {
     children: React.ReactNode;
@@ -18,6 +20,8 @@ export type LayoutProps = {
 
 export default ({ children }: LayoutProps) => {
     const [date, setDate] = useState<Date | undefined>(new Date())
+
+    const pathname = usePathname()
 
 
 
@@ -47,8 +51,19 @@ export default ({ children }: LayoutProps) => {
                         onSelect={setDate}
                         className="rounded-md border"
                     />
-                    <Link href={'/user/my-lists'} className={buttonVariants({ variant: 'ghost' })}>我的記錄</Link>
-                    <Link href={'/user/notebook'} className={buttonVariants({ variant: 'ghost' })}>筆記</Link>
+                    {
+                        menuItems.map((item, index) => (
+                            <Link
+                                key={index}
+                                href={item.href}
+                                className={buttonVariants({ variant: pathname === item.href ? 'default' : 'ghost' })}
+                            >
+                                {item.title}
+                            </Link>
+                        ))
+                    }
+
+
 
 
                 </div>

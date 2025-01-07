@@ -69,4 +69,9 @@ export default {
 
     deleteExercise: async (exerciseId: string) => apiClient.delete('/exercises/' + exerciseId),
 
+    getUserComments: async (userId: string): Promise<CommentType[]> => {
+        const query = new URLSearchParams({ user: userId }).toString()
+        return apiClient.get('/comments?' + query)
+    }
+
 }
