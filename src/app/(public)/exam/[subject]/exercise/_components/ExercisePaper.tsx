@@ -1,6 +1,5 @@
 'use client'
-import { QuestionDifficultyThreshold, QuestionType } from "@/types/question"
-import { FC, useState } from "react"
+import { FC, useEffect, useState } from "react"
 import ExerciseQuestionCard from "./ExerciseQuestionCard"
 import { Button } from "@/components/ui/button"
 import {
@@ -24,17 +23,20 @@ import {
 import { useExercise } from "@/hooks/useExercise"
 import { useUser } from "@/hooks"
 import { useRouter } from "next/navigation"
+import { ExerciseType } from "@/types/exercise"
+import { QUESTION_DIFFICULTY_THRESHOLD } from "@/constants"
 
 
 
 type props = {
-    questions: QuestionType[]
-    isRandom: boolean,
-    exerciseId?: string
-
+    exercise: ExerciseType
 }
 
-const ExercisePaper: FC<props> = ({ questions, isRandom, exerciseId }) => {
+const ExercisePaper: FC<props> = ({ exercise }) => {
+
+    const isRandom = !exercise._id;
+
+    const { questions, _id: exerciseId, answers: recordedAnswers } = exercise
 
     const [answers, setAnswers] = useState<string[]>([])
 
@@ -55,7 +57,8 @@ const ExercisePaper: FC<props> = ({ questions, isRandom, exerciseId }) => {
             createExercise({
                 questions: questions.map((q, i) => q._id),
                 user: userData?.user as string,
-                subject: questions[0].subject
+                subject: questions[0].subject,
+                answers
             })
             router.push('/user/notebook')
         } else if (exerciseId) {
@@ -70,14 +73,20 @@ const ExercisePaper: FC<props> = ({ questions, isRandom, exerciseId }) => {
     }
     const getDifficultyLabel = (correctPercentage: number) => {
         switch (true) {
-            case correctPercentage >= QuestionDifficultyThreshold.easy:
+            case correctPercentage >= QUESTION_DIFFICULTY_THRESHOLD.EASY:
                 return <span className="text-green-600">Easy</span>
-            case correctPercentage <= QuestionDifficultyThreshold.hard:
+            case correctPercentage <= QUESTION_DIFFICULTY_THRESHOLD.HARD:
                 return <span className="text-red-700">Hard</span>
             default:
                 return <span className="text-yellow-500">Medium</span>
         }
     }
+
+    useEffect(() => {
+        if (recordedAnswers) {
+            setAnswers(recordedAnswers)
+        }
+    }, [recordedAnswers])
 
     return (
         <div className="grid gap-6">
@@ -87,7 +96,7 @@ const ExercisePaper: FC<props> = ({ questions, isRandom, exerciseId }) => {
 
             <Dialog>
                 <DialogTrigger asChild>
-                    <Button onClick={toSubmitted}>提交</Button>
+                    <Button onClick={toSubmitted}>檢查答案</Button>
                 </DialogTrigger>
                 <DialogContent className="sm:max-w-[425px]">
                     <DialogHeader>

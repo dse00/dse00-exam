@@ -4,7 +4,7 @@ import { QuestionType } from "./question"
 export type ExerciseType = {
     user: string,
     questions: QuestionType[],
-    anwsers: string[],
+    answers: string[],
 } & BaseDataType
 
 export type ExerciseListItemType = {

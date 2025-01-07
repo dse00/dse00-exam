@@ -11,6 +11,7 @@ import {
     CardHeader,
     CardTitle,
 } from "@/components/ui/card"
+import { getDifficulty, getDifficultyStyle } from "@/lib/getDifficulty";
 
 
 interface props {
@@ -25,7 +26,7 @@ const QuestionCard: FC<props> = ({ question, questionNo }) => {
         <Card>
             <CardHeader>
                 <CardTitle>Q{questionNo}</CardTitle>
-                <CardDescription>Card Description</CardDescription>
+                <CardDescription className={getDifficultyStyle(question.correctPercentage)}>{getDifficulty(question.correctPercentage)}</CardDescription>
             </CardHeader>
             <CardContent>
                 <div className="relative max-w-[720px]">

@@ -4,22 +4,24 @@ import { useRouter } from "next/navigation";
 import { Card, CardHeader, CardTitle, CardDescription, CardContent, CardFooter } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { PaperType } from "@/types/question";
+import { cn } from "@/lib/utils";
 
 interface props {
     exam: PaperType;
     isFeatured?: boolean;
+    style?: string;
 }
 
-const ExamCard: FC<props> = ({ exam, isFeatured }) => {
+const ExamCard: FC<props> = ({ exam, isFeatured, style }) => {
     const router = useRouter();
     return (
 
-        <Card>
-            <CardHeader>
-                <CardTitle className={isFeatured ? 'text-3xl font-black' : ''}>{exam.displayName}</CardTitle>
+        <Card className="flex flex-col basis-1/3">
+            <CardHeader className="grow flex flex-col justify-between">
+                <CardTitle className={style}>{exam.displayName}</CardTitle>
                 <CardDescription>香港中學文憑試</CardDescription>
             </CardHeader>
-            <CardContent>
+            <CardContent >
                 <p>共 {exam.numberOfquestions} 題</p>
             </CardContent>
             <CardFooter>

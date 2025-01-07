@@ -13,9 +13,9 @@ import {
     getSortedRowModel,
     useReactTable,
 } from "@tanstack/react-table"
-import { ArrowUpDown, ChevronDown, MoreHorizontal } from "lucide-react"
+import { ArrowUpDown, MoreHorizontal, Trash2 } from "lucide-react"
 
-import { Button } from "@/components/ui/button"
+import { Button, buttonVariants } from "@/components/ui/button"
 import { Checkbox } from "@/components/ui/checkbox"
 import {
     DropdownMenu,
@@ -37,6 +37,7 @@ import {
 } from "@/components/ui/table"
 import { UserAnswerType } from "@/types/userAnswer"
 import { useUserAnswer } from "@/hooks"
+import Link from "next/link"
 
 
 
@@ -102,14 +103,14 @@ export const columns: ColumnDef<UserAnswerType>[] = [
                     variant="ghost"
                     onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
                 >
-                    Correct
+                    評分
                     <ArrowUpDown />
                 </Button>
             )
         },
         cell: ({ row }) => {
             const isCorrect = row.getValue("correct")
-            return <div className="pl-4 font-medium">{isCorrect ? 'Correct' : 'Incorrect'}</div>
+            return <div className="pl-4">{isCorrect ? <span className="text-green-500">正確</span> : '錯誤'}</div>
         },
     },
     {
@@ -133,7 +134,7 @@ export const columns: ColumnDef<UserAnswerType>[] = [
                         </Button>
                     </DropdownMenuTrigger>
                     <DropdownMenuContent align="end">
-                        <DropdownMenuLabel>Actions</DropdownMenuLabel>
+                        {/* <DropdownMenuLabel>Actions</DropdownMenuLabel> */}
                         <DropdownMenuItem
                             onClick={() => navigator.clipboard.writeText(answer._id)}
                         >
@@ -150,12 +151,26 @@ export const columns: ColumnDef<UserAnswerType>[] = [
 
 export function RecordTable({ data }: { data: UserAnswerType[] }) {
     const [sorting, setSorting] = React.useState<SortingState>([])
+    const { deleteUserAnswer } = useUserAnswer()
     const [columnFilters, setColumnFilters] = React.useState<ColumnFiltersState>(
         []
     )
     const [columnVisibility, setColumnVisibility] =
         React.useState<VisibilityState>({})
     const [rowSelection, setRowSelection] = React.useState({})
+
+    const toDeleteAll = (ids: string[]) => {
+        const confirm = window.confirm(`確定刪除 ${ids.length} 條記錄嗎?`)
+        if (!confirm) return
+        ids.forEach(id => {
+            deleteUserAnswer(id)
+        })
+    }
+
+
+    const selectedQuestionIdArray = Object.entries(rowSelection)?.filter(([key, value]) => value)?.map(([key, value]) => data[parseInt(key)]?.question._id)
+
+    const selectedAnswerIdArray = Object.entries(rowSelection)?.filter(([key, value]) => value).map(([key, value]) => data[parseInt(key)]?._id)
 
     const table = useReactTable({
         data,
@@ -178,41 +193,24 @@ export function RecordTable({ data }: { data: UserAnswerType[] }) {
 
     return (
         <div className="w-full">
-            <div className="flex items-center py-4">
+            <div className="flex items-center justify-between py-4">
                 <Input
-                    placeholder="Filter emails..."
+                    placeholder="搜尋"
                     value={(table.getColumn("questionNo")?.getFilterValue() as string) ?? ""}
                     onChange={(event) =>
                         table.getColumn("questionNo")?.setFilterValue(event.target.value)
                     }
                     className="max-w-sm"
                 />
-                <DropdownMenu>
-                    <DropdownMenuTrigger asChild>
-                        <Button variant="outline" className="ml-auto">
-                            Columns <ChevronDown />
-                        </Button>
-                    </DropdownMenuTrigger>
-                    <DropdownMenuContent align="end">
-                        {table
-                            .getAllColumns()
-                            .filter((column) => column.getCanHide())
-                            .map((column) => {
-                                return (
-                                    <DropdownMenuCheckboxItem
-                                        key={column.id}
-                                        className="capitalize"
-                                        checked={column.getIsVisible()}
-                                        onCheckedChange={(value) =>
-                                            column.toggleVisibility(!!value)
-                                        }
-                                    >
-                                        {column.id}
-                                    </DropdownMenuCheckboxItem>
-                                )
-                            })}
-                    </DropdownMenuContent>
-                </DropdownMenu>
+                <div className="flex gap-2">
+                    {
+                        selectedQuestionIdArray.length > 0 && <Link className={buttonVariants({ variant: 'default' })} href={`/exam/user/${selectedQuestionIdArray.join('/')}`}>查看點選題目</Link>
+
+                    }
+                    <Button variant={'ghost'} disabled={selectedQuestionIdArray.length === 0} onClick={() => toDeleteAll(selectedAnswerIdArray)}>
+                        <Trash2 />
+                    </Button>
+                </div>
             </div>
             <div className="rounded-md border">
                 <Table>
@@ -257,7 +255,7 @@ export function RecordTable({ data }: { data: UserAnswerType[] }) {
                                     colSpan={columns.length}
                                     className="h-24 text-center"
                                 >
-                                    No results.
+                                    暫時沒有東西
                                 </TableCell>
                             </TableRow>
                         )}

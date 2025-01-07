@@ -4,6 +4,13 @@ import { Button, buttonVariants } from "@/components/ui/button";
 import Link from "next/link";
 import { Calendar } from "@/components/ui/calendar"
 import { useState } from "react";
+import {
+    Breadcrumb,
+    BreadcrumbItem,
+    BreadcrumbLink,
+    BreadcrumbList,
+    BreadcrumbSeparator,
+} from "@/components/ui/breadcrumb"
 
 export type LayoutProps = {
     children: React.ReactNode;
@@ -15,9 +22,24 @@ export default ({ children }: LayoutProps) => {
 
 
     return (
-        <div className="flex flex-col items-center">
+        <div className="flex flex-col items-center gap-6">
             <Header />
-            <div className="container flex justify-center py-12 gap-20">
+            <div className="container">
+                <Breadcrumb>
+                    <BreadcrumbList>
+                        <BreadcrumbItem>
+                            <BreadcrumbLink href="/">DSE00</BreadcrumbLink>
+                        </BreadcrumbItem>
+                        <BreadcrumbSeparator />
+                        <BreadcrumbItem>
+                            <BreadcrumbLink>我的記錄</BreadcrumbLink>
+                        </BreadcrumbItem>
+
+                    </BreadcrumbList>
+                </Breadcrumb>
+            </div>
+            <div className="container flex justify-center gap-20">
+
                 <div className="grid gap-6">
                     <Calendar
                         mode="single"

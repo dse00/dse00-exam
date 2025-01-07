@@ -6,3 +6,8 @@ export const QUERY_KEYS = {
     EXERCISE: 'EXERCISE',
     RANDOM_QUESTIONS: 'RANDOM_QUESTIONS',
 }
+
+export const QUESTION_DIFFICULTY_THRESHOLD = {
+    EASY: 70,
+    HARD: 45
+}

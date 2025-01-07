@@ -8,6 +8,16 @@ import { CreateExerciseDto, ExerciseListItemType, ExerciseType, UpdateExerciseDt
 
 const tutorAPI = process.env.NEXT_PUBLIC_TUTOR_API_URL
 
+const tryCatch = async (fn: any, defaultValue?: any) => {
+    try {
+        return await fn;
+    } catch (e) {
+        console.error(e);
+
+        return defaultValue;
+    }
+};
+
 export default {
 
     getContent: async (): Promise<HomeContentType> => apiClient.get('/questions/get-content'),
@@ -31,6 +41,10 @@ export default {
         return apiClient.get('/questions?' + query)
     },
 
+    getQuestionsByArray: async (questionIds: string[]): Promise<QuestionType[]> => {
+        return apiClient.get('/questions/get-questions-by-array?questionIds=' + questionIds.join(','))
+    },
+
     getCommentsByQuestionId: async (questionId: string): Promise<CommentType[]> => apiClient.get('/comments/' + questionId),
 
     createComment: async (createCommentsDto: Partial<CreateCommentType>) => apiClient.post('/comments', createCommentsDto),
@@ -49,7 +63,7 @@ export default {
 
     getUserExercises: async (userId: string): Promise<ExerciseListItemType[]> => apiClient.get('/exercises/user/' + userId),
 
-    getRandomExercise: async (subject: string): Promise<QuestionType[]> => apiClient.get('/exercises/random/' + subject),
+    getRandomExercise: async (subject: string): Promise<ExerciseType> => apiClient.get('/exercises/random/' + subject),
 
     updateExercise: async (exerciseId: string, updateExerciseDto: UpdateExerciseDto) => apiClient.put('/exercises/' + exerciseId, updateExerciseDto),
 

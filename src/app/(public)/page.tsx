@@ -12,20 +12,18 @@ export default async function Home() {
       <div className="grid gap-10">
 
         <div>
-          <div className="grid grid-cols-3 gap-5 items-stretch">
+          <div className="flex w-full gap-5 items-stretch">
 
-            <div className="col-span-2">
-              <ExamCard exam={paperBySubjects[0]} isFeatured />
+            <div className="basis-2/3">
+              <ExamCard exam={paperBySubjects[0]} isFeatured style='text-3xl font-black' />
             </div>
-            <div className="col-span-1">
-              <ExamCard exam={{
-                path: 'maths/exercise/random',
-                topic: 'random',
-                displayName: '隨機練習',
-                displayNameTc: '隨機練習',
-                numberOfquestions: 10
-              }} />
-            </div>
+            <ExamCard exam={{
+              path: 'maths/exercise/random',
+              topic: 'random',
+              displayName: '隨機練習',
+              displayNameTc: '隨機練習',
+              numberOfquestions: 10
+            }} />
           </div>
 
         </div>
@@ -45,8 +43,8 @@ export default async function Home() {
         </h1>
         <div className="grid grid-cols-2 gap-5 md:grid-cols-3">
           {
-            mathPaperByDifficulty.map((subject) => (
-              <ExamCard key={subject.displayName} exam={subject} />
+            mathPaperByDifficulty.map((subject, i) => (
+              <ExamCard key={subject.displayName} exam={subject} style={["text-green-600", "text-yellow-500", "text-red-700"][i]} isFeatured={subject.topic === 'Medium'} />
             ))
           }
         </div>

@@ -32,7 +32,3 @@ export enum QuestionDifficultyEnum {
     hard = 'hard'
 }
 
-export const QuestionDifficultyThreshold = {
-    easy: 70,
-    hard: 45
-}

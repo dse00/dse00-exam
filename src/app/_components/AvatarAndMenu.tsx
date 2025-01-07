@@ -17,18 +17,18 @@ export const FAKE_USER_ICON = 'https://encrypted-tbn0.gstatic.com/images?q=tbn:A
 
 const menuItems = [
     {
-        title: "My Lists",
+        title: "我的記錄",
         href: "/user/my-lists",
         icon: "https://assets.leetcode.com/static_assets/public/webpack_bundles/images/list.be52ffc55.png"
     },
     {
-        title: "Notebook",
+        title: "練習本",
         href: "/user/notebook",
         icon: "https://leetcode.com/static/webpack_bundles/images/notebook.44bf4230c.png"
     },
     {
-        title: "Submissions",
-        href: "/user/submissions",
+        title: "回答",
+        href: "/user/discussion",
         icon: "https://leetcode.com/static/webpack_bundles/images/answer.08334763f.png"
     },
 
@@ -91,9 +91,9 @@ export default function AvatarAndMenu() {
 
                     </div>
                     <div className="grid items-stretch">
-                        <Button variant={'ghost'} className="flex items-center gap-3 hover:bg-gray-100 p-2 rounded-lg" onClick={signOut}>
+                        <Button variant={'ghost'} className="flex items-center justify-start gap-3 hover:bg-gray-100 p-2 rounded-lg" onClick={signOut}>
                             <img src="/icons/logout.svg" alt="" className="w-[18px] h-[18px] opacity-50" />
-                            <span className="text-sm opacity-50">Sign out</span>
+                            <span className="text-sm opacity-50">登出</span>
                         </Button>
                     </div>
                 </div>

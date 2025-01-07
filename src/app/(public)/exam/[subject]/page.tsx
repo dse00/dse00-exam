@@ -19,6 +19,9 @@ const ExamMathsPage: NextPage<props> = async ({ searchParams, params }) => {
 
     const { data: questions, total }: any = await services.getQuestions({ page, subject });
 
+    console.log('total', total);
+
+
     return (
 
         <QuestionsDisplay

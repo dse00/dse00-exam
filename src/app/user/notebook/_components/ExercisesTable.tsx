@@ -184,7 +184,7 @@ export function ExercisesTable({ data }: { data: ExerciseListItemType[] }) {
         <div className="w-full">
             <div className="flex items-center py-4">
                 <Input
-                    placeholder="Filter emails..."
+                    placeholder="搜尋"
                     value={(table.getColumn("exerciseName")?.getFilterValue() as string) ?? ""}
                     onChange={(event) =>
                         table.getColumn("exerciseName")?.setFilterValue(event.target.value)
@@ -261,7 +261,7 @@ export function ExercisesTable({ data }: { data: ExerciseListItemType[] }) {
                                     colSpan={columns.length}
                                     className="h-24 text-center"
                                 >
-                                    No results.
+                                    暫時沒有東西
                                 </TableCell>
                             </TableRow>
                         )}

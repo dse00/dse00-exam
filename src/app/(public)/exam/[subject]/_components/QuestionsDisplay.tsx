@@ -1,14 +1,12 @@
 import { QuestionType } from '@/types/question';
-import { FC } from 'react';
-import page from '../page';
 import PaginationSession from './PaginationSession';
 import QuestionCard from './QuestionCard';
 
 type Props = {
     questions: QuestionType[];
-    totalPage: number;
-    currentPage: number;
-    header: string;
+    totalPage?: number;
+    currentPage?: number;
+    header?: string;
 };
 
 export default ({ questions, totalPage, currentPage, header }: Props) => {
@@ -22,7 +20,10 @@ export default ({ questions, totalPage, currentPage, header }: Props) => {
                         <QuestionCard key={index} question={question} index={index} questionNo={((currentPage || 1) - 1) * 10 + index + 1} />
                     )}
             </div>
-            <PaginationSession numPages={Math.ceil(totalPage / 10)} page={currentPage} />
+            {
+                totalPage && currentPage && <PaginationSession numPages={Math.ceil(totalPage / 10)} page={currentPage} />
+
+            }
         </div>
     );
 };
