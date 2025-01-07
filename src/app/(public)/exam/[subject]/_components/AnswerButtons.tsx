@@ -3,7 +3,7 @@ import CorrectPercentageIndicator from "./CorrectPercentageIndicator"
 import { QuestionType } from "@/types/question"
 import { Button } from "@/components/ui/button"
 import { useUser, useUserAnswer } from "@/hooks"
-const answers = ['A', 'B', 'C', 'D']
+export const answersOptions = ['A', 'B', 'C', 'D']
 
 
 type props = {
@@ -59,7 +59,7 @@ const AnswerButtons: FC<props> = ({ question, userAnswer }) => {
         <div className="grid gap-3">
             <div className="flex gap-3">
                 {
-                    answers.map((answer, index) =>
+                    answersOptions.map((answer, index) =>
                         <Button
                             style={{ backgroundColor: getButtonColor(answer) }}
                             variant='secondary'

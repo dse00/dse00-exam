@@ -4,6 +4,7 @@ import { CreateCommentType } from '@/types/comment';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { useMyToast } from './useMyToast';
 import { useUser } from './useUser';
+import { CreateExerciseDto, UpdateExerciseDto } from '@/types/exercise';
 
 
 export const useExercise = () => {
@@ -21,19 +22,19 @@ export const useExercise = () => {
         refetchOnWindowFocus: false,
     });
 
-    const { mutate: createComment } = useMutation({
-        mutationFn: (createProductsDto: CreateCommentType) => {
-            return services.createComment(createProductsDto);
+    const { mutate: createExercise } = useMutation({
+        mutationFn: (createProductsDto: CreateExerciseDto) => {
+            return services.createExercise(createProductsDto);
         },
         onSuccess: () => {
-            successToast("Your answer has been posted")
+            successToast("Your exercise has been created")
             invalidateCommentsQuery();
         },
     });
 
-    const { mutate: deleteComment } = useMutation({
-        mutationFn: (commentId: string) => {
-            return services.deleteComment(commentId);
+    const { mutate: updateExercise } = useMutation({
+        mutationFn: ({ exerciseId, updateExerciseDto }: { exerciseId: string, updateExerciseDto: UpdateExerciseDto }) => {
+            return services.updateExercise(exerciseId, updateExerciseDto);
         },
         onSuccess: () => {
             successToast("Your answer has been deleted")
@@ -42,8 +43,18 @@ export const useExercise = () => {
     });
 
 
+    const { mutate: deleteExercise } = useMutation({
+        mutationFn: (exerciseId: string) => {
+            return services.deleteExercise(exerciseId);
+        },
+        onSuccess: () => {
+            successToast("Your exercise has been deleted")
+            invalidateCommentsQuery();
+        },
+    });
+
     const invalidateCommentsQuery = () => queryClient.invalidateQueries({ queryKey: [QUERY_KEYS.EXERCISE] });
 
 
-    return { userExerciseData, createComment, deleteComment };
+    return { userExerciseData, createExercise, updateExercise, deleteExercise };
 };

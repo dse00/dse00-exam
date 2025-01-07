@@ -16,7 +16,7 @@ const ExamCard: FC<props> = ({ exam, isFeatured }) => {
 
         <Card>
             <CardHeader>
-                <CardTitle>{exam.displayName}</CardTitle>
+                <CardTitle className={isFeatured ? 'text-3xl font-black' : ''}>{exam.displayName}</CardTitle>
                 <CardDescription>香港中學文憑試</CardDescription>
             </CardHeader>
             <CardContent>

@@ -25,7 +25,7 @@ export default ({ children }: LayoutProps) => {
                         onSelect={setDate}
                         className="rounded-md border"
                     />
-                    <Link href={'/user/my-list'} className={buttonVariants({ variant: 'ghost' })}>我的記錄</Link>
+                    <Link href={'/user/my-lists'} className={buttonVariants({ variant: 'ghost' })}>我的記錄</Link>
                     <Link href={'/user/notebook'} className={buttonVariants({ variant: 'ghost' })}>筆記</Link>
 
 

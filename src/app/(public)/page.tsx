@@ -12,7 +12,7 @@ export default async function Home() {
       <div className="grid gap-10">
 
         <div>
-          <div className="grid grid-cols-3 gap-5">
+          <div className="grid grid-cols-3 gap-5 items-stretch">
 
             <div className="col-span-2">
               <ExamCard exam={paperBySubjects[0]} isFeatured />

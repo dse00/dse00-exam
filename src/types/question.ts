@@ -8,6 +8,7 @@ export type QuestionType = {
     createdAt: string;
     updatedAt: string;
     correctPercentage: number;
+    subject: string;
 }
 
 
@@ -23,4 +24,15 @@ export type HomeContentType = {
     paperBySubjects: PaperType[],
     mathPaperByTopic: PaperType[],
     mathPaperByDifficulty: PaperType[]
+}
+
+export enum QuestionDifficultyEnum {
+    easy = 'easy',
+    medium = 'medium',
+    hard = 'hard'
+}
+
+export const QuestionDifficultyThreshold = {
+    easy: 70,
+    hard: 45
 }

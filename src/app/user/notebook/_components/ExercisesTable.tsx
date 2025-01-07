@@ -39,6 +39,7 @@ import { UserAnswerType } from "@/types/userAnswer"
 import { useUserAnswer } from "@/hooks"
 import { ExerciseListItemType, ExerciseType } from "@/types/exercise"
 import Link from "next/link"
+import { useExercise } from "@/hooks/useExercise"
 
 
 
@@ -66,21 +67,6 @@ export const columns: ColumnDef<ExerciseListItemType>[] = [
         enableHiding: false,
     },
     {
-        accessorKey: "_id",
-        header: ({ column }) => {
-            return (
-                <Button
-                    variant="ghost"
-                    onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
-                >
-                    ID
-                    <ArrowUpDown />
-                </Button>
-            )
-        },
-        cell: ({ row }) => <div className="pl-4 uppercase">{(row.getValue("_id") as string)?.substring(0, 4)}</div>,
-    },
-    {
         accessorKey: "exerciseName",
         header: 'Exercise Name',
         cell: ({ row }) => (
@@ -103,12 +89,21 @@ export const columns: ColumnDef<ExerciseListItemType>[] = [
     },
     {
         id: "button",
-        header: '',
+        header: () => <div className="text-center">分數</div>,
         cell: ({ row }) => (
-            <div className="flex justify-end">
-                <Link href={`/exam/${row.original.subject}/exercise/${row.original._id}`} className={buttonVariants({ variant: 'default', size: 'sm' })}>
-                    開始
-                </Link>
+            <div className="flex justify-center">
+                {
+                    row.original.score ?
+                        <span>{row.original.score}</span>
+                        : <Link
+                            href={`/exam/${row.original.subject}/exercise/${row.original._id}`}
+                            className={buttonVariants({ variant: 'default', size: 'sm' })}
+                        >
+                            開始
+                        </Link>
+                }
+
+
             </div>
         ),
         enableSorting: false,
@@ -118,11 +113,17 @@ export const columns: ColumnDef<ExerciseListItemType>[] = [
         id: "actions",
         enableHiding: false,
         cell: ({ row }) => {
-            const answer = row.original
-            const { deleteUserAnswer } = useUserAnswer();
+            const exercise = row.original
+            const { deleteExercise } = useExercise();
 
-            const deleteRecord = (id: string) => {
-                deleteUserAnswer(id)
+
+
+            const toDeleteRecord = (id: string) => {
+                const confirm = window.confirm("確定要刪除嗎?")
+                if (confirm) {
+                    deleteExercise(id)
+                }
+
             }
 
 
@@ -135,14 +136,14 @@ export const columns: ColumnDef<ExerciseListItemType>[] = [
                         </Button>
                     </DropdownMenuTrigger>
                     <DropdownMenuContent align="end">
-                        <DropdownMenuLabel>Actions</DropdownMenuLabel>
-                        <DropdownMenuItem
-                            onClick={() => navigator.clipboard.writeText(answer._id)}
-                        >
-                            Go Question
+                        <DropdownMenuItem>
+                            <Link href={`/exam/${exercise.subject}/exercise/${exercise._id}`}>
+                                查看題目
+                            </Link>
+
                         </DropdownMenuItem>
                         <DropdownMenuSeparator />
-                        <DropdownMenuItem onClick={() => deleteRecord(answer._id)}>Delete Record</DropdownMenuItem>
+                        <DropdownMenuItem onClick={() => toDeleteRecord(exercise._id)}>刪除記錄</DropdownMenuItem>
                     </DropdownMenuContent>
                 </DropdownMenu>
             )

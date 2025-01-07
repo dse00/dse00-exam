@@ -1,6 +1,8 @@
+
 import { NextPage } from "next";
 import services from "@/services";
-import QuestionsDisplay from "../../_components/QuestionsDisplay";
+import { QuestionType } from "@/types/question";
+import ExercisePaper from "../_components/ExercisePaper";
 
 export type SearchParams = Promise<{ [key: string]: string | string[] | undefined }>
 
@@ -9,38 +11,22 @@ type props = {
     params: Promise<{ exerciseId: string }>
 }
 
-const ExamMathsRandomPage: NextPage<props> = async ({ searchParams, params }) => {
-
-    const { page = 1 } = await searchParams;
+const ExamMathsExercisePage: NextPage<props> = async ({ params }) => {
 
     const { exerciseId } = await params;
 
-    let questions;
+    let questions = [] as QuestionType[];
 
     if (exerciseId === 'random') {
         questions = await services.getRandomExercise('maths');
 
     } else {
-        questions = await services.getExercise(exerciseId);
-
+        const data = await services.getExercise(exerciseId);
+        questions = data.questions;
     }
 
-
-
-    console.log('questions', questions);
     return (
-
-        <>
-            {
-                questions &&
-                <QuestionsDisplay
-                    questions={questions}
-                    totalPage={questions.length}
-                    currentPage={page as number}
-                    header={`Maths Exam - Random`}
-                />
-            }
-        </>
+        <ExercisePaper questions={questions} isRandom={exerciseId === 'random'} exerciseId={exerciseId} />
     );
 }
-export default ExamMathsRandomPage;
+export default ExamMathsExercisePage;

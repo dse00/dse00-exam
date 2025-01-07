@@ -3,7 +3,7 @@ import { UserType } from "@/types/user"
 import apiClient from '@/services/ExamApiClient';
 import { CommentType, CreateCommentType } from "@/types/comment";
 import { CreateUserAnswerType, UserAnswerType } from "@/types/userAnswer";
-import { ExerciseListItemType, ExerciseType } from "@/types/exercise";
+import { CreateExerciseDto, ExerciseListItemType, ExerciseType, UpdateExerciseDto } from "@/types/exercise";
 
 
 const tutorAPI = process.env.NEXT_PUBLIC_TUTOR_API_URL
@@ -43,12 +43,16 @@ export default {
 
     deleteUserAnswer: async (answerId: string) => apiClient.delete('/answers/' + answerId),
 
-    createExercise: async (createExerciseDto: any) => apiClient.post('/exercises', createExerciseDto),
+    createExercise: async (createExerciseDto: CreateExerciseDto) => apiClient.post('/exercises', createExerciseDto),
 
     getExercise: async (exerciseId: string): Promise<ExerciseType> => apiClient.get('/exercises/' + exerciseId),
 
     getUserExercises: async (userId: string): Promise<ExerciseListItemType[]> => apiClient.get('/exercises/user/' + userId),
 
     getRandomExercise: async (subject: string): Promise<QuestionType[]> => apiClient.get('/exercises/random/' + subject),
+
+    updateExercise: async (exerciseId: string, updateExerciseDto: UpdateExerciseDto) => apiClient.put('/exercises/' + exerciseId, updateExerciseDto),
+
+    deleteExercise: async (exerciseId: string) => apiClient.delete('/exercises/' + exerciseId),
 
 }
