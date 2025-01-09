@@ -13,7 +13,7 @@ import {
     getSortedRowModel,
     useReactTable,
 } from "@tanstack/react-table"
-import { ArrowUpDown, MoreHorizontal, Trash2 } from "lucide-react"
+import { ArrowUpDown, ChevronLeft, ChevronRight, MoreHorizontal, Trash2 } from "lucide-react"
 
 import { Button, buttonVariants } from "@/components/ui/button"
 import { Checkbox } from "@/components/ui/checkbox"
@@ -72,7 +72,7 @@ export const columns: ColumnDef<UserAnswerType>[] = [
                     variant="ghost"
                     onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
                 >
-                    Question
+                    題號
                     <ArrowUpDown />
                 </Button>
             )
@@ -88,7 +88,7 @@ export const columns: ColumnDef<UserAnswerType>[] = [
                     onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
                     className="hidden sm:flex"
                 >
-                    Topic
+                    主題
                     <ArrowUpDown />
                 </Button>
             )
@@ -265,8 +265,13 @@ export function RecordTable({ data }: { data: UserAnswerType[] }) {
             </div>
             <div className="flex items-center justify-end space-x-2 py-4">
                 <div className="flex-1 text-sm text-muted-foreground">
-                    {table.getFilteredSelectedRowModel().rows.length} of{" "}
-                    {table.getFilteredRowModel().rows.length} row(s) selected.
+                    {
+                        table.getFilteredSelectedRowModel().rows.length > 0 &&
+                        <>
+                            {table.getFilteredSelectedRowModel().rows.length} /{" "}
+                            {table.getFilteredRowModel().rows.length} 已選擇
+                        </>
+                    }
                 </div>
                 <div className="space-x-2">
                     <Button
@@ -275,7 +280,7 @@ export function RecordTable({ data }: { data: UserAnswerType[] }) {
                         onClick={() => table.previousPage()}
                         disabled={!table.getCanPreviousPage()}
                     >
-                        Previous
+                        <ChevronLeft />
                     </Button>
                     <Button
                         variant="outline"
@@ -283,7 +288,7 @@ export function RecordTable({ data }: { data: UserAnswerType[] }) {
                         onClick={() => table.nextPage()}
                         disabled={!table.getCanNextPage()}
                     >
-                        Next
+                        <ChevronRight />
                     </Button>
                 </div>
             </div>

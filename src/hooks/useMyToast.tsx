@@ -14,6 +14,14 @@ export const useMyToast = () => {
 
     }
 
-    return { successToast }
+
+    const errorToast = (message: string) => {
+        toast({
+            description: message,
+            type: "foreground"
+        })
+    }
+
+    return { successToast, errorToast }
 
 }

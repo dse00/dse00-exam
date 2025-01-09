@@ -12,6 +12,8 @@ import {
 } from "@/components/ui/card"
 import { answersOptions } from "../../_components/AnswerButtons";
 import { Button } from "@/components/ui/button";
+import { processImageNameByLang } from "@/lib/processImageNameByLang";
+import { useAppStore } from "@/store";
 
 
 interface props {
@@ -23,6 +25,8 @@ interface props {
 
 const ExerciseQuestionCard: FC<props> = ({ question, index, setAnswers, answers }) => {
 
+    const { language } = useAppStore();
+
     const toAnswer = (answer: string) => {
         setAnswers((prev: string[]) => {
             const newAnswers = [...prev];
@@ -30,6 +34,9 @@ const ExerciseQuestionCard: FC<props> = ({ question, index, setAnswers, answers 
             return newAnswers;
         })
     }
+
+    if (!language) return null;
+
     return (
 
         <Card>
@@ -38,7 +45,7 @@ const ExerciseQuestionCard: FC<props> = ({ question, index, setAnswers, answers 
             </CardHeader>
             <CardContent>
                 <div className="relative max-w-[720px]">
-                    <Image src={question.questionImage} className="" alt="question" width={1000} height={100} priority />
+                    <Image src={processImageNameByLang(question.questionImage, language)} className="" alt="question" width={1000} height={100} priority />
                 </div>
             </CardContent>
             <CardFooter className='flex gap-3'>

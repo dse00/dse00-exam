@@ -10,7 +10,7 @@ import { useAppStore } from '@/store';
 export const useUser = () => {
     const queryClient = useQueryClient();
 
-    const { successToast } = useMyToast();
+    const { successToast, errorToast } = useMyToast();
     const { setLoginDialogOpen } = useAppStore();
 
 
@@ -34,11 +34,18 @@ export const useUser = () => {
 
     const { mutate: loginUser } = useMutation({
         mutationFn: (data: { email: string, password: string }) => services.loginUser(data.email, data.password),
-        onSuccess: ({ token }: any) => {
+        onSuccess: ({ token, name }: any) => {
             Cookies.set('token', token, { expires: 365 });
             successToast("成功登入")
             setLoginDialogOpen(false);
+            const newWindow = window.open(`https://www.dse00.com/p/sync.html?token=${encodeURIComponent(Cookies.get('token') as string)}&username=${name}`, '_blank');
+            setTimeout(() => {
+                newWindow?.close();
+            }, 1000);
         },
+        onError: (error) => {
+            errorToast("登入失敗")
+        }
     });
 
 

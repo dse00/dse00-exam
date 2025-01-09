@@ -1,0 +1,573 @@
+<div id="login_app" class="hidden">
+    <div class="app_container">
+        <!-- <div class="relative" ref="search_wrapper" v-if="isLoading">
+        <div class="absolute t-0 flex items-center justify-center space-x-2 animate-pulse">
+          <div class="w-2 h-2 bg-gray-500 rounded-full"></div>
+          <div class="w-2 h-2 bg-gray-500 rounded-full"></div>
+          <div class="w-2 h-2 bg-gray-500 rounded-full"></div>
+        </div>
+      </div> -->
+        <div class="login_form backdrop-blur-sm" v-if="mode === 'resetPassword'">
+            <div style="display: flex; justify-content: center; padding-bottom: 20px">
+                <img alt="" data-original-height="700" data-original-width="700" height="165"
+                    src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEhhBr_PIAM9pxPd4YhVH0Sgwp9YTdx7NTT22fUVmuy1q4IdRMXjEwbpZ0-NbUxkiqm1rWOui-8_2VzkpIVvXJAGW7nGly2lv1HXRO1oEIYUzSzmhKVPButgUhF-7s9d19oXiHMhs63HGvnM/w165-h165/dse00+icon.png"
+                    width="165" />
+            </div>
+            <div>
+                <el-icon color="white">
+                    <lock></lock>
+                </el-icon>
+                <el-input placeholder="新密碼" type="password" v-model="userData.newPassword" :disabled="requestSent"
+                    @keyup.enter="handleOnClick"></el-input>
+            </div>
+            <div>
+                <el-icon color="white">
+                    <lock></lock>
+                </el-icon>
+                <el-input placeholder="新密碼" type="password" v-model="userData.newPasswordConfirmed"
+                    :disabled="requestSent" @keyup.enter="handleOnClick"></el-input>
+            </div>
+            <el-button @click="handleOnClick" type="primary"
+                :disabled="isLoading || userData.newPassword !==userData.newPasswordConfirmed || requestSent">
+                <span>重設密碼</span>
+            </el-button>
+            <el-row v-if="requestSent" justify="center" v-show="mode !=='login'">
+                <a href="/p/login.html" style="color: white">登入</a>
+            </el-row>
+        </div>
+        <div class="login_form backdrop-blur-sm" v-else-if="mode === 'errorMode'">
+            <div style="color: white">{{this.error}}</div>
+            <el-row justify="center" v-show="mode !=='login'">
+                <a href="/" style="color: white">返回DSE00</a>
+            </el-row>
+        </div>
+        <div class="login_form addMoreInfo backdrop-blur-sm" v-else-if="mode ===  'addMoreInfo' ">
+            <div style="color: white; font-size: 20px">等我地認識下你</div>
+            <div>
+                <el-icon color="white">
+                    <user></user>
+                </el-icon>
+                <el-input placeholder="你的稱呼" type="text" v-model=" userData.name"></el-input>
+            </div>
+            <div>
+                <el-icon color="white">
+                    <user></user>
+                </el-icon>
+
+                <el-select v-model="userData.gender" :fit-input-width="true" placeholder="性別" size="large">
+                    <el-option v-for="item in options.genders" :key="item.code" :label="item.label"
+                        :value="item.code"></el-option>
+                </el-select>
+            </div>
+            <div>
+                <el-icon color="white">
+                    <user></user>
+                </el-icon>
+                <el-select v-model="userData.form" :fit-input-width="true" placeholder="年級" size="large">
+                    <el-option v-for="item in formOptions" :key="item.code" :label="item.label"
+                        :value="item.code"></el-option>
+                </el-select>
+            </div>
+            <div>
+                <el-icon color="white">
+                    <user></user>
+                </el-icon>
+                <el-autocomplete v-model="userData.school" :fetch-suggestions="schoolQuery" clearable
+                    class="inline-input" placeholder="學校" @select="handleSelect" style="width: 100%" />
+            </div>
+            <div>
+                <el-icon color="white">
+                    <user></user>
+                </el-icon>
+                <el-input placeholder="自我介紹" type="textarea" v-model=" userData.introduction"></el-input>
+            </div>
+            <div>
+                <el-icon color="white">
+                    <user></user>
+                </el-icon>
+                <el-select v-model="userData.elective1" :fit-input-width="true" placeholder="選修(一)" size="large">
+                    <el-option v-for="item in electivesOptions" :key="item.label" :label="item.label"
+                        :value="item.code"></el-option>
+                </el-select>
+                <el-select v-model="userData.elective2" :fit-input-width="true" placeholder="選修(二)" size="large">
+                    <el-option v-for="item in electivesOptions" :key="item.label" :label="item.label"
+                        :value="item.code"></el-option>
+                </el-select>
+                <el-select v-model="userData.elective3" :fit-input-width="true" placeholder="選修(三)" size="large">
+                    <el-option v-for="item in electivesOptions" :key="item.label" :label="item.label"
+                        :value="item.code"></el-option>
+                </el-select>
+            </div>
+            <el-button @click="handleOnClick" type="primary" :disabled="isLoading || formNotComplete">
+                <span>確認</span>
+            </el-button>
+        </div>
+        <!-- <div class="login_form backdrop-blur-sm" v-else-if="isLogin">你已登入</div> -->
+        <div class="login_form backdrop-blur-sm" v-else>
+            <div style="display: flex; justify-content: center; padding-bottom: 20px">
+                <img alt="" data-original-height="700" data-original-width="700" height="165"
+                    src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEhhBr_PIAM9pxPd4YhVH0Sgwp9YTdx7NTT22fUVmuy1q4IdRMXjEwbpZ0-NbUxkiqm1rWOui-8_2VzkpIVvXJAGW7nGly2lv1HXRO1oEIYUzSzmhKVPButgUhF-7s9d19oXiHMhs63HGvnM/w165-h165/dse00+icon.png"
+                    width="165" />
+            </div>
+            <div v-if="mode === 'register'">
+                <el-icon color="white">
+                    <user></user>
+                </el-icon>
+                <el-select v-model="userData.roles" :fit-input-width="true" placeholder="身份" size="large">
+                    <el-option v-for="item in options.roles" :key="item" :label="item.label"
+                        :value="item.code"></el-option>
+                </el-select>
+            </div>
+
+            <div>
+                <el-icon color="white">
+                    <user></user>
+                </el-icon>
+                <el-input placeholder="電郵" type="text" v-model=" userData.email"
+                    :disabled="requestSent && mode !=='login' || isLogin || isLoading"></el-input>
+            </div>
+
+            <div v-show="mode!=='forgot'">
+                <el-icon color="white">
+                    <lock> </lock>
+                </el-icon>
+                <el-input placeholder="密碼" type="password" v-model="userData.password" @keyup.enter="handleOnClick"
+                    :disabled="isLogin || isLoading"></el-input>
+            </div>
+            <div v-show="mode ==='register'">
+                <el-icon color="white">
+                    <lock></lock>
+                </el-icon>
+                <el-input placeholder="確認密碼" type="password" v-model="userData.newPasswordConfirmed"
+                    :disabled="requestSent || isLoading || isLogin" @keyup.enter="handleOnClick"></el-input>
+            </div>
+            <el-row justify="space-between" v-show="mode==='login'">
+                <button class="login-option" @click="mode='forgot'">忘記密碼</button>
+                <button class="login-option" @click="mode='register'">注冊</button>
+            </el-row>
+
+            <el-row v-if="requestSent && mode==='forgot'" justify="center"><span
+                    style="color: white">請檢查電郵以重置密碼</span></el-row>
+            <el-button v-else @click="handleOnClick" type="primary"
+                :disabled="isLoading || (mode==='register' && userData.password !== userData.newPasswordConfirmed) || (mode === 'login' && isLogin)"
+                :class="mode === 'login' && isLogin ? '!bg-green-700' : ''">
+                <svg v-if="isLoading" class="animate-spin h-5 w-5 ml-3 inline-block" xmlns="http://www.w3.org/2000/svg"
+                    fill="none" viewBox="0 0 24 24">
+                    <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                    <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z"></path>
+                </svg>
+                <div v-else-if="isLogin"><ion-icon name="checkmark-outline" class="text-white text-2xl"></ion-icon>
+                </div>
+                <span v-else-if="mode==='register'">注冊</span>
+                <div v-else-if="mode==='login'" class="flex items-center">登入</div>
+                <span v-else="mode==='forgot'">重設密碼</span>
+            </el-button>
+            <el-row justify="center" v-show="mode !=='login'">
+                <button class="login-option" @click="mode='login'">登入</button>
+            </el-row>
+        </div>
+    </div>
+</div>
+
+<script>
+    if (location.host === "www.dse00.com") {
+        clearScreen();
+    }
+
+    const login_app = Vue.createApp({
+        data() {
+            return {
+                baseUrl: tutorApiUrl,
+                token: Cookies.get("token"),
+                isLoading: false,
+                mode: "login",
+                error: "輸入不完整",
+                requestSent: false,
+                userData: {
+                    email: "",
+                    password: "",
+                    elective1: "",
+                    elective2: "",
+                    elective3: "",
+                    gender: "",
+                    school: "",
+                    form: "",
+                    roles: "student",
+                },
+                isLogin: false,
+                options: {},
+                schoolLists: { value: [] },
+                error: {},
+            };
+        },
+        computed: {
+            formOptions() {
+                if (this.userData.roles.includes("student")) {
+                    return this.options.forms.filter((i) => i.code < 13);
+                }
+                if (this.userData.roles.includes("tutor")) {
+                    return this.options.forms.filter((i) => i.code >= 13 && i.code < 100);
+                }
+                return this.options.forms;
+            },
+            electivesOptions() {
+                return this.options.subjects.filter((i) => {
+                    const { elective1, elective2, elective3 } = this.userData;
+                    return ![elective1, elective2, elective3].some((j) => j === i.code || i.isCore);
+                });
+            },
+            formNotComplete() {
+                return (
+                    Object.values(this.userData).filter((i) => i !== "").length < 5 ||
+                    !this.userData.name ||
+                    !this.userData.school ||
+                    !this.userData.gender ||
+                    !this.userData.form ||
+                    !this.userData.introduction ||
+                    !this.userData.elective1
+                );
+            },
+        },
+        methods: {
+            async loadOptions() {
+                const options = await this.makeRequest("options/tutorial-options");
+                this.options = options;
+            },
+            async makeRequest(url, method = "GET", params) {
+                const _url = `${this.baseUrl}/${url}`;
+                const _response = await fetch(_url, {
+                    method,
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify(params),
+                });
+                const response = await _response.json();
+                return response;
+            },
+            open(status, message) {
+                ElementPlus.ElMessage({
+                    showClose: true,
+                    message: message,
+                    type: status,
+                });
+            },
+            async login() {
+                const url = `auth/signin`;
+                const params = this.userData;
+                const user = await this.makeRequest(url, "POST", params);
+                if (user.code !== 0) {
+                    console.log("likwai");
+                    this.open("error", user.message);
+                    return;
+                }
+                this.open("success", "登入成功");
+                this.isLogin = true;
+                Cookies.set("token", user.token);
+                Cookies.set("username", this.userData.email.split("@")[0]);
+                Cookies.set("_id", user.user);
+
+                if (user.needMoreInfo) {
+                    this.userData = user;
+                    this.mode = "addMoreInfo";
+                } else {
+                    const { origin } = Object.fromEntries(new URLSearchParams(window.location.search));
+
+                    // redirect to origin if url
+                    if (origin) {
+                        window.location.href = origin + '?token=' + encodeURIComponent(user.token);
+                    } else {
+                        window.location.href = "/p/user.html";
+                    }
+
+
+                }
+            },
+            async register() {
+                const url = `auth/signup`;
+                const params = { ...this.userData, roles: [this.userData.roles] };
+                const newReg = await this.makeRequest(url, "POST", params);
+                if (newReg.status === 401 || !newReg.token) {
+                    this.open("error", newReg.message);
+                    return;
+                }
+                Cookies.set("token", newReg.token);
+                Cookies.set("username", this.userData.email.split("@")[0]);
+                this.token = newReg.token;
+                await this.checkLoginAndLoadUser();
+                this.mode = "addMoreInfo";
+                this.open("success", "成功");
+            },
+            async forgot() {
+                const url = `auth/requestResetPassword`;
+                const params = { email: this.userData.email };
+                await this.makeRequest(url, "POST", params);
+                this.requestSent = true;
+            },
+            async sendMoreInfo() {
+                const url = `student-files`;
+                const { elective1, elective2, elective3 } = this.userData;
+                const params = {
+                    ...this.userData,
+                    roles: [this.userData.roles],
+                    electives: [elective1, elective2, elective3],
+                    user: this.userData.user,
+                };
+                await this.makeRequest(url, "POST", params);
+                window.location.href = "/p/user.html";
+            },
+            async resetPassword() {
+                this.requestSent = true;
+                const url = `auth/resetPassword`;
+                const params = {
+                    newPassword: this.userData.newPassword,
+                    token: this.token,
+                };
+                await this.makeRequest(url, "PATCH", params);
+                this.open("success", "密碼已重設，請重新登入");
+                this.mode = "login";
+                this.requestSent = false;
+            },
+            async handleOnClick() {
+                this.isLoading = true;
+                let url;
+                let method = "POST";
+                const params = { ...this.userData, roles: [this.userData.roles] };
+                if (this.mode === "login") {
+                    await this.login();
+                } else if (this.mode === "register") {
+                    await this.register();
+                } else if (this.mode === "forgot") {
+                    await this.forgot();
+                } else if (this.mode === "addMoreInfo") {
+                    await this.sendMoreInfo();
+                } else if (this.mode === "resetPassword") {
+                    await this.resetPassword();
+                }
+                this.isLoading = false;
+            },
+
+            async checkLoginAndLoadUser() {
+                if (!this.token) {
+                    if (this.mode === "addMoreInfo") {
+                        window.location.href = "/p/login.html";
+                    }
+                    return false;
+                }
+                const user = await this.makeRequest(`auth/${encodeURIComponent(this.token)}/getUserByToken`);
+                if (!user) {
+                    Cookies.remove("token");
+                }
+                this.userData = { ...user, token: this.token };
+                Cookies.set("_id", user._id);
+                user?.electives?.forEach((e, i) => (this.userData[`elective${i + 1}`] = e));
+                this.isLogin = true;
+                return true;
+            },
+
+            schoolQuery(queryString, cb) {
+                const results = queryString ? this.schoolLists.value.filter(this.createFilter(queryString)) : this.schoolLists.value;
+                cb(results);
+            },
+            handleSelect(e) { },
+            createFilter(queryString) {
+                return (lists) => {
+                    return lists.value.toLowerCase().indexOf(queryString.toLowerCase()) >= 0;
+                };
+            },
+            async loadSchoolList() {
+                this.schoolLists.value = await this.makeRequest("student-files/school-list");
+            },
+            env() {
+                if (window.location.hostname === this.options.host.dev) {
+                    this.baseUrl = "http://localhost:3002/v1";
+                } else if (window.location.hostname === this.options.host.uat) {
+                    this.baseUrl = "https://dse00-uat.herokuapp.com/v1";
+                }
+            },
+        },
+        async mounted() {
+            document.querySelector("#login_app").classList.remove("hidden");
+            this.isLoading = true;
+
+            await this.loadOptions();
+            this.env();
+            const urlParams = window.location.search;
+
+            if (urlParams.includes("resetPassword")) {
+                this.mode = "resetPassword";
+                this.token = urlParams.split("=")[1];
+                this.isLoading = false;
+                return;
+            }
+            if (urlParams.includes("isEdit")) {
+                this.checkLoginAndLoadUser();
+                this.mode = "addMoreInfo";
+            }
+
+            if (this.token) {
+                this.isLogin = true;
+            }
+            this.loadSchoolList();
+            this.isLoading = false;
+        },
+    });
+
+    login_app.use(ElementPlus);
+    for (const [key, component] of Object.entries(ElementPlusIconsVue)) {
+        login_app.component(key, component);
+    }
+    login_app.mount("#login_app");
+</script>
+<style type="text/tailwindcss">
+    .login-option {
+      cursor: pointer;
+      color: rgba(255, 255, 255, 0.85);
+      font-size: 14px;
+    }
+
+    #app {
+      padding: 50px;
+    }
+
+    .app_container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .login_form {
+      @apply backdrop-blur-sm;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      width: 100%;
+      max-width: 400px;
+      box-sizing: border-box;
+      border-radius: 1rem;
+      padding: 40px;
+      backdrop-filter: blur(8px);
+      border: 2px solid rgba(255, 255, 255, 0.4);
+      margin-top: 10%;
+    }
+
+    .addMoreInfo {
+      width: 100%;
+      max-width: 500px;
+    }
+
+    .login_form > * {
+      margin: 10px 0;
+      width: 100%;
+      display: flex;
+      align-items: center;
+    }
+
+    .login_form > * > :first-child {
+      margin-right: 12px;
+    }
+
+    .login_form input {
+      margin: 10px 0;
+      padding: 10px;
+      border-radius: 1rem;
+      width: 90%;
+      color: rgba(255, 255, 255, 0.85) !important;
+    }
+
+    .login_form input::placeholder {
+      color: rgba(255, 255, 255, 0.85) !important;
+    }
+
+    #login_app .el-button--primary {
+      background: #9a1111;
+      opacity: 0.9;
+      border: none;
+    }
+
+    #login_app .el-button--primary:hover {
+      background: #9a1111;
+      opacity: 1;
+    }
+
+    #login_app .el-button {
+      border-radius: 0.7rem;
+      padding: 20px;
+      transition: 0.3s;
+    }
+
+    #login_app .el-input__wrapper {
+      border-radius: 0rem !important;
+      background-color: transparent !important;
+      box-shadow: none !important;
+      border-bottom: 1px solid white !important;
+    }
+
+    #login_app .el-input__wrapper.is-focus {
+      box-shadow: none;
+    }
+
+    #login_app .el-input__wrapper:hover {
+      box-shadow: none;
+    }
+
+    body {
+      background-image: url("https://blogger.googleusercontent.com/img/a/AVvXsEhqH61ERdbbQ1kYu4sZhuhJ4qCLhH4VXhtg_4b3ALPJd3bfM6hYa4CrsBxLZE1ZkOlgmILsudErK-eNITXbxvL6SJt8BwZ_XoNl6-8TK7w_Ifbs7iYv1RGJX0VfXt4MAm1vaGJ2CqtoSkAMkjYvGAWCk_3S5aS51E_hRZSikJb3QkxkEaF-nLzb2gjjkw");
+      background-position: center;
+      background-repeat: no-repeat;
+      background-size: cover;
+      min-height: 100vh;
+    }
+
+    .post-content-wrap {
+      background-color: transparent;
+    }
+    .el-textarea {
+      --el-input-focus-border-color: none;
+      --el-input-hover-border-color: none;
+    }
+
+    .el-textarea__inner {
+      border-radius: 0;
+      border-bottom: 1px solid white;
+      color: white;
+      padding: 1rem;
+      background: transparent;
+      box-shadow: none;
+    }
+
+    /* .el-textarea__inner:focus {
+      border: none !important;
+      outline: none !important;
+    } */
+    .el-popper.is-pure {
+      @apply backdrop-blur-sm;
+      background: #ffffff22;
+      backdrop-filter: blur(10px);
+    }
+
+    .el-select-dropdown__item.hover,
+    .el-select-dropdown__item:hover {
+      background: #ffffffb4;
+      color: black;
+    }
+
+    .el-select-dropdown__item {
+      color: white;
+    }
+
+    .el-select-dropdown__item.selected {
+      background: #ffffff74;
+      color: black;
+    }
+
+    .el-autocomplete-suggestion li {
+      color: #fff;
+    }
+
+    .el-autocomplete-suggestion li:hover {
+      color: #444;
+    }
+
+    .el-button.is-disabled {
+      opacity: 0.5 !important;
+    }
+  </style>

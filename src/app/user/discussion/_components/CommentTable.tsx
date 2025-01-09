@@ -12,7 +12,7 @@ import {
     getSortedRowModel,
     useReactTable,
 } from "@tanstack/react-table"
-import { ArrowUpDown, ChevronDown, MoreHorizontal } from "lucide-react"
+import { ArrowUpDown, ChevronDown, ChevronLeft, ChevronRight, MoreHorizontal } from "lucide-react"
 
 import { Button, buttonVariants } from "@/components/ui/button"
 import { Checkbox } from "@/components/ui/checkbox"
@@ -188,8 +188,13 @@ export function CommentTable({ data }: { data: CommentType[] }) {
             </div>
             <div className="flex items-center justify-end space-x-2 py-4">
                 <div className="flex-1 text-sm text-muted-foreground">
-                    {table.getFilteredSelectedRowModel().rows.length} of{" "}
-                    {table.getFilteredRowModel().rows.length} row(s) selected.
+                    {
+                        table.getFilteredSelectedRowModel().rows.length > 0 &&
+                        <>
+                            {table.getFilteredSelectedRowModel().rows.length} /{" "}
+                            {table.getFilteredRowModel().rows.length} 已選擇
+                        </>
+                    }
                 </div>
                 <div className="space-x-2">
                     <Button
@@ -198,7 +203,7 @@ export function CommentTable({ data }: { data: CommentType[] }) {
                         onClick={() => table.previousPage()}
                         disabled={!table.getCanPreviousPage()}
                     >
-                        Previous
+                        <ChevronLeft />
                     </Button>
                     <Button
                         variant="outline"
@@ -206,7 +211,7 @@ export function CommentTable({ data }: { data: CommentType[] }) {
                         onClick={() => table.nextPage()}
                         disabled={!table.getCanNextPage()}
                     >
-                        Next
+                        <ChevronRight />
                     </Button>
                 </div>
             </div>

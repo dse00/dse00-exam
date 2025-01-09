@@ -35,12 +35,8 @@ export function LoginDialog() {
     const { loginUser } = useUser()
 
 
-    // 2. Define a submit handler.
-    async function onSubmit() {
-        // Do something with the form values.
-        // ✅ This will be type-safe and validated.
-
-
+    async function onSubmit(e: React.MouseEvent<HTMLButtonElement>) {
+        e.preventDefault()
         loginUser(credentials)
     }
 
@@ -60,27 +56,35 @@ export function LoginDialog() {
                 <DialogTitle></DialogTitle>
 
 
-                <div className="grid gap-4">
-                    <Input
-                        placeholder="電郵"
-                        value={credentials.email}
-                        onChange={onCredentialsInput}
-                        data-index='email'
-                    />
-                    <Input
-                        placeholder="密碼"
-                        type="password"
-                        value={credentials.password}
-                        data-index='password'
-                        onChange={onCredentialsInput}
-                    />
-                </div>
+                <form className="grid gap-4">
+                    <div className="grid gap-4">
+                        <Input
+                            placeholder="電郵"
+                            value={credentials.email}
+                            onChange={onCredentialsInput}
+                            data-index='email'
+                        />
+                        <Input
+                            placeholder="密碼"
+                            type="password"
+                            value={credentials.password}
+                            data-index='password'
+                            onChange={onCredentialsInput}
+                        />
+                    </div>
 
 
-                <div className="flex justify-between items-center">
-                    <Link href={`https://www.dse00.com/p/login.html?origin=${process.env.NEXT_PUBLIC_REACT_APP_API_BASE_URL + pathname}`} target="_blank" className="text-sm"> 返回 DSE00 登入</Link>
-                    <Button onClick={onSubmit}>快速登入</Button>
-                </div>
+                    <div className="flex justify-between items-center">
+                        <Link
+                            href={`https://www.dse00.com/p/login.html?origin=${process.env.NEXT_PUBLIC_REACT_APP_API_BASE_URL + pathname}`}
+                            target="_blank"
+                            className="text-sm"
+                        >
+                            返回 DSE00 登入
+                        </Link>
+                        <Button onClick={onSubmit}>快速登入</Button>
+                    </div>
+                </form>
 
             </DialogContent>
 
