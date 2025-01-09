@@ -9,8 +9,11 @@ import {
     PopoverContent,
     PopoverTrigger,
 } from "@/components/ui/popover"
-import { Button } from "@/components/ui/button";
+import { Button, buttonVariants } from "@/components/ui/button";
 import { useEffect } from "react";
+import { ArrowBigLeft, LogOut } from "lucide-react";
+import { cn } from "@/lib/utils";
+import { useAppStore } from "@/store";
 
 
 export const FAKE_USER_ICON = 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQI3vvVZ-pOGsyhaNEm9s-tm96lh7OGxJrpPQ&usqp=CAU'
@@ -40,11 +43,16 @@ export default function AvatarAndMenu() {
 
     const path = usePathname();
 
+    const { setLoginDialogOpen } = useAppStore()
+
     const signOut = () => {
         Cookies.remove('token');
         window.location.href = path
     }
 
+    const toLogin = () => {
+        setLoginDialogOpen(true)
+    }
 
     useEffect(() => {
         if (isError) {
@@ -54,7 +62,9 @@ export default function AvatarAndMenu() {
 
 
     if (!userData) {
-        return <a href={`https://www.dse00.com/p/login.html?origin=${path}`} className="text-white">登入</a>
+
+
+        return <button onClick={toLogin}className="text-white">登入</button>
     }
 
     return (
@@ -90,11 +100,18 @@ export default function AvatarAndMenu() {
                         }
 
                     </div>
-                    <div className="grid items-stretch">
-                        <Button variant={'ghost'} className="flex items-center justify-start gap-3 hover:bg-gray-100 p-2 rounded-lg" onClick={signOut}>
-                            <img src="/icons/logout.svg" alt="" className="w-[18px] h-[18px] opacity-50" />
+                    <div className="grid items-stretch gap-2">
+                        <Link
+                            href={'https://www.dse00.com/'}
+                            className={cn(buttonVariants({ variant: 'ghost' }), "justify-start",)} >
+                            <ArrowBigLeft />
+                            <span className="text-sm opacity-50">返回 DSE00</span>
+                        </Link>
+                        <Button variant={'ghost'} className="justify-start" onClick={signOut}>
+                            <LogOut />
                             <span className="text-sm opacity-50">登出</span>
                         </Button>
+
                     </div>
                 </div>
             </PopoverContent>

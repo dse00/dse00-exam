@@ -4,6 +4,7 @@ import CustomAvatar from "@/components/CustomAvatar";
 import { useComment, useMyToast, useUser } from "@/hooks";
 import { Textarea } from "@/components/ui/textarea";
 import { Button } from "@/components/ui/button";
+import { useAppStore } from "@/store";
 
 type props = {
     questionId: string
@@ -16,10 +17,15 @@ const DiscussionInput: FC<props> = ({ questionId }) => {
 
     const { successToast } = useMyToast()
     const { createComment } = useComment(questionId)
+    const { setLoginDialogOpen } = useAppStore()
+
 
     const submit = () => {
-        if (!userData) return successToast("Please login to post a comment")
-
+        if (!userData) {
+            setLoginDialogOpen(true)
+            successToast("Please login to post a comment")
+            return
+        }
         const createCommentDto = {
             question: questionId,
             user: userData?.user,

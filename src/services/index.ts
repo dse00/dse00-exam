@@ -25,7 +25,26 @@ export default {
     getUserProfile: async (token: string): Promise<UserType> => {
 
         try {
-            const res = await fetch(tutorAPI + '/auth/' + token + '/getUserByToken')
+            const res = await fetch(tutorAPI + '/auth/' + encodeURIComponent(token) + '/getUserByToken')
+            if (!res.ok) {
+                throw new Error('error')
+            }
+            return res.json()
+        } catch (error: any) {
+            throw error
+        }
+    },
+
+    loginUser: async (email: string, password: string): Promise<UserType> => {
+
+        try {
+            const res = await fetch(tutorAPI + '/auth/signin', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ email, password })
+            })
             if (!res.ok) {
                 throw new Error('error')
             }

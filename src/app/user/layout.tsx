@@ -28,7 +28,7 @@ export default ({ children }: LayoutProps) => {
     return (
         <div className="flex flex-col items-center gap-6">
             <Header />
-            <div className="container">
+            <div className="container px-2">
                 <Breadcrumb>
                     <BreadcrumbList>
                         <BreadcrumbItem>
@@ -42,9 +42,8 @@ export default ({ children }: LayoutProps) => {
                     </BreadcrumbList>
                 </Breadcrumb>
             </div>
-            <div className="container flex justify-center gap-20">
-
-                <div className="grid gap-6">
+            <div className="container  justify-center gap-20 flex px-2">
+                <div className=" gap-6 hidden sm:grid">
                     <Calendar
                         mode="single"
                         selected={date}

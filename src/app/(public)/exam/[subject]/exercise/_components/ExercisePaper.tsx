@@ -25,6 +25,7 @@ import { useUser } from "@/hooks"
 import { useRouter } from "next/navigation"
 import { ExerciseType } from "@/types/exercise"
 import { QUESTION_DIFFICULTY_THRESHOLD } from "@/constants"
+import { useAppStore } from "@/store"
 
 
 
@@ -46,6 +47,9 @@ const ExercisePaper: FC<props> = ({ exercise }) => {
 
     const { createExercise, updateExercise } = useExercise()
 
+    const { setLoginDialogOpen } = useAppStore()
+
+
     const { userData } = useUser()
 
     const toSubmitted = () => {
@@ -53,6 +57,10 @@ const ExercisePaper: FC<props> = ({ exercise }) => {
     }
 
     const toSaveRecord = () => {
+        if (!userData) {
+            setLoginDialogOpen(true)
+            return
+        }
         if (isRandom) {
             createExercise({
                 questions: questions.map((q, i) => q._id),

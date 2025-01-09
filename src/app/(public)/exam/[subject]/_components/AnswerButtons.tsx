@@ -3,6 +3,7 @@ import CorrectPercentageIndicator from "./CorrectPercentageIndicator"
 import { QuestionType } from "@/types/question"
 import { Button } from "@/components/ui/button"
 import { useUser, useUserAnswer } from "@/hooks"
+import { useAppStore } from "@/store"
 export const answersOptions = ['A', 'B', 'C', 'D']
 
 
@@ -15,6 +16,8 @@ const AnswerButtons: FC<props> = ({ question, userAnswer }) => {
     const [selectedAnswer, setSelectedAnswer] = useState<string | null>(null)
 
     const { userData } = useUser()
+
+    const { setLoginDialogOpen } = useAppStore()
 
     const [isSkep, setIsSkip] = useState(false)
 
@@ -45,6 +48,7 @@ const AnswerButtons: FC<props> = ({ question, userAnswer }) => {
 
 
     const handleOnClick = (buttonAnswer: string) => {
+        if (!userData) return setLoginDialogOpen(true)
         if (selectedAnswer || isSkep) return
         setSelectedAnswer(buttonAnswer)
 

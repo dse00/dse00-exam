@@ -86,13 +86,14 @@ export const columns: ColumnDef<UserAnswerType>[] = [
                 <Button
                     variant="ghost"
                     onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+                    className="hidden sm:flex"
                 >
                     Topic
                     <ArrowUpDown />
                 </Button>
             )
         }, cell: ({ row }) => (
-            <div className="capitalize">{row.getValue("topic")}</div>
+            <div className="capitalize hidden sm:block ml-4">{row.getValue("topic")}</div>
         ),
     },
     {
@@ -135,13 +136,13 @@ export const columns: ColumnDef<UserAnswerType>[] = [
                     </DropdownMenuTrigger>
                     <DropdownMenuContent align="end">
                         {/* <DropdownMenuLabel>Actions</DropdownMenuLabel> */}
-                        <DropdownMenuItem
-                            onClick={() => navigator.clipboard.writeText(answer._id)}
-                        >
-                            Go Question
+                        <DropdownMenuItem>
+                            <Link href={`/exam/user/${answer.question._id}`} >
+                                查看題目
+                            </Link>
                         </DropdownMenuItem>
                         <DropdownMenuSeparator />
-                        <DropdownMenuItem onClick={() => deleteRecord(answer._id)}>Delete Record</DropdownMenuItem>
+                        <DropdownMenuItem onClick={() => deleteRecord(answer._id)}>刪除記錄</DropdownMenuItem>
                     </DropdownMenuContent>
                 </DropdownMenu>
             )

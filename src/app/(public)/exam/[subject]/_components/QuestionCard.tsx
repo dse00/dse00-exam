@@ -12,6 +12,8 @@ import {
     CardTitle,
 } from "@/components/ui/card"
 import { getDifficulty, getDifficultyStyle } from "@/lib/getDifficulty";
+import { useAppStore } from "@/store";
+import { processImageNameByLang } from "@/lib/processImageNameByLang";
 
 
 interface props {
@@ -21,16 +23,23 @@ interface props {
 }
 
 const QuestionCard: FC<props> = ({ question, questionNo }) => {
+
+    const { language } = useAppStore();
+
+    if (!language) return null;
     return (
 
         <Card>
             <CardHeader>
-                <CardTitle>Q{questionNo}</CardTitle>
+                <CardTitle className="flex justify-between items-start">
+                    <span>Q{questionNo} </span>
+                    {/* <Badge>{question.year}Q{question.questionNo}</Badge> */}
+                </CardTitle>
                 <CardDescription className={getDifficultyStyle(question.correctPercentage)}>{getDifficulty(question.correctPercentage)}</CardDescription>
             </CardHeader>
             <CardContent>
                 <div className="relative max-w-[720px]">
-                    <Image src={question.questionImage} className="" alt="question" width={1000} height={100} priority />
+                    <Image src={processImageNameByLang(question.questionImage, language)} className="" alt="question" width={1000} height={100} priority />
                 </div>
             </CardContent>
             <CardFooter>

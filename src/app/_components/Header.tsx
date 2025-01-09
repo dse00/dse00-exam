@@ -5,9 +5,9 @@ import AvatarAndMenu from "./AvatarAndMenu";
 
 const Header: FC = () => {
     return (
-        <header className="bg-main w-full h-[58px] flex justify-center items-center">
+        <header className="bg-main w-full h-[58px] flex justify-center items-center px-2">
             <div className="container flex items-center justify-between">
-                <Link href={'/'} className="text-white font-black text-4xl">DSE00</Link>
+                <Link href={'/'} className="text-white font-black text-4xl">DSE00 Exam</Link>
                 <AvatarAndMenu />
             </div>
 

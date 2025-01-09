@@ -1,4 +1,5 @@
 import Header from "@/app/_components/Header"
+import LanguageButton from "@/components/LanguageButton";
 
 export type LayoutProps = {
     children: React.ReactNode;
@@ -6,9 +7,10 @@ export type LayoutProps = {
 
 export default ({ children }: LayoutProps) => {
     return (
-        <div className="flex flex-col items-center">
+        <div className="flex flex-col items-center sm:gap-6 gap-4 pb-12">
             <Header />
-            <div className="container justify-center py-12">{children}</div>
+            <LanguageButton />
+            <div className="container justify-center px-2">{children}</div>
         </div>
     )
 }
