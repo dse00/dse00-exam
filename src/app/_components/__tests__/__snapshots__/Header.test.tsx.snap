@@ -1,0 +1,52 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Header Component renders correctly and matches snapshot 1`] = `
+<DocumentFragment>
+  <header
+    class="bg-main w-full h-[58px] flex justify-center items-center px-2"
+  >
+    <div
+      class="container flex items-center justify-between"
+    >
+      <div
+        class="flex items-center gap-10"
+      >
+        <a
+          class="text-white font-black text-4xl drop-shadow-[0_0px_6px_rgba(255,255,255,0.7)]"
+          href="/"
+        >
+          DSE00 exam
+        </a>
+        <div
+          class="sm:flex gap-5 hidden"
+        >
+          <a
+            class="text-white text-[15px]"
+            href="https://www.dse00.com/p/core-cutoff.html"
+            target="_blank"
+          >
+            DSE00 AI 補習配對
+          </a>
+          <a
+            class="text-white text-[15px]"
+            href="https://www.dse00.com/p/core-cutoff.html"
+            target="_blank"
+          >
+            2024 Cut-off
+          </a>
+          <a
+            class="text-white text-[15px]"
+            href="https://www.dse00.com/p/core-cutoff.html"
+            target="_blank"
+          >
+            JUPAS Cuf-off
+          </a>
+        </div>
+      </div>
+      <div>
+        Mocked AvatarAndMenu
+      </div>
+    </div>
+  </header>
+</DocumentFragment>
+`;

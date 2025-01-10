@@ -4,7 +4,7 @@ import { FC } from "react";
 import ReactQueryProvider from "./reactQueryProvider";
 import { ignoreWarn } from "@/lib/warn";
 import { Toaster } from "@/components/ui/toaster";
-import { LoginDialog } from "@/components/LoginDialog";
+import LoginDialog from "@/components/LoginDialog";
 
 
 type props = {

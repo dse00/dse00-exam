@@ -4,23 +4,12 @@ import {
     DialogContent,
     DialogTitle,
 } from "@/components/ui/dialog"
-import {
-    Form,
-    FormControl,
-    FormField,
-    FormItem,
-} from "@/components/ui/form"
 import { Input } from "@/components/ui/input"
 import { useUser } from "@/hooks"
-import services from "@/services"
 import { useAppStore } from "@/store"
 
-import { zodResolver } from "@hookform/resolvers/zod"
 import Link from "next/link"
 import { usePathname } from "next/navigation"
-import { useForm } from "react-hook-form"
-import { z } from "zod"
-import Cookies from 'js-cookie';
 import { useState } from "react"
 
 
@@ -51,7 +40,7 @@ export function LoginDialog() {
 
 
     return (
-        <Dialog open={loginDialogOpen} onOpenChange={setLoginDialogOpen}>
+        <Dialog open={true} onOpenChange={setLoginDialogOpen}>
             <DialogContent className="sm:max-w-[425px]">
                 <DialogTitle></DialogTitle>
 
@@ -92,3 +81,5 @@ export function LoginDialog() {
     )
 }
 
+
+export default LoginDialog;
