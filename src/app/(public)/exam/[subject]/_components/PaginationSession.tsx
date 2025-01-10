@@ -12,6 +12,7 @@ import {
     PaginationPrevious,
 } from "@/components/ui/pagination"
 import { usePathname } from "next/navigation";
+import { getPagination } from "@/lib/getPagination";
 
 
 type props = {
@@ -23,11 +24,13 @@ const PaginationSession: FC<props> = ({ numPages, page }) => {
     return (
         <Pagination>
             <PaginationContent>
-                <PaginationItem>
-                    <PaginationPrevious href="#" />
-                </PaginationItem>
                 {
-                    Array.from({ length: numPages }, (_, i) => i + 1).map((item, index) => {
+                    page > 1 && <PaginationItem>
+                        <PaginationPrevious href={`${pathname}?page=${page - 1}`} />
+                    </PaginationItem>
+                }
+                {
+                    getPagination(page, numPages).map((item, index) => {
                         return (
                             <PaginationItem key={index}>
                                 <PaginationLink
@@ -40,12 +43,17 @@ const PaginationSession: FC<props> = ({ numPages, page }) => {
                         );
                     })
                 }
-                <PaginationItem>
-                    <PaginationEllipsis />
-                </PaginationItem>
-                <PaginationItem>
-                    <PaginationNext href="#" />
-                </PaginationItem>
+                {
+
+                    page < numPages - 2 && <PaginationItem>
+                        <PaginationEllipsis />
+                    </PaginationItem>
+                }
+                {
+                    page < numPages && <PaginationItem>
+                        <PaginationNext href={`${pathname}?page=${page + 1}`} />
+                    </PaginationItem>
+                }
             </PaginationContent>
         </Pagination>
 

@@ -42,8 +42,8 @@ export default ({ children }: LayoutProps) => {
                     </BreadcrumbList>
                 </Breadcrumb>
             </div>
-            <div className="container  justify-center gap-20 flex px-2">
-                <div className=" gap-6 hidden sm:grid">
+            <div className="container justify-center gap-20 flex px-2 items-start">
+                <div className="gap-6 hidden sm:grid">
                     <Calendar
                         mode="single"
                         selected={date}
@@ -61,9 +61,6 @@ export default ({ children }: LayoutProps) => {
                             </Link>
                         ))
                     }
-
-
-
 
                 </div>
                 <div className="grow">
