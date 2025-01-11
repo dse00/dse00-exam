@@ -1,15 +1,14 @@
-import { CommentUserType } from "./user";
+import { CommentUserType } from './user';
 
 export type CommentType = CreateCommentType & {
-    _id: string;
-    user: CommentUserType;
-    createdAt: string;
-    updatedAt: string;
-}
-
+  _id: string;
+  user: CommentUserType;
+  createdAt: string;
+  updatedAt: string;
+};
 
 export type CreateCommentType = {
-    user: string
-    question: string;
-    comment: string;
-}
+  user: string;
+  question: string;
+  comment: string;
+};

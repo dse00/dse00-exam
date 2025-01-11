@@ -1,35 +1,27 @@
-import { NextPage } from "next";
-import services from "@/services";
-import QuestionsDisplay from "./_components/QuestionsDisplay";
+import { NextPage } from 'next';
 
-export type SearchParams = Promise<{ [key: string]: string | string[] | undefined }>
+import services from '@/services';
+
+import QuestionsDisplay from './_components/QuestionsDisplay';
+
+export type SearchParams = Promise<{ [key: string]: string | string[] | undefined }>;
 
 type props = {
-    searchParams: SearchParams
-    params: Promise<{ [key: string]: string | string[] | undefined }>
-}
+  searchParams: SearchParams;
+  params: Promise<{ [key: string]: string | string[] | undefined }>;
+};
 
 const ExamMathsPage: NextPage<props> = async ({ searchParams, params }) => {
+  const query = await searchParams;
 
-    const query = await searchParams;
+  const { subject } = await params;
 
-    const { subject } = await params;
+  const page = query.page ? parseInt(query.page as string) : 1;
 
-    const page = query.page ? parseInt(query.page as string) : 1;
+  const { data: questions, total }: any = await services.getQuestions({ page, subject });
 
-    const { data: questions, total }: any = await services.getQuestions({ page, subject });
+  console.log('total', total);
 
-    console.log('total', total);
-
-
-    return (
-
-        <QuestionsDisplay
-            questions={questions}
-            totalPage={total}
-            currentPage={page}
-            header="Maths Exam"
-        />
-    );
-}
+  return <QuestionsDisplay questions={questions} totalPage={total} currentPage={page} header='Maths Exam' />;
+};
 export default ExamMathsPage;

@@ -1,20 +1,14 @@
-import React, { FC, useRef, useEffect, useState } from 'react';
-
+import React, { FC, useEffect, useRef, useState } from 'react';
 
 type props = {
-    children: React.ReactNode;
-    show: boolean;
-}
+  children: React.ReactNode;
+  show: boolean;
+};
 
 const CustomAccordion: FC<props> = ({ children, show }) => {
+  if (!show) return null;
 
-    if (!show) return null;
-
-    return (
-        <div className='py-2'>
-            {children}
-        </div>
-    );
+  return <div className='py-2'>{children}</div>;
 };
 
 export default CustomAccordion;

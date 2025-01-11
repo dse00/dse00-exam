@@ -4,7 +4,6 @@ import * as R from 'ramda';
 
 import pkg from '../../package.json';
 
-
 const paramsSerializer = R.partialRight(stringify, [{ arrayFormat: 'comma' }]);
 
 interface BaseClientServiceInterface {

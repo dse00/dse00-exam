@@ -1,26 +1,25 @@
-import { BaseDataType } from "."
-import { QuestionType } from "./question"
+import { BaseDataType } from '.';
+import { QuestionType } from './question';
 
 export type ExerciseType = {
-    user: string,
-    questions: QuestionType[],
-    answers: string[],
-} & BaseDataType
+  user: string;
+  questions: QuestionType[];
+  answers: string[];
+} & BaseDataType;
 
 export type ExerciseListItemType = {
-    exerciseName: string,
-    exerciseLength: number,
-    subject: string,
-    timeLimited: boolean,
-    score: number,
-} & BaseDataType
-
+  exerciseName: string;
+  exerciseLength: number;
+  subject: string;
+  timeLimited: boolean;
+  score: number;
+} & BaseDataType;
 
 export type CreateExerciseDto = {
-    user: string,
-    questions: string[],
-    subject: string,
-    answers?: string[],
-}
+  user: string;
+  questions: string[];
+  subject: string;
+  answers?: string[];
+};
 
-export type UpdateExerciseDto = Partial<CreateExerciseDto>
+export type UpdateExerciseDto = Partial<CreateExerciseDto>;
