@@ -1,9 +1,11 @@
-import { Badge } from '@/components/ui/badge';
-import { Button } from '@/components/ui/button';
-import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
-import { BookOpenCheck, LibraryBig, Infinity, BellPlus } from 'lucide-react';
+import { BellPlus, BookOpenCheck, Infinity, LibraryBig } from 'lucide-react';
 import { NextPage } from 'next';
+import Link from 'next/link';
 import { FC } from 'react';
+
+import { Badge } from '@/components/ui/badge';
+import { Button, buttonVariants } from '@/components/ui/button';
+import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
 
 const MembershipPage: NextPage = () => {
   return (
@@ -25,7 +27,9 @@ const MembershipPage: NextPage = () => {
               <p className='text-label-1 text-3xl font-semibold'>$13</p>
             </CardContent>
             <CardFooter>
-              <Button>加入</Button>
+              <Link href={`membership/payment/1month`} className={buttonVariants({ variant: 'default' })}>
+                加入
+              </Link>
             </CardFooter>
           </Card>
           <Card
@@ -53,7 +57,9 @@ const MembershipPage: NextPage = () => {
               <p className='text-label-1 text-3xl font-semibold'>$27</p>
             </CardContent>
             <CardFooter>
-              <Button>加入</Button>
+              <Link href={`membership/payment/3month`} className={buttonVariants()}>
+                加入
+              </Link>
             </CardFooter>
           </Card>
         </div>

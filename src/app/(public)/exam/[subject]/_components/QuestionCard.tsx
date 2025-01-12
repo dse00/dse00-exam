@@ -1,20 +1,20 @@
 'use client';
+import { LockKeyhole } from 'lucide-react';
 import Image from 'next/image';
+import Link from 'next/link';
 import { FC } from 'react';
 
+import { Button, buttonVariants } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
+import { Skeleton } from '@/components/ui/skeleton';
+import { QUESTION_DIFFICULTY_THRESHOLD } from '@/constants';
 import { getDifficulty, getDifficultyStyle } from '@/lib/getDifficulty';
 import { processImageNameByLang } from '@/lib/processImageNameByLang';
+import { cn } from '@/lib/utils';
 import { useAppStore } from '@/store';
 import { QuestionType } from '@/types/question';
 
 import AnswerDiscussion from './AnswerDiscussion';
-import { QUESTION_DIFFICULTY_THRESHOLD } from '@/constants';
-import { Skeleton } from '@/components/ui/skeleton';
-import { Button, buttonVariants } from '@/components/ui/button';
-import { LockKeyhole } from 'lucide-react';
-import Link from 'next/link';
-import { cn } from '@/lib/utils';
 
 interface props {
   question: QuestionType;
@@ -29,7 +29,7 @@ const QuestionCard: FC<props> = ({ question, questionNo }) => {
 
   if (question.correctPercentage <= QUESTION_DIFFICULTY_THRESHOLD.EXTREME_HARD) {
     return (
-      <Card>
+      <Card id={questionNo.toString()}>
         <CardHeader>
           <CardTitle className='flex justify-between items-start'>
             <span>Q{questionNo} </span>
@@ -51,7 +51,7 @@ const QuestionCard: FC<props> = ({ question, questionNo }) => {
             <div className='absolute bg-[#ffffff33] backdrop-blur-sm w-full h-full items-center justify-center rounded-lg flex flex-col gap-4'>
               <LockKeyhole size={'40'} />
               <p className='opacity-70'>
-                <span className='typo-round'>DSE00 </span>
+                <span className='typo-round'>DSE00</span>
                 需要你們的支持
               </p>
               <div>

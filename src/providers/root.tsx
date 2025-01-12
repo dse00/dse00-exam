@@ -7,6 +7,7 @@ import { Toaster } from '@/components/ui/toaster';
 import { ignoreWarn } from '@/lib/warn';
 
 import ReactQueryProvider from './reactQueryProvider';
+import WebLoading from '@/components/WebLoading';
 
 type props = {
   children: React.ReactNode;
@@ -21,6 +22,7 @@ const RootProvider: FC<props> = ({ children }) => {
         <>
           {children}
           <LoginDialog />
+          <WebLoading />
         </>
       </ReactQueryProvider>
       <Toaster />

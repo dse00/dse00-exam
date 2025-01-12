@@ -1,9 +1,9 @@
+import Link from 'next/link';
 import { FC } from 'react';
 
 import { buttonVariants } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
 import { PaperType } from '@/types/question';
-import Link from 'next/link';
 
 interface props {
   exam: PaperType;

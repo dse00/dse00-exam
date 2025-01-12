@@ -26,6 +26,7 @@ import {
 import Link from 'next/link';
 import * as React from 'react';
 
+import { Badge } from '@/components/ui/badge';
 import { Button, buttonVariants } from '@/components/ui/button';
 import { Checkbox } from '@/components/ui/checkbox';
 import {
@@ -39,7 +40,6 @@ import { Input } from '@/components/ui/input';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
 import { useUserAnswer } from '@/hooks';
 import { UserAnswerType } from '@/types/userAnswer';
-import { Badge } from '@/components/ui/badge';
 
 export const columns: ColumnDef<UserAnswerType>[] = [
   {

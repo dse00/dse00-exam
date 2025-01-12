@@ -1,9 +1,10 @@
+import Link from 'next/link';
+
+import { buttonVariants } from '@/components/ui/button';
+import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
 import services from '@/services';
 
 import ExamCard from '../_components/ExamCard';
-import { Card, CardHeader, CardTitle, CardDescription, CardContent, CardFooter } from '@/components/ui/card';
-import Link from 'next/link';
-import { buttonVariants } from '@/components/ui/button';
 
 export default async function Home() {
   const { paperBySubjects, mathPaperByTopic, mathPaperByDifficulty } = await services.getContent();

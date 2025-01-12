@@ -3,14 +3,28 @@ import { FC } from 'react';
 
 import AvatarAndMenu from './AvatarAndMenu';
 
-const Header: FC = () => {
+const Header: FC = async () => {
   return (
     <header className='bg-main w-full h-[58px] flex justify-center items-center px-2'>
-      <div className='container flex items-center justify-between'>
-        <div className='flex items-center gap-10'>
+      <div className='container flex items-center gap-10'>
+        <Link
+          href={'/'}
+          className='typo-round text-white font-black text-3xl drop-shadow-[0_0px_6px_rgba(255,255,255,0.7)]'
+        >
+          DSE00 exam
+        </Link>
+        {/* {isExamPage ? (
+          <div className='flex items-center gap-3'>
+            <Image src='/images/leaf.png' width={34} height={34} alt='icon' />
+            <ProblemListSidebar />
+          </div>
+        ) : (
           <Link href={'/'} className='text-white font-black text-4xl drop-shadow-[0_0px_6px_rgba(255,255,255,0.7)]'>
             DSE00 exam
           </Link>
+        )} */}
+
+        <div className='flex items-center gap-10 grow'>
           <div className='sm:flex gap-7 hidden'>
             <Link
               className={'text-white text-[15px]'}

@@ -1,6 +1,7 @@
 import apiClient from '@/services/ExamApiClient';
 import { CommentType, CreateCommentType } from '@/types/comment';
 import { CreateExerciseDto, ExerciseListItemType, ExerciseType, UpdateExerciseDto } from '@/types/exercise';
+import { CreatePaymentRecordDto } from '@/types/payment';
 import { HomeContentType, PaperType, QuestionType } from '@/types/question';
 import { UserType } from '@/types/user';
 import { CreateUserAnswerType, UserAnswerType } from '@/types/userAnswer';
@@ -87,4 +88,6 @@ export default {
 
     return apiClient.get('/comments?' + query);
   },
+
+  createPaymentRecord: async (paymentRecord: CreatePaymentRecordDto) => apiClient.post('/payments', paymentRecord),
 };
