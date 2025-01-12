@@ -9,6 +9,12 @@ import { useAppStore } from '@/store';
 import { QuestionType } from '@/types/question';
 
 import AnswerDiscussion from './AnswerDiscussion';
+import { QUESTION_DIFFICULTY_THRESHOLD } from '@/constants';
+import { Skeleton } from '@/components/ui/skeleton';
+import { Button, buttonVariants } from '@/components/ui/button';
+import { LockKeyhole } from 'lucide-react';
+import Link from 'next/link';
+import { cn } from '@/lib/utils';
 
 interface props {
   question: QuestionType;
@@ -20,6 +26,50 @@ const QuestionCard: FC<props> = ({ question, questionNo }) => {
   const { language } = useAppStore();
 
   if (!language) return null;
+
+  if (question.correctPercentage <= QUESTION_DIFFICULTY_THRESHOLD.EXTREME_HARD) {
+    return (
+      <Card>
+        <CardHeader>
+          <CardTitle className='flex justify-between items-start'>
+            <span>Q{questionNo} </span>
+            {/* <Badge>{question.year}Q{question.questionNo}</Badge> */}
+          </CardTitle>
+          <CardDescription className={getDifficultyStyle(question.correctPercentage)}>
+            {getDifficulty(question.correctPercentage)}
+          </CardDescription>
+        </CardHeader>
+        <CardContent>
+          <div className='relative max-w-[720px] grid gap-4'>
+            <Skeleton className='h-8 w-full' />
+            <div className='grid gap-4 ml-12'>
+              <Skeleton className='h-8 w-80' />
+              <Skeleton className='h-8 w-80' />
+              <Skeleton className='h-8 w-80' />
+              <Skeleton className='h-8 w-80' />
+            </div>
+            <div className='absolute bg-[#ffffff33] backdrop-blur-sm w-full h-full items-center justify-center rounded-lg flex flex-col gap-4'>
+              <LockKeyhole size={'40'} />
+              <p className='opacity-70'>
+                <span className='typo-round'>DSE00 </span>
+                需要你們的支持
+              </p>
+              <div>
+                <Link href={'/membership'} className={cn(buttonVariants())}>
+                  加入
+                  <span className='typo-round'>DSE00+</span>
+                </Link>
+              </div>
+            </div>
+          </div>
+        </CardContent>
+        <CardFooter className='flex gap-4'>
+          <Skeleton className='h-8 w-12' />
+          <Skeleton className='h-8 w-16' />
+        </CardFooter>
+      </Card>
+    );
+  }
 
   return (
     <Card>

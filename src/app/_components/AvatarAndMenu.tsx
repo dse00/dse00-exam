@@ -74,7 +74,9 @@ export default function AvatarAndMenu() {
             <img src={FAKE_USER_ICON} alt='user_icon' className='w-14 h-14 object-cover rounded-full' />
             <div className='grid'>
               <span className='font-black'>{userData.name}</span>
-              <span className='text-sm text-primary'>Premium Member</span>
+              <Link href={'/membership'} className='text-sm text-primary'>
+                Premium Member
+              </Link>
             </div>
           </div>
           <div className='grid grid-cols-3 gap-4'>

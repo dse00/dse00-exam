@@ -11,7 +11,7 @@ const Header: FC = () => {
           <Link href={'/'} className='text-white font-black text-4xl drop-shadow-[0_0px_6px_rgba(255,255,255,0.7)]'>
             DSE00 exam
           </Link>
-          <div className='sm:flex gap-5 hidden'>
+          <div className='sm:flex gap-7 hidden'>
             <Link
               className={'text-white text-[15px]'}
               href={'https://www.dse00.com/p/core-cutoff.html'}

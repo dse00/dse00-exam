@@ -8,6 +8,7 @@ import {
   BreadcrumbList,
   BreadcrumbSeparator,
 } from '@/components/ui/breadcrumb';
+import LanguageButton from '@/components/LanguageButton';
 
 export type LayoutProps = {
   children: React.ReactNode;
@@ -18,6 +19,8 @@ export default ({ children }: LayoutProps) => {
 
   return (
     <div className='flex flex-col'>
+      <LanguageButton />
+
       <Breadcrumb>
         <BreadcrumbList>
           <BreadcrumbItem>

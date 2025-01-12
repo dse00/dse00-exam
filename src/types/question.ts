@@ -29,4 +29,5 @@ export enum QuestionDifficultyEnum {
   easy = 'easy',
   medium = 'medium',
   hard = 'hard',
+  extremeHard = 'extreme hard',
 }

@@ -11,4 +11,5 @@ export const QUERY_KEYS = {
 export const QUESTION_DIFFICULTY_THRESHOLD = {
   EASY: 70,
   HARD: 45,
+  EXTREME_HARD: 30,
 };
