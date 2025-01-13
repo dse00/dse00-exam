@@ -1,32 +1,33 @@
-'use client'
+'use client';
 
-import { FC } from "react";
-import ReactQueryProvider from "./reactQueryProvider";
-import { ignoreWarn } from "@/lib/warn";
-import { Toaster } from "@/components/ui/toaster";
-import { LoginDialog } from "@/components/LoginDialog";
+import { FC } from 'react';
 
+import LoginDialog from '@/components/LoginDialog';
+import { Toaster } from '@/components/ui/toaster';
+import WebLoading from '@/components/WebLoading';
+import { ignoreWarn } from '@/lib/warn';
+
+import ReactQueryProvider from './reactQueryProvider';
 
 type props = {
-    children: React.ReactNode;
+  children: React.ReactNode;
 };
 
 ignoreWarn();
 
 const RootProvider: FC<props> = ({ children }) => {
-
-    return (
+  return (
+    <>
+      <ReactQueryProvider>
         <>
-            <ReactQueryProvider>
-                <>
-                    {children}
-                    <LoginDialog />
-                </>
-            </ReactQueryProvider>
-            <Toaster />
-
+          {children}
+          <LoginDialog />
+          <WebLoading />
         </>
-    );
-}
+      </ReactQueryProvider>
+      <Toaster />
+    </>
+  );
+};
 
 export default RootProvider;

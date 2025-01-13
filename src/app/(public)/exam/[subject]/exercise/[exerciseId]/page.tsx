@@ -1,32 +1,29 @@
+import { NextPage } from 'next';
 
-import { NextPage } from "next";
-import services from "@/services";
-import { QuestionType } from "@/types/question";
-import ExercisePaper from "../_components/ExercisePaper";
-import { ExerciseType } from "@/types/exercise";
+import services from '@/services';
+import { ExerciseType } from '@/types/exercise';
+import { QuestionType } from '@/types/question';
 
-export type SearchParams = Promise<{ [key: string]: string | string[] | undefined }>
+import ExercisePaper from '../_components/ExercisePaper';
+
+export type SearchParams = Promise<{ [key: string]: string | string[] | undefined }>;
 
 type props = {
-    searchParams: SearchParams
-    params: Promise<{ exerciseId: string }>
-}
+  searchParams: SearchParams;
+  params: Promise<{ exerciseId: string }>;
+};
 
 const ExamMathsExercisePage: NextPage<props> = async ({ params }) => {
+  const { exerciseId } = await params;
 
-    const { exerciseId } = await params;
+  let exercise: ExerciseType;
 
-    let exercise: ExerciseType;
+  if (exerciseId === 'random') {
+    exercise = await services.getRandomExercise('maths');
+  } else {
+    exercise = await services.getExercise(exerciseId);
+  }
 
-    if (exerciseId === 'random') {
-        exercise = await services.getRandomExercise('maths');
-
-    } else {
-        exercise = await services.getExercise(exerciseId);
-    }
-
-    return (
-        <ExercisePaper exercise={exercise} />
-    );
-}
+  return <ExercisePaper exercise={exercise} />;
+};
 export default ExamMathsExercisePage;

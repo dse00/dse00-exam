@@ -1,19 +1,20 @@
-import { useToast } from "./use-toast"
-
+import { useToast } from './use-toast';
 
 export const useMyToast = () => {
+  const { toast } = useToast();
 
+  const successToast = (message: string) => {
+    toast({
+      description: message,
+    });
+  };
 
-    const { toast } = useToast()
+  const errorToast = (message: string) => {
+    toast({
+      description: message,
+      type: 'foreground',
+    });
+  };
 
-
-    const successToast = (message: string) => {
-        toast({
-            description: message,
-        })
-
-    }
-
-    return { successToast }
-
-}
+  return { successToast, errorToast };
+};
