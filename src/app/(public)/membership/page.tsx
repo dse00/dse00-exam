@@ -3,11 +3,18 @@ import { NextPage } from 'next';
 import Link from 'next/link';
 import { FC } from 'react';
 
-import { Badge } from '@/components/ui/badge';
-import { Button, buttonVariants } from '@/components/ui/button';
+import { buttonVariants } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
+import services from '@/services';
 
-const MembershipPage: NextPage = () => {
+import MembershipJoinButton from './_component/MembershipJoinButton';
+
+const MembershipPage: NextPage = async () => {
+  const plans = await services.getPlans();
+
+  const plan1month = plans?.find(plan => plan.key === '1month');
+  const plan3month = plans?.find(plan => plan.key === '3month');
+
   return (
     <div className='container sm:py-20 py-10'>
       <div className='max-w-4xl mx-auto grid sm:gap-20 gap-10'>
@@ -17,26 +24,23 @@ const MembershipPage: NextPage = () => {
           <Card className='px-1 shadow-xl'>
             <CardHeader>
               <CardTitle className='text-2xl'>1 個月</CardTitle>
-              <CardDescription>原價 $39/月</CardDescription>
+              <CardDescription>原價 ${plan1month?.price}/月</CardDescription>
             </CardHeader>
             <CardContent className='grid gap-4'>
-              <p>
-                DSE考生優惠，月費計劃可使用所有 <span className='font-semibold'>高階功能</span>。
-              </p>
+              <p>{plan1month?.description}</p>
 
               <p className='text-label-1 text-3xl font-semibold'>$13</p>
             </CardContent>
             <CardFooter>
-              <Link href={`membership/payment/1month`} className={buttonVariants({ variant: 'default' })}>
-                加入
-              </Link>
+              <MembershipJoinButton plan={plan1month?.key as string} />
             </CardFooter>
           </Card>
           <Card
             className='px-1 shadow-xl'
             style={{
-              background: 'linear-gradient(294.57deg, rgba(255, 148, 88) 0%, rgba(252, 229, 172) 100%)',
-              borderColor: 'rgba(255, 161, 22, 0.3)',
+              background:
+                'linear-gradient(294.57deg,  rgba(252, 229, 172) 10%, rgba(255, 255, 255) 30%,  rgba(252, 229, 172) 80%)',
+              borderColor: 'rgba(255, 255, 255, 0.3)',
             }}
           >
             <CardHeader>
@@ -50,16 +54,12 @@ const MembershipPage: NextPage = () => {
               <CardDescription>平均每月 $9/月</CardDescription>
             </CardHeader>
             <CardContent className='grid gap-4'>
-              <p>
-                DSE考生優惠，月費計劃可使用所有 <span className='font-semibold'>高階功能</span>。
-              </p>
+              <p>{plan3month?.description}</p>
 
-              <p className='text-label-1 text-3xl font-semibold'>$27</p>
+              <p className='text-label-1 text-3xl font-semibold'>${plan3month?.price}</p>
             </CardContent>
             <CardFooter>
-              <Link href={`membership/payment/3month`} className={buttonVariants()}>
-                加入
-              </Link>
+              <MembershipJoinButton plan={plan3month?.key as string} />
             </CardFooter>
           </Card>
         </div>

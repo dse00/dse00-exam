@@ -1,17 +1,19 @@
 'use client';
+import { useRouter } from 'next/navigation';
+import { FC, useState } from 'react';
+
 import { Button, buttonVariants } from '@/components/ui/button';
 import { Checkbox } from '@/components/ui/checkbox';
 import { Dialog, DialogContent, DialogFooter, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/dialog';
 import { Input } from '@/components/ui/input';
-import { PlanData } from '@/data/plan';
 import { useMyToast, useUser } from '@/hooks';
 import services from '@/services';
 import { useAppStore } from '@/store';
-import { useRouter } from 'next/navigation';
-import { FC, useState } from 'react';
+import { SubscriptionPaymentType } from '@/types/payment';
+import { PlanType } from '@/types/plan';
 
 type props = {
-  currentPlan: (typeof PlanData)['1month'];
+  currentPlan: PlanType;
 };
 const PaymentConfirmDialog: FC<props> = ({ currentPlan }) => {
   const [answer, setAnswer] = useState({
@@ -28,14 +30,20 @@ const PaymentConfirmDialog: FC<props> = ({ currentPlan }) => {
     if (!userData?.user) {
       return errorToast('請先登入');
     }
+    if (!answer.email.includes('@')) {
+      return errorToast('請填寫有效 Email');
+    }
 
     setLoading(true);
-    await services.createPaymentRecord({
+
+    const subscriptionPayment = await services.createPaymentRecord<SubscriptionPaymentType>({
       message: currentPlan.name + ' ' + answer.email,
       user: userData.user,
       amount: currentPlan.price,
+      type: 'subscription',
+      referenceId: currentPlan.key,
     });
-    router.push('/membership/payment/success');
+    router.push('/membership/payment/success/' + subscriptionPayment.subscription._id);
     setLoading(false);
   };
 

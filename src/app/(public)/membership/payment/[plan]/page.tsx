@@ -1,8 +1,13 @@
-import { Button } from '@/components/ui/button';
 import { NextPage } from 'next';
+import { cookies } from 'next/headers';
 import Image from 'next/image';
+import Link from 'next/link';
+import { redirect } from 'next/navigation';
+
+import { buttonVariants } from '@/components/ui/button';
+import services from '@/services';
+
 import PaymentConfirmDialog from './_components/PaymentConfirmDialog';
-import { PlanData } from '@/data/plan';
 
 type props = {
   params: Promise<{ plan: string }>;
@@ -11,9 +16,16 @@ type props = {
 const MembershipPaymentPage: NextPage<props> = async ({ params }) => {
   const param = await params;
 
-  const currentPlan = PlanData[param.plan as keyof typeof PlanData];
+  const currentPlan = await services.getPlan(param.plan);
 
-  console.log('currentPlan', currentPlan);
+  const cookieStore = await cookies();
+
+  const token = cookieStore.get('token');
+
+  if (!token) {
+    return redirect('/');
+  }
+
   return (
     <div>
       <div className='bg-white rounded-lg shadow-lg my-40 flex justify-between overflow-hidden'>
@@ -21,21 +33,21 @@ const MembershipPaymentPage: NextPage<props> = async ({ params }) => {
           <h1 className='text-3xl font-bold'>使用 PayMe 掃描此 PayCode</h1>
           <div className='flex justify-between gap-10 items-stretch'>
             <Image src={'/images/paycode.jpg'} alt='PayMe QR Code' width={300} height={300} priority />
-            <div className='border-[0.5px]'></div>
+            <div className='border-[0.5px]' />
             <div className='flex flex-col justify-between gap-4 py-10'>
               <div className='flex'>
                 <span className='mr-8'>1.</span>
-                打開 PayMe 應用程式，掃描這個 PayCode
+                <span>打開 PayMe 應用程式，掃描這個 PayCode</span>
               </div>
               <div className='flex'>
                 <span className='mr-8'>2.</span>
-                輸入金額
+                <span> 輸入金額</span>
                 <span className='ml-1'>${currentPlan.price}</span>
               </div>
               <div className='flex'>
                 <span className='mr-8'>3.</span>
                 <p>
-                  在信息輸入框中輸入您的
+                  <span> 在信息輸入框中輸入您的</span>
                   <span className='font-bold'>電子郵件地址</span>
                 </p>
               </div>
@@ -57,7 +69,9 @@ const MembershipPaymentPage: NextPage<props> = async ({ params }) => {
         </div>
       </div>
       <div className='flex gap-10 justify-end'>
-        <Button variant={'ghost'}>返回</Button>
+        <Link href={'/membership'} className={buttonVariants({ variant: 'ghost' })}>
+          返回
+        </Link>
         <PaymentConfirmDialog currentPlan={currentPlan} />
       </div>
     </div>

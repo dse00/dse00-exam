@@ -2,17 +2,13 @@ import Link from 'next/link';
 import { FC } from 'react';
 
 import AvatarAndMenu from './AvatarAndMenu';
+import HeaderIcon from './HeaderIcon';
 
-const Header: FC = async () => {
+const Header: FC = () => {
   return (
     <header className='bg-main w-full h-[58px] flex justify-center items-center px-2'>
       <div className='container flex items-center gap-10'>
-        <Link
-          href={'/'}
-          className='typo-round text-white font-black text-3xl drop-shadow-[0_0px_6px_rgba(255,255,255,0.7)]'
-        >
-          DSE00 exam
-        </Link>
+        <HeaderIcon />
         {/* {isExamPage ? (
           <div className='flex items-center gap-3'>
             <Image src='/images/leaf.png' width={34} height={34} alt='icon' />

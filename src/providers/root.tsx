@@ -4,10 +4,10 @@ import { FC } from 'react';
 
 import LoginDialog from '@/components/LoginDialog';
 import { Toaster } from '@/components/ui/toaster';
+import WebLoading from '@/components/WebLoading';
 import { ignoreWarn } from '@/lib/warn';
 
 import ReactQueryProvider from './reactQueryProvider';
-import WebLoading from '@/components/WebLoading';
 
 type props = {
   children: React.ReactNode;

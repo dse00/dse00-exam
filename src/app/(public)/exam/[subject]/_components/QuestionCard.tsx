@@ -8,6 +8,7 @@ import { Button, buttonVariants } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
 import { Skeleton } from '@/components/ui/skeleton';
 import { QUESTION_DIFFICULTY_THRESHOLD } from '@/constants';
+import { useSubscription } from '@/hooks';
 import { getDifficulty, getDifficultyStyle } from '@/lib/getDifficulty';
 import { processImageNameByLang } from '@/lib/processImageNameByLang';
 import { cn } from '@/lib/utils';
@@ -24,10 +25,11 @@ interface props {
 
 const QuestionCard: FC<props> = ({ question, questionNo }) => {
   const { language } = useAppStore();
+  const { subscriptionData } = useSubscription();
 
   if (!language) return null;
 
-  if (question.correctPercentage <= QUESTION_DIFFICULTY_THRESHOLD.EXTREME_HARD) {
+  if (question.correctPercentage <= QUESTION_DIFFICULTY_THRESHOLD.EXTREME_HARD && !subscriptionData) {
     return (
       <Card id={questionNo.toString()}>
         <CardHeader>
@@ -50,13 +52,13 @@ const QuestionCard: FC<props> = ({ question, questionNo }) => {
             </div>
             <div className='absolute bg-[#ffffff33] backdrop-blur-sm w-full h-full items-center justify-center rounded-lg flex flex-col gap-4'>
               <LockKeyhole size={'40'} />
-              <p className='opacity-70'>
+              <p className='opacity-70 flex gap-1'>
                 <span className='typo-round'>DSE00</span>
-                需要你們的支持
+                <span>需要你們的支持</span>
               </p>
               <div>
                 <Link href={'/membership'} className={cn(buttonVariants())}>
-                  加入
+                  <span>加入</span>
                   <span className='typo-round'>DSE00+</span>
                 </Link>
               </div>
