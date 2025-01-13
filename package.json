@@ -9,8 +9,7 @@
     "lint": "tsc && next lint",
     "test": "jest",
     "lint:fix": "eslint . --fix",
-    "format": "prettier --write .",
-    "prepare": "husky install"
+    "format": "prettier --write ."
   },
   "dependencies": {
     "@hookform/resolvers": "^3.10.0",
