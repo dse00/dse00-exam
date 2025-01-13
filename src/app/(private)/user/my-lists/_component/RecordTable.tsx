@@ -12,10 +12,21 @@ import {
   useReactTable,
   VisibilityState,
 } from '@tanstack/react-table';
-import { ArrowUpDown, ChevronLeft, ChevronRight, MoreHorizontal, Trash2 } from 'lucide-react';
+import {
+  ArrowUpDown,
+  ChevronLeft,
+  ChevronRight,
+  CircleCheckBig,
+  CircleX,
+  Eye,
+  LoaderCircle,
+  MoreHorizontal,
+  Trash2,
+} from 'lucide-react';
 import Link from 'next/link';
 import * as React from 'react';
 
+import { Badge } from '@/components/ui/badge';
 import { Button, buttonVariants } from '@/components/ui/button';
 import { Checkbox } from '@/components/ui/checkbox';
 import {
@@ -60,7 +71,7 @@ export const columns: ColumnDef<UserAnswerType>[] = [
         </Button>
       );
     },
-    cell: ({ row }) => <div className='lowercase pl-4'>{row.getValue('questionNo')}</div>,
+    cell: ({ row }) => <div className='uppercase pl-4'>{row.getValue('questionNo')}</div>,
   },
   {
     accessorKey: 'topic',
@@ -76,7 +87,14 @@ export const columns: ColumnDef<UserAnswerType>[] = [
         </Button>
       );
     },
-    cell: ({ row }) => <div className='capitalize hidden sm:block ml-4'>{row.getValue('topic')}</div>,
+    cell: ({ row }) => (
+      <div className='capitalize hidden sm:block ml-4'>
+        <Badge variant={'outline'} className='mr-3'>
+          math
+        </Badge>
+        {row.getValue('topic')}
+      </div>
+    ),
   },
   {
     accessorKey: 'correct',
@@ -91,7 +109,21 @@ export const columns: ColumnDef<UserAnswerType>[] = [
     cell: ({ row }) => {
       const isCorrect = row.getValue('correct');
 
-      return <div className='pl-4'>{isCorrect ? <span className='text-green-500'>正確</span> : '錯誤'}</div>;
+      return (
+        <div className='pl-4'>
+          {isCorrect ? (
+            <div className='text-green-600 flex items-center gap-2'>
+              <CircleCheckBig size={'16'} />
+              <span>正確</span>
+            </div>
+          ) : (
+            <div className='flex items-center gap-2 opacity-70'>
+              <LoaderCircle size={'16'} />
+              <span>錯誤</span>
+            </div>
+          )}
+        </div>
+      );
     },
   },
   {
@@ -115,11 +147,18 @@ export const columns: ColumnDef<UserAnswerType>[] = [
           </DropdownMenuTrigger>
           <DropdownMenuContent align='end'>
             {/* <DropdownMenuLabel>Actions</DropdownMenuLabel> */}
-            <DropdownMenuItem>
-              <Link href={`/exam/user/${answer.question._id}`}>查看題目</Link>
-            </DropdownMenuItem>
+            <Link href={`/exam/user/${answer.question._id}`}>
+              <DropdownMenuItem>
+                <Eye />
+                <span>查看題目</span>
+              </DropdownMenuItem>
+            </Link>
+
             <DropdownMenuSeparator />
-            <DropdownMenuItem onClick={() => deleteRecord(answer._id)}>刪除記錄</DropdownMenuItem>
+            <DropdownMenuItem onClick={() => deleteRecord(answer._id)}>
+              <CircleX />
+              刪除記錄
+            </DropdownMenuItem>
           </DropdownMenuContent>
         </DropdownMenu>
       );

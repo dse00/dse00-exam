@@ -1,7 +1,10 @@
 import apiClient from '@/services/ExamApiClient';
 import { CommentType, CreateCommentType } from '@/types/comment';
 import { CreateExerciseDto, ExerciseListItemType, ExerciseType, UpdateExerciseDto } from '@/types/exercise';
+import { CreatePaymentRecordDto, PaymentType } from '@/types/payment';
+import { PlanType } from '@/types/plan';
 import { HomeContentType, PaperType, QuestionType } from '@/types/question';
+import { SubscriptionType } from '@/types/subscription';
 import { UserType } from '@/types/user';
 import { CreateUserAnswerType, UserAnswerType } from '@/types/userAnswer';
 
@@ -87,4 +90,29 @@ export default {
 
     return apiClient.get('/comments?' + query);
   },
+
+  createPaymentRecord: async <T = PaymentType>(paymentRecord: CreatePaymentRecordDto): Promise<T> =>
+    apiClient.post('/payments', paymentRecord),
+
+  getPaymentRecords: async (token: string): Promise<PaymentType[]> =>
+    apiClient.get('/payments/user', {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    }),
+
+  getPlans: async (): Promise<PlanType[]> => apiClient.get('/plans'),
+
+  getPlan: async (planKey: string): Promise<PlanType> => apiClient.get('/plans/' + planKey),
+
+  createSubscription: async (userId: string, planId: string) => apiClient.post('/subscriptions', { userId, planId }),
+
+  getSubscription: async (id: string): Promise<SubscriptionType> => apiClient.get('/subscriptions/' + id),
+
+  getSubscriptionsByUser: async (token: string): Promise<SubscriptionType[]> =>
+    apiClient.get('/subscriptions/user', {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    }),
 };

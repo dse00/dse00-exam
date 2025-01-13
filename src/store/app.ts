@@ -10,6 +10,8 @@ export type State = {
   setLoginDialogOpen: (open: boolean) => void;
   language: LanguageEnum | null;
   setLanguage: (language: LanguageEnum) => void;
+  loading: boolean;
+  setLoading: (loading: boolean) => void;
 };
 
 export const useAppStore = create<State>((set, get) => ({
@@ -20,4 +22,6 @@ export const useAppStore = create<State>((set, get) => ({
   setLoginDialogOpen: (open: boolean) => set({ loginDialogOpen: open }),
   language: null,
   setLanguage: (language: LanguageEnum) => set({ language }),
+  loading: false,
+  setLoading: (loading: boolean) => set({ loading }),
 }));

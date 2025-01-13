@@ -1,10 +1,8 @@
-'use client';
-import { useRouter } from 'next/navigation';
+import Link from 'next/link';
 import { FC } from 'react';
 
-import { Button } from '@/components/ui/button';
+import { buttonVariants } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
-import { cn } from '@/lib/utils';
 import { PaperType } from '@/types/question';
 
 interface props {
@@ -14,21 +12,19 @@ interface props {
 }
 
 const ExamCard: FC<props> = ({ exam, isFeatured, styles }) => {
-  const router = useRouter();
-
   return (
-    <Card className='flex flex-col basis-1/3'>
+    <Card className='h-full flex flex-col'>
       <CardHeader className='grow flex flex-col justify-between'>
         <CardTitle className={styles}>{exam.displayName}</CardTitle>
         <CardDescription>香港中學文憑試</CardDescription>
       </CardHeader>
-      <CardContent>
+      <CardContent className='grow'>
         <p>共 {exam.numberOfquestions} 題</p>
       </CardContent>
       <CardFooter>
-        <Button variant={isFeatured ? 'default' : 'secondary'} onClick={() => router.push(`/exam/${exam.path}`)}>
+        <Link className={buttonVariants({ variant: isFeatured ? 'default' : 'secondary' })} href={`/exam/${exam.path}`}>
           開始
-        </Button>
+        </Link>
       </CardFooter>
     </Card>
   );

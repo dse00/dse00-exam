@@ -4,6 +4,7 @@ import { FC } from 'react';
 
 import LoginDialog from '@/components/LoginDialog';
 import { Toaster } from '@/components/ui/toaster';
+import WebLoading from '@/components/WebLoading';
 import { ignoreWarn } from '@/lib/warn';
 
 import ReactQueryProvider from './reactQueryProvider';
@@ -21,6 +22,7 @@ const RootProvider: FC<props> = ({ children }) => {
         <>
           {children}
           <LoginDialog />
+          <WebLoading />
         </>
       </ReactQueryProvider>
       <Toaster />

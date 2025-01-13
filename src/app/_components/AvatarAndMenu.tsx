@@ -8,12 +8,12 @@ import { useEffect } from 'react';
 
 import { Button, buttonVariants } from '@/components/ui/button';
 import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover';
+import { useSubscription } from '@/hooks';
 import { useUser } from '@/hooks/useUser';
 import { cn } from '@/lib/utils';
 import { useAppStore } from '@/store';
 
-export const FAKE_USER_ICON =
-  'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQI3vvVZ-pOGsyhaNEm9s-tm96lh7OGxJrpPQ&usqp=CAU';
+export const FAKE_USER_ICON = '/images/default-icon.png';
 
 export const menuItems = [
   {
@@ -36,6 +36,8 @@ export const menuItems = [
 export default function AvatarAndMenu() {
   const { userData, isError } = useUser();
 
+  const { subscriptionData } = useSubscription();
+
   const path = usePathname();
 
   const { setLoginDialogOpen } = useAppStore();
@@ -53,6 +55,7 @@ export default function AvatarAndMenu() {
     if (isError) {
       signOut();
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isError]);
 
   if (!userData) {
@@ -73,8 +76,21 @@ export default function AvatarAndMenu() {
           <div className='flex gap-4'>
             <img src={FAKE_USER_ICON} alt='user_icon' className='w-14 h-14 object-cover rounded-full' />
             <div className='grid'>
-              <span className='font-black'>{userData.name}</span>
-              <span className='text-sm text-primary'>Premium Member</span>
+              <span className='font-black ml-2'>{userData.name}</span>
+
+              {subscriptionData ? (
+                <Link
+                  href={'/config/subscription'}
+                  className='text-sm text-primary hover:bg-[#00000009] px-2 py-1 rounded-lg typo-round text-green-500 flex gap-2'
+                >
+                  <Image src={'/images/leaf.png'} alt='' width={20} height={20} />
+                  <span> DSE00+ PLUS 會員</span>
+                </Link>
+              ) : (
+                <Link href={'/membership'} className='text-sm text-primary hover:bg-[#00000009] px-2 py-1 rounded-lg'>
+                  訂閱 DSE00 +
+                </Link>
+              )}
             </div>
           </div>
           <div className='grid grid-cols-3 gap-4'>

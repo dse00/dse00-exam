@@ -12,9 +12,17 @@ import {
   BreadcrumbSeparator,
 } from '@/components/ui/breadcrumb';
 import { Button, buttonVariants } from '@/components/ui/button';
-import { Calendar } from '@/components/ui/calendar';
 
-import { menuItems } from '../_components/AvatarAndMenu';
+export const menuItems = [
+  {
+    title: '訂閱',
+    href: '/config/subscription',
+  },
+  {
+    title: '付款記錄',
+    href: '/config/payment',
+  },
+];
 
 export type LayoutProps = {
   children: React.ReactNode;
@@ -26,7 +34,7 @@ export default ({ children }: LayoutProps) => {
   const pathname = usePathname();
 
   return (
-    <div className='flex flex-col items-center gap-6'>
+    <div className='flex flex-col items-center gap-10'>
       <Header />
       <div className='container px-2'>
         <Breadcrumb>
@@ -43,7 +51,6 @@ export default ({ children }: LayoutProps) => {
       </div>
       <div className='container justify-center gap-20 flex px-2 items-start'>
         <div className='gap-6 hidden sm:grid'>
-          <Calendar mode='single' selected={date} onSelect={setDate} className='rounded-md border' />
           {menuItems.map((item, index) => (
             <Link
               key={item.title}

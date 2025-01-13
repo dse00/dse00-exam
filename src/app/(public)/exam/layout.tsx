@@ -1,6 +1,8 @@
 'use client';
 import { useParams } from 'next/navigation';
 
+import { ProblemListSidebar } from '@/app/_components/ProblemListSidebar';
+import LanguageButton from '@/components/LanguageButton';
 import {
   Breadcrumb,
   BreadcrumbItem,
@@ -18,6 +20,7 @@ export default ({ children }: LayoutProps) => {
 
   return (
     <div className='flex flex-col'>
+      <LanguageButton />
       <Breadcrumb>
         <BreadcrumbList>
           <BreadcrumbItem>

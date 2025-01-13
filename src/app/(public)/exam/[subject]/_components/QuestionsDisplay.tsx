@@ -1,3 +1,4 @@
+import { ProblemListSidebar } from '@/app/_components/ProblemListSidebar';
 import { QuestionType } from '@/types/question';
 
 import PaginationSession from './PaginationSession';
@@ -7,13 +8,15 @@ type Props = {
   questions: QuestionType[];
   totalPage?: number;
   currentPage?: number;
-  header?: string;
+  header: string;
 };
 
-export default ({ questions, totalPage, currentPage, header }: Props) => {
+export default ({ questions, totalPage, currentPage = 1, header }: Props) => {
   return (
     <div className='grid gap-6'>
-      <h1 className='font-black text-2xl'>{header}</h1>
+      <div className='flex'>
+        <ProblemListSidebar questions={questions} header={header} currentPage={currentPage} />
+      </div>
 
       <div className='grid gap-10'>
         {questions.map((question: QuestionType, index: number) => (
