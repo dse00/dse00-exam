@@ -12,7 +12,7 @@ import {
 } from '@/components/ui/breadcrumb';
 import { buttonVariants } from '@/components/ui/button';
 
-export const menuItems = [
+const menuItems = [
   {
     title: '訂閱',
     href: '/config/subscription',
