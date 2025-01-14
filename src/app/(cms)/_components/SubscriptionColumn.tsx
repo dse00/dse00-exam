@@ -11,17 +11,18 @@ import { ArrowUpDown, MoreHorizontal } from 'lucide-react';
 import moment from 'moment';
 
 import { Button } from '@/components/ui/button';
-import { useCmsPayment } from '@/hooks/cms/useCmsPayment';
+import { useCmsSubscription } from '@/hooks/cms/useCmsSubscription';
 
-export type PaymentColumn = {
+export type SubscriptionColumn = {
   _id: string;
-  createdAt: string;
-  referenceId: string;
+  endDate: string;
+  plan: string;
+  user: string;
+  email: string;
   message: string;
-  status: string;
 };
 
-export const paymentColumn: ColumnDef<PaymentColumn>[] = [
+export const subscriptionColumn: ColumnDef<SubscriptionColumn>[] = [
   {
     id: 'select',
     header: ({ table }) => (
@@ -47,19 +48,9 @@ export const paymentColumn: ColumnDef<PaymentColumn>[] = [
     cell: ({ row }) => <div className='capitalize hidden'>{row.getValue('_id')}</div>,
   },
   {
-    accessorKey: 'status',
-    header: 'Status',
-    cell: ({ row }) => (
-      <div className='capitalize'>
-        {row.getValue('status') === 'success' ? (
-          <span className='flex text-green-500'>success</span>
-        ) : row.getValue('status') === 'fail' ? (
-          <span className='flex text-red-500'>fail</span>
-        ) : (
-          <span className='flex text-yellow-600'>pending</span>
-        )}
-      </div>
-    ),
+    accessorKey: 'plan',
+    header: 'plan',
+    cell: ({ row }) => row.getValue('plan'),
   },
   {
     accessorKey: 'message',
@@ -74,19 +65,10 @@ export const paymentColumn: ColumnDef<PaymentColumn>[] = [
     cell: ({ row }) => <div className='lowercase'>{row.getValue('message')}</div>,
   },
   {
-    accessorKey: 'referenceId',
-    header: () => <div className='text-right'>referenceId</div>,
+    accessorKey: 'endDate',
+    header: () => <div className='text-right'>endDate</div>,
     cell: ({ row }) => {
-      return <div className='text-right font-medium'>{row.getValue('referenceId')}</div>;
-    },
-  },
-  {
-    accessorKey: 'createdAt',
-    header: () => <div className='text-right'>Created At</div>,
-    cell: ({ row }) => {
-      return (
-        <div className='text-right font-medium'>{moment(row.getValue('createdAt')).format('YYYY-MM-DD hh:mm')}</div>
-      );
+      return <div className='text-right font-medium'>{moment(row.getValue('endDate')).format('YYYY-MM-DD')}</div>;
     },
   },
   {
@@ -95,10 +77,10 @@ export const paymentColumn: ColumnDef<PaymentColumn>[] = [
     cell: ({ row }) => {
       const user = row.original;
 
-      const { updatePayment } = useCmsPayment();
+      const { deleteSubscription } = useCmsSubscription();
 
-      const handlePayment = (status: string) => {
-        updatePayment({ paymentId: row.getValue('_id'), status });
+      const toDeleteSubscription = (subscriptionId: string) => {
+        deleteSubscription(subscriptionId);
       };
 
       return (
@@ -110,14 +92,8 @@ export const paymentColumn: ColumnDef<PaymentColumn>[] = [
             </Button>
           </DropdownMenuTrigger>
           <DropdownMenuContent align='end' className='bg-white p-4 shadow-lg grid gap-2 z-50 rounded-sm'>
-            <DropdownMenuItem className='cursor-pointer' onClick={() => handlePayment('success')}>
-              Approve
-            </DropdownMenuItem>
-            <DropdownMenuItem className='cursor-pointer' onClick={() => handlePayment('fail')}>
-              Reject
-            </DropdownMenuItem>
-            <DropdownMenuItem className='cursor-pointer' onClick={() => handlePayment('pending')}>
-              Pending
+            <DropdownMenuItem className='cursor-pointer' onClick={() => toDeleteSubscription(row.getValue('_id'))}>
+              Delete
             </DropdownMenuItem>
           </DropdownMenuContent>
         </DropdownMenu>

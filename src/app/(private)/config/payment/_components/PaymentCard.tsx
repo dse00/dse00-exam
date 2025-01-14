@@ -2,8 +2,6 @@ import moment from 'moment';
 import Image from 'next/image';
 import { FC } from 'react';
 
-import { Badge } from '@/components/ui/badge';
-import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
 import { PaymentType } from '@/types/payment';
 
 type props = {
@@ -35,25 +33,6 @@ const PaymentCard: FC<props> = ({ payment }) => {
           <span className='uppercase'> {payment._id}</span>
         </div>
       </div>
-      {/* <Card>
-        <CardHeader>
-          <CardTitle>{payment.type}</CardTitle>
-          <CardDescription>{payment.message}</CardDescription>
-        </CardHeader>
-        <CardContent>
-          <p>{payment.referenceId}</p>
-          <p>$ {payment.amount}</p>
-          <p>{payment.type}</p>
-          <p>{moment(payment.createdAt).format('YYYY-MM-DD')}</p>
-          <p>
-            <span>交易編號</span>
-            {payment._id}
-          </p>
-        </CardContent>
-        <CardFooter>
-          <Badge>{payment.status}</Badge>
-        </CardFooter>
-      </Card> */}
     </div>
   );
 };

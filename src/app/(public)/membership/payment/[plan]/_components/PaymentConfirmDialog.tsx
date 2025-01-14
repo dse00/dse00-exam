@@ -16,6 +16,7 @@ type props = {
   currentPlan: PlanType;
 };
 const PaymentConfirmDialog: FC<props> = ({ currentPlan }) => {
+  const [open, setOpen] = useState(false);
   const [answer, setAnswer] = useState({
     screenshot: false,
     email: '',
@@ -35,7 +36,7 @@ const PaymentConfirmDialog: FC<props> = ({ currentPlan }) => {
     }
 
     setLoading(true);
-
+    setOpen(false);
     const subscriptionPayment = await services.createPaymentRecord<SubscriptionPaymentType>({
       message: currentPlan.name + ' ' + answer.email,
       user: userData.user,
@@ -48,7 +49,7 @@ const PaymentConfirmDialog: FC<props> = ({ currentPlan }) => {
   };
 
   return (
-    <Dialog>
+    <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger className={buttonVariants()}>確認付款</DialogTrigger>
       <DialogContent className='grid gap-4'>
         <DialogHeader>
