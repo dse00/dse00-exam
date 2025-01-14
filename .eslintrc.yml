@@ -18,7 +18,7 @@ plugins:
   - react-hooks
   - '@typescript-eslint'
   - simple-import-sort
-  - baseui
+  - unused-imports
 
 extends:
   - standard
@@ -33,13 +33,14 @@ settings:
     version: detect
 
 rules:
+  unused-imports/no-unused-imports: warn
   no-console: 'off'
   no-unused-vars: 'off'
   no-debugger: 'warn'
   '@typescript-eslint/no-unused-vars': 'off'
   no-use-before-define: 'off'
   # '@typescript-eslint/no-use-before-define': error
-  "no-multiple-empty-lines": ["off"]
+  'no-multiple-empty-lines': ['off']
   # skip this rule if no prop-types
   'react/prop-types': off
   # use custom indent: 4 space
@@ -141,7 +142,3 @@ rules:
     # - blankLine: 'always'
     #   prev: '*'
     #   next: ['const', 'let', 'var']
-
-  baseui/deprecated-theme-api: "warn"
-  baseui/deprecated-component-api: "warn"
-  baseui/no-deep-imports: "warn"
