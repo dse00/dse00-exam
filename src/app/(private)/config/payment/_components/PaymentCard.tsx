@@ -12,13 +12,13 @@ type props = {
 
 const PaymentCard: FC<props> = ({ payment }) => {
   return (
-    <div className='relative w-[500px]'>
-      <Image src={'/images/receipt.svg'} alt='payment' width={500} height={120} className='' />
-      <div className='absolute text-white font-medium flex items-center justify-center uppercase text-xl tracking-widest top-0 right-0 bg-[#B6AC96] h-10 w-40 mr-3 rounded-bl-3xl rounded-tr-3xl mt-3'>
+    <div className='relative w-[450px] hover:scale-105 transition-transform duration-300 ease-in-out'>
+      <Image src={'/images/receipt.svg'} alt='payment' width={450} height={120} className='' />
+      <div className='absolute text-white font-medium flex items-center justify-center uppercase tracking-widest top-0 right-0 bg-[#B6AC96] h-7 w-36 mr-3 rounded-bl-2xl rounded-tr-2xl mt-2'>
         {payment.status}
       </div>
 
-      <div className='absolute z-10 top-0 left-0 pt-8 pb-0 px-14 text-gray-600 flex flex-col gap-[14px] text-lg justify-between w-full'>
+      <div className='absolute z-10 top-0 left-0 pt-6 pb-0 px-10 text-gray-600 flex flex-col gap-[14px] justify-between w-full'>
         <h1 className='uppercase tracking-widest font-black '>{payment.type}</h1>
         <div className='flex gap-6'>
           <div className='font-black text-4xl flex items-center justify-center py-4 px-2 tracking-wider'>
