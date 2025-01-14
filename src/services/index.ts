@@ -4,6 +4,7 @@ import { CreateExerciseDto, ExerciseListItemType, ExerciseType, UpdateExerciseDt
 import { CreatePaymentRecordDto, PaymentType } from '@/types/payment';
 import { PlanType } from '@/types/plan';
 import { HomeContentType, PaperType, QuestionType } from '@/types/question';
+import { PutQuotaDto, QuotaType } from '@/types/quota';
 import { SubscriptionType } from '@/types/subscription';
 import { UserType } from '@/types/user';
 import { CreateUserAnswerType, UserAnswerType } from '@/types/userAnswer';
@@ -21,6 +22,8 @@ const tryCatch = async (fn: any, defaultValue?: any) => {
 };
 
 export default {
+  getHealth: async () => apiClient.get('/health'),
+
   getContent: async (): Promise<HomeContentType> => apiClient.get('/questions/get-content'),
 
   getUserProfile: async (token: string): Promise<UserType> => {
@@ -111,6 +114,24 @@ export default {
 
   getSubscriptionsByUser: async (token: string): Promise<SubscriptionType[]> =>
     apiClient.get('/subscriptions/user', {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    }),
+
+  putQuota: async (putQuotaDto: PutQuotaDto): Promise<QuotaType> =>
+    apiClient.post(
+      '/quota',
+      { topic: putQuotaDto.topic },
+      {
+        headers: {
+          Authorization: `Bearer ${putQuotaDto.token}`,
+        },
+      }
+    ),
+
+  getQuotaData: async (token: string, topic: string): Promise<QuotaType> =>
+    apiClient.get('/quota/user?topic=' + topic, {
       headers: {
         Authorization: `Bearer ${token}`,
       },
