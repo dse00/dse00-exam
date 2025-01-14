@@ -1,9 +1,7 @@
 'use client';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { useState } from 'react';
 
-import Header from '@/app/_components/Header';
 import DefaultLayout from '@/components/layouts/DefaultLayout';
 import {
   Breadcrumb,
@@ -12,7 +10,7 @@ import {
   BreadcrumbList,
   BreadcrumbSeparator,
 } from '@/components/ui/breadcrumb';
-import { Button, buttonVariants } from '@/components/ui/button';
+import { buttonVariants } from '@/components/ui/button';
 
 export const menuItems = [
   {
@@ -25,13 +23,7 @@ export const menuItems = [
   },
 ];
 
-export type LayoutProps = {
-  children: React.ReactNode;
-};
-
-export default ({ children }: LayoutProps) => {
-  const [date, setDate] = useState<Date | undefined>(new Date());
-
+export default ({ children }: { children: React.ReactNode }) => {
   const pathname = usePathname();
 
   return (
