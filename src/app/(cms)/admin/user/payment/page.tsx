@@ -1,7 +1,6 @@
 'use client';
 import { BaseTable } from '@/app/(cms)/_components/BaseTable';
 import { PaymentColumn, paymentColumn } from '@/app/(cms)/_components/PaymentColumn';
-import PaymentCard from '@/app/(private)/config/payment/_components/PaymentCard';
 import { useCmsPayment } from '@/hooks/cms/useCmsPayment';
 
 const AdminUserPaymentPage = () => {
