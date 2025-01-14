@@ -20,7 +20,9 @@ export default ({ children }: LayoutProps) => {
 
   return (
     <div className='flex flex-col'>
-      <LanguageButton />
+      <div className='flex justify-end gap-4'>
+        <LanguageButton />
+      </div>
       <Breadcrumb>
         <BreadcrumbList>
           <BreadcrumbItem>

@@ -15,8 +15,6 @@ const UserConfigPaymentPage = async () => {
 
   const paymentData = await services.getPaymentRecords(token);
 
-  console.log(paymentData);
-
   return (
     <div>
       <div className='grid gap-4'>

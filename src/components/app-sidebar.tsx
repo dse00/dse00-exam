@@ -29,7 +29,7 @@ const data = {
   },
   teams: [
     {
-      name: 'Acme Inc',
+      name: 'DSE00',
       logo: GalleryVerticalEnd,
       plan: 'Enterprise',
     },
@@ -46,40 +46,36 @@ const data = {
   ],
   navMain: [
     {
-      title: 'Playground',
+      title: 'Users',
       url: '#',
       icon: SquareTerminal,
       isActive: true,
       items: [
         {
-          title: 'History',
-          url: '#',
+          title: 'List',
+          url: '/admin/user',
         },
         {
-          title: 'Starred',
-          url: '#',
+          title: 'Payment',
+          url: '/admin/user/payment',
         },
         {
-          title: 'Settings',
-          url: '#',
+          title: 'Subscription',
+          url: '/admin/user/subscription',
         },
       ],
     },
     {
-      title: 'Models',
+      title: 'Questions',
       url: '#',
       icon: Bot,
       items: [
         {
-          title: 'Genesis',
+          title: 'List',
           url: '#',
         },
         {
-          title: 'Explorer',
-          url: '#',
-        },
-        {
-          title: 'Quantum',
+          title: 'Exercise',
           url: '#',
         },
       ],
@@ -133,13 +129,13 @@ const data = {
   ],
   projects: [
     {
-      name: 'Design Engineering',
-      url: '#',
+      name: 'DSE Exam',
+      url: '/',
       icon: Frame,
     },
     {
-      name: 'Sales & Marketing',
-      url: '#',
+      name: 'DSE00',
+      url: 'https://dse00.com',
       icon: PieChart,
     },
     {

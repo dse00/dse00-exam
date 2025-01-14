@@ -10,6 +10,8 @@ import { Badge } from '@/components/ui/badge';
 import { buttonVariants } from '@/components/ui/button';
 import services from '@/services';
 
+import ReturnHomeButton from './_components/ReturnHomeButton';
+
 type props = {
   params: Promise<{
     subscriptionId: string;
@@ -36,9 +38,7 @@ const MembershipPaymentSuccessPage: NextPage<props> = async ({ params }) => {
           <p className='w-80 text-center text-gray-400'>
             我們會在 3 個工作天處理你的付款，在此之前，你可以開始使用 <span className='type-round'>DSE00 +</span>
           </p>
-          <Link href='/' className={buttonVariants({ size: 'lg' })}>
-            HOME
-          </Link>
+          <ReturnHomeButton />
         </div>
       </div>
     </div>

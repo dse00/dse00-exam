@@ -1,4 +1,5 @@
 import { BaseDataType } from '.';
+import { PaymentType } from './payment';
 import { PlanType } from './plan';
 
 export type SubscriptionType = {
@@ -6,4 +7,5 @@ export type SubscriptionType = {
   user: string;
   plan: PlanType;
   endDate: Date;
+  payment: PaymentType;
 } & BaseDataType;

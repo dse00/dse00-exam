@@ -21,9 +21,11 @@ export const useSubscription = () => {
     staleTime: 1000 * 60 * 60 * 24 * 365, // 1 year
   });
 
+  const isActiveSubscription = new Date(subscriptionData?.at(-1)?.endDate as any) >= new Date();
+
   const invalidateUserQuery = () => {
     queryClient.invalidateQueries({ queryKey: [QUERY_KEYS.SUBSCRIPTION] });
   };
 
-  return { subscriptionData, isError };
+  return { subscriptionData, isError, isActiveSubscription };
 };

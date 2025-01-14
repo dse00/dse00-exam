@@ -32,15 +32,13 @@ const LanguageButton = () => {
   if (!language) return null;
 
   return (
-    <div className='container flex justify-end w-full'>
-      <Button
-        onClick={toChangeLanguage}
-        variant={null}
-        className={LanguageEnum.TC === language ? 'bg-blue-400 text-white' : 'bg-red-400 text-white'}
-      >
-        {language === LanguageEnum.TC ? '中文' : 'English'}
-      </Button>
-    </div>
+    <Button
+      onClick={toChangeLanguage}
+      variant={null}
+      className={LanguageEnum.TC === language ? 'bg-blue-400 text-white' : 'bg-red-400 text-white'}
+    >
+      {language === LanguageEnum.TC ? '中文' : 'English'}
+    </Button>
   );
 };
 
