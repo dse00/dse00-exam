@@ -255,7 +255,6 @@
                 const params = this.userData;
                 const user = await this.makeRequest(url, "POST", params);
                 if (user.code !== 0) {
-                    console.log("likwai");
                     this.open("error", user.message);
                     return;
                 }

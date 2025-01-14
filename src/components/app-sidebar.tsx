@@ -61,7 +61,7 @@ const data = {
         },
         {
           title: 'Subscription',
-          url: '#',
+          url: '/admin/user/subscription',
         },
       ],
     },

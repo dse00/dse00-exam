@@ -1,6 +1,6 @@
 'use client';
 import Cookies from 'js-cookie';
-import { ArrowBigLeft, Database, LogOut } from 'lucide-react';
+import { ArrowBigLeft, Database, LogOut, Settings } from 'lucide-react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { usePathname, useRouter } from 'next/navigation';
@@ -88,7 +88,8 @@ export default function AvatarAndMenu() {
 
               {isActiveSubscription ? (
                 <Button
-                  onClick={() => toRedirect('/config/subscription')}
+                  variant={'ghost'}
+                  onClick={() => toRedirect('/membership')}
                   className='text-sm text-primary hover:bg-[#00000009] px-2 py-1 rounded-lg typo-round text-green-500 flex gap-2'
                 >
                   <Image src={'/images/leaf.png'} alt='' width={20} height={20} />
@@ -124,6 +125,10 @@ export default function AvatarAndMenu() {
                 <span>管理員</span>
               </Button>
             )}
+            <Button variant={'ghost'} onClick={() => toRedirect('/config/subscription')} className={'justify-start'}>
+              <Settings />
+              <span>個人檔案</span>
+            </Button>
             <Link href={'https://www.dse00.com/'} className={cn(buttonVariants({ variant: 'ghost' }), 'justify-start')}>
               <ArrowBigLeft />
               <span>返回 DSE00</span>
