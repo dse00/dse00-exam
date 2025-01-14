@@ -83,7 +83,7 @@ export const columns: ColumnDef<ExerciseListItemType>[] = [
         ) : (
           <Link
             href={`/exam/${row.original.subject}/exercise/${row.original._id}`}
-            className={buttonVariants({ variant: 'default', size: 'sm' })}
+            className={buttonVariants({ size: 'sm' })}
           >
             開始
           </Link>

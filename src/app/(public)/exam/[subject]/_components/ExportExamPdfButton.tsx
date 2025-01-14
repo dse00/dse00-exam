@@ -26,7 +26,7 @@ const ExportExamPdfButton: FC<props> = ({ href }) => {
   const [isDialogOpen, setIsDialogOpen] = useState(false);
   const { userData } = useUser();
 
-  const { subscriptionData } = useSubscription();
+  const { isActiveSubscription } = useSubscription();
   const { quotaData } = useQuota('exam-pdf');
   const token = Cookies.get('token') as string;
 
@@ -65,7 +65,7 @@ const ExportExamPdfButton: FC<props> = ({ href }) => {
             <Button
               onClick={toExportPdf}
               variant={'secondary'}
-              disabled={(quotaData?.count as number) >= 3 && !subscriptionData}
+              disabled={(quotaData?.count as number) >= 3 && !isActiveSubscription}
             >
               繼續
             </Button>

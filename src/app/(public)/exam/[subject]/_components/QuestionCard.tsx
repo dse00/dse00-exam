@@ -25,11 +25,11 @@ interface props {
 
 const QuestionCard: FC<props> = ({ question, questionNo }) => {
   const { language } = useAppStore();
-  const { subscriptionData } = useSubscription();
+  const { isActiveSubscription } = useSubscription();
 
   if (!language) return null;
 
-  if (question.correctPercentage <= QUESTION_DIFFICULTY_THRESHOLD.EXTREME_HARD && !subscriptionData) {
+  if (question.correctPercentage <= QUESTION_DIFFICULTY_THRESHOLD.EXTREME_HARD && !isActiveSubscription) {
     return (
       <Card id={questionNo.toString()}>
         <CardHeader>
