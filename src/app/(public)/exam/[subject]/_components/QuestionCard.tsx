@@ -4,7 +4,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { FC } from 'react';
 
-import { Button, buttonVariants } from '@/components/ui/button';
+import { buttonVariants } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
 import { Skeleton } from '@/components/ui/skeleton';
 import { QUESTION_DIFFICULTY_THRESHOLD } from '@/constants';

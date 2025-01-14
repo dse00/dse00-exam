@@ -37,7 +37,7 @@ export const ProblemListSidebar: FC<props> = ({ questions, header, currentPage }
           {/* <SheetDescription>Make changes to your profile here. Click save when you're done.</SheetDescription> */}
         </SheetHeader>
         <div className='grid gap-4 py-10'>
-          {questions.map((question: QuestionType, index: number) => (
+          {questions?.map((question: QuestionType, index: number) => (
             <Link key={question._id} href={`/exam/user/${question._id}`}>
               <Button
                 variant={index % 2 === 0 ? 'ghost' : 'secondary'}
