@@ -4,7 +4,7 @@ import { redirect } from 'next/navigation';
 import { FC } from 'react';
 
 import { LanguageEnum } from '@/constants';
-import { processImageNameByLang } from '@/lib/processImageNameByLang';
+import { getImageNameByLang } from '@/lib/getImageNameByLang';
 import services from '@/services';
 
 type PageProps = {
@@ -55,7 +55,7 @@ const PdfPage: FC<PageProps> = async ({ params }) => {
                 <h3 className='pt-1'>{index + 1}.</h3>
                 <div className='relative max-w-[720px]'>
                   <Image
-                    src={processImageNameByLang(question.questionImage, language)}
+                    src={getImageNameByLang(question, language)}
                     className=''
                     alt='question'
                     width={1000}
