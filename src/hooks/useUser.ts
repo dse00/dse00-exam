@@ -1,6 +1,5 @@
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import Cookies from 'js-cookie';
-import { useRouter } from 'next/navigation';
 
 import { QUERY_KEYS } from '@/constants';
 import services from '@/services';

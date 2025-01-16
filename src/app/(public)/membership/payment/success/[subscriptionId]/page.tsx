@@ -1,13 +1,7 @@
 import { Heart } from 'lucide-react';
-import moment from 'moment';
 import { NextPage } from 'next';
-import Image from 'next/image';
-import Link from 'next/link';
 
-import { FAKE_USER_ICON } from '@/app/_components/AvatarAndMenu';
 import SubscriptionCard from '@/components/SubscriptionCard';
-import { Badge } from '@/components/ui/badge';
-import { buttonVariants } from '@/components/ui/button';
 import services from '@/services';
 
 import ReturnHomeButton from './_components/ReturnHomeButton';

@@ -2,7 +2,6 @@ import { NextPage } from 'next';
 
 import services from '@/services';
 import { ExerciseType } from '@/types/exercise';
-import { QuestionType } from '@/types/question';
 
 import ExercisePaper from '../_components/ExercisePaper';
 

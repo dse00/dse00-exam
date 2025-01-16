@@ -1,4 +1,3 @@
-import Header from '@/app/_components/Header';
 import { AppSidebar } from '@/components/app-sidebar';
 import {
   Breadcrumb,

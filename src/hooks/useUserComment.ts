@@ -2,7 +2,6 @@ import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 
 import { QUERY_KEYS } from '@/constants';
 import services from '@/services';
-import { CreateUserAnswerType } from '@/types/userAnswer';
 
 import { useMyToast } from './useMyToast';
 import { useUser } from './useUser';

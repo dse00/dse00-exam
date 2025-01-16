@@ -2,7 +2,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 
 import DefaultLayout from '@/components/layouts/DefaultLayout';
-import { Button, buttonVariants } from '@/components/ui/button';
+import { buttonVariants } from '@/components/ui/button';
 
 const Custom404 = () => {
   return (
