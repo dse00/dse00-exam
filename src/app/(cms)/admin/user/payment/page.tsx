@@ -8,7 +8,17 @@ const AdminUserPaymentPage = () => {
 
   if (!cmsPaymentData) return null;
 
-  return <div>{<BaseTable data={cmsPaymentData as PaymentColumn[]} columns={paymentColumn} filter={'message'} />}</div>;
+  return (
+    <div>
+      {
+        <BaseTable
+          data={cmsPaymentData as PaymentColumn[]}
+          columns={paymentColumn}
+          filter={{ key: 'message', name: 'Message' }}
+        />
+      }
+    </div>
+  );
 };
 
 export default AdminUserPaymentPage;

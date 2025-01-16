@@ -12,7 +12,6 @@ const testQuestion: QuestionType = {
   correctPercentage: 0.5,
   createdAt: '2022-01-01T00:00:00.000Z',
   updatedAt: '2022-01-01T00:00:00.000Z',
-  questionImage: 'testSubject.png',
   topic: 'testTopic',
 };
 

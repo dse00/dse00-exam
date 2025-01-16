@@ -15,7 +15,20 @@ const AdminUserSubscriptionPage = () => {
     message: data.payment?.message,
   })) as any;
 
-  return <div>{<BaseTable data={formattedData} columns={subscriptionColumn} filter={'message'} />}</div>;
+  return (
+    <div>
+      {
+        <BaseTable
+          data={formattedData}
+          columns={subscriptionColumn}
+          filter={{
+            key: 'message',
+            name: 'Message',
+          }}
+        />
+      }
+    </div>
+  );
 };
 
 export default AdminUserSubscriptionPage;

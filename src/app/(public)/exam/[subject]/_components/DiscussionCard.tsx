@@ -27,7 +27,7 @@ const DiscussionCard: FC<props> = ({ discussion, isMyComment, questionId }) => {
           <span className='font-bold grow'>{discussion.user.name}</span>
           <span className='text-gray-400 text-xs flex items-center'>{moment(discussion.createdAt).from(moment())}</span>
         </div>
-        <p className='grow'>{discussion.comment}</p>
+        <p className='grow' dangerouslySetInnerHTML={{ __html: discussion.comment.replaceAll('\n', '<br/>') }} />
         {isMyComment && (
           <div>
             <button className='text-xs text-gray-400' onClick={onDeleteComment}>

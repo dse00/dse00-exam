@@ -1,9 +1,8 @@
 'use client';
-import { ListTree } from 'lucide-react';
+import { AlignLeft, ListTree } from 'lucide-react';
 import Link from 'next/link';
 import { FC } from 'react';
 
-import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import {
   Sheet,
@@ -16,6 +15,7 @@ import {
 } from '@/components/ui/sheet';
 import { usePaperNameMapping } from '@/hooks/usePaperNameMapping';
 import { getDifficulty, getDifficultyStyle } from '@/lib/getDifficulty';
+import { cn } from '@/lib/utils';
 import { QuestionType } from '@/types/question';
 
 import ClientPaperName from './ClientPaperName';
@@ -39,7 +39,10 @@ export const ProblemListSidebar: FC<props> = ({ questions, header, currentPage }
       </SheetTrigger>
       <SheetContent side='left'>
         <SheetHeader>
-          <SheetTitle>問題列表</SheetTitle>
+          <SheetTitle className='flex items-center gap-4'>
+            <AlignLeft />
+            <span> 問題列表</span>
+          </SheetTitle>
           {/* <SheetDescription>Make changes to your profile here. Click save when you're done.</SheetDescription> */}
         </SheetHeader>
         <div className='grid gap-4 py-10'>
@@ -47,14 +50,15 @@ export const ProblemListSidebar: FC<props> = ({ questions, header, currentPage }
             <Link key={question._id} href={`/exam/user/${question._id}`}>
               <Button
                 variant={index % 2 === 0 ? 'ghost' : 'secondary'}
-                className='w-full flex items-center justify-between'
+                className='w-full flex sm:items-center justify-between flex-col sm:flex-row items-start'
               >
                 <div>
                   {(currentPage - 1) * 10 + index + 1}. {paperNameMappingData?.[question.topic]?.[displayNameKey]}
                 </div>
-                <Badge variant={'secondary'} className={getDifficultyStyle(question.correctPercentage)}>
+
+                <span className={cn(getDifficultyStyle(question.correctPercentage), 'text-xs')}>
                   {getDifficulty(question.correctPercentage)}
-                </Badge>
+                </span>
               </Button>
             </Link>
           ))}

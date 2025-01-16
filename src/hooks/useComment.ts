@@ -24,7 +24,7 @@ export const useComment = (questionId: string) => {
       return services.createComment(createProductsDto);
     },
     onSuccess: () => {
-      successToast('Your answer has been posted');
+      successToast('你的討論已提交');
       invalidateCommentsQuery();
     },
   });
@@ -34,7 +34,7 @@ export const useComment = (questionId: string) => {
       return services.deleteComment(commentId);
     },
     onSuccess: () => {
-      successToast('Your answer has been deleted');
+      successToast('你的討論已被删除');
       invalidateCommentsQuery();
     },
   });

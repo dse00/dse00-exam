@@ -1,43 +1,47 @@
-import { BellPlus, BookOpenCheck, Database, Infinity, Leaf, LibraryBig, ScrollText } from 'lucide-react';
+import { BellPlus, BookOpenCheck, Database, Infinity, Leaf, LibraryBig, ScrollText, Smile } from 'lucide-react';
 import { NextPage } from 'next';
 import { FC } from 'react';
 
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
 import services from '@/services';
+import { PlanType } from '@/types/plan';
 
 import MembershipJoinButton from './_component/MembershipJoinButton';
 
 const MembershipPage: NextPage = async () => {
   const plans = await services.getPlans();
 
-  const plan1month = plans?.find(plan => plan.key === '1month');
-  const plan3month = plans?.find(plan => plan.key === '3month');
+  const plan1month = plans?.find(plan => plan.key === '1month') as PlanType;
+  const plan3month = plans?.find(plan => plan.key === '3month') as PlanType;
+  const planLifeTime = plans?.find(plan => plan.key === 'lifetime') as PlanType;
 
   return (
     <div className='container sm:py-20 py-10'>
-      <div className='max-w-4xl mx-auto grid sm:gap-20 gap-10'>
+      <div className='max-w-5xl mx-auto grid sm:gap-20 gap-10'>
         <h1 className='typo-round sm:text-6xl text-4xl justify-center flex'>
           DSE00 +<Leaf />
         </h1>
 
-        <div className='flex flex-col sm:flex-row sm:gap-20 gap-10 justify-between'>
+        <div className='flex flex-col sm:flex-row sm:gap-14 gap-10 justify-between'>
+          {/* 1 month membership */}
           <Card className='px-1 shadow-xl'>
             <CardHeader>
-              <CardTitle className='text-2xl'>1 個月</CardTitle>
-              <CardDescription>原價 ${plan1month?.price}/月</CardDescription>
+              <CardTitle className='text-2xl'>{plan1month.name}</CardTitle>
+              <CardDescription>原價 ${plan1month?.originalPrice}/月</CardDescription>
             </CardHeader>
             <CardContent className='grid gap-4'>
               <p>{plan1month?.description}</p>
 
-              <p className='text-label-1 text-3xl font-semibold'>$13</p>
+              <p className='text-label-1 text-3xl font-semibold'>${plan1month.price}</p>
             </CardContent>
             <CardFooter>
               <MembershipJoinButton plan={plan1month?.key as string} />
             </CardFooter>
           </Card>
 
+          {/* 3 month membership */}
           <Card
-            className='px-1 shadow-xl'
+            className='px-1 shadow-xl sm:scale-110 scale-100'
             style={{
               background:
                 'linear-gradient(294.57deg,  rgba(252, 229, 172) 10%, rgba(255, 255, 255) 30%,  rgba(252, 229, 172) 80%)',
@@ -46,13 +50,16 @@ const MembershipPage: NextPage = async () => {
           >
             <CardHeader>
               <CardTitle className='flex items-center gap-2 justify-between'>
-                <span className='text-2xl'> 3 個月</span>
+                <div className='text-2xl items-center flex gap-2'>
+                  <Smile />
+                  <span>{plan3month.name}</span>
+                </div>
 
                 <div className='text-sm rounded px-3 py-1' style={{ background: 'rgba(255, 255, 255, 0.5)' }}>
                   🎉 最受歡迎
                 </div>
               </CardTitle>
-              <CardDescription>平均每月 $9/月</CardDescription>
+              <CardDescription>平均每月 ${(plan3month.price / 3).toPrecision(2)}/月</CardDescription>
             </CardHeader>
             <CardContent className='grid gap-4'>
               <p>{plan3month?.description}</p>
@@ -61,6 +68,34 @@ const MembershipPage: NextPage = async () => {
             </CardContent>
             <CardFooter>
               <MembershipJoinButton plan={plan3month?.key as string} />
+            </CardFooter>
+          </Card>
+
+          {/* lifetime Membership */}
+          <Card
+            className='px-1 shadow-xl shrink-0 text-white'
+            style={{
+              background:
+                'linear-gradient(294.57deg,  rgba(0, 0, 0,0.8) 0%, rgba(100, 100, 100) 30%,  rgba(0, 0, 0,0.9) 70%)',
+              borderColor: 'rgba(255, 255, 255, 0.3)',
+            }}
+          >
+            <CardHeader>
+              <CardTitle className='flex items-center gap-2 justify-between'>
+                <span className='text-2xl'>{planLifeTime.name}</span>
+
+                <div className='text-sm rounded px-3 py-1' style={{ background: 'rgba(255, 255, 255, 0.5)' }}>
+                  名額有限
+                </div>
+              </CardTitle>
+              <CardDescription className='text-gray-300'>原價 ${planLifeTime?.originalPrice}/月</CardDescription>
+            </CardHeader>
+            <CardContent className='grid gap-4 '>
+              <p className='typo-round'>{planLifeTime?.description}</p>
+              <p className='text-label-1 text-3xl font-semibold'>${planLifeTime?.price}</p>
+            </CardContent>
+            <CardFooter>
+              <MembershipJoinButton plan={planLifeTime?.key as string} />
             </CardFooter>
           </Card>
         </div>

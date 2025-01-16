@@ -12,6 +12,7 @@ import {
   PaginationNext,
   PaginationPrevious,
 } from '@/components/ui/pagination';
+import { useScreen } from '@/hooks/useScreen';
 import { getPagination } from '@/lib/getPagination';
 
 type props = {
@@ -21,6 +22,8 @@ type props = {
 const PaginationSession: FC<props> = ({ numPages, page }) => {
   const pathname = usePathname();
 
+  const { isMobile } = useScreen();
+
   return (
     <Pagination>
       <PaginationContent>
@@ -29,7 +32,7 @@ const PaginationSession: FC<props> = ({ numPages, page }) => {
             <PaginationPrevious href={`${pathname}?page=${page - 1}`} />
           </PaginationItem>
         )}
-        {getPagination(page, numPages).map((item, index) => {
+        {getPagination(page, numPages, isMobile).map((item, index) => {
           return (
             <PaginationItem key={item}>
               <PaginationLink href={`${pathname}?page=${item}`} isActive={page === item}>

@@ -29,7 +29,7 @@ export const useExercise = () => {
       return services.createExercise(createProductsDto);
     },
     onSuccess: () => {
-      successToast('Your exercise has been created');
+      successToast('已創建練習本');
       invalidateCommentsQuery();
     },
     onSettled: () => {
@@ -42,7 +42,7 @@ export const useExercise = () => {
       return services.updateExercise(exerciseId, updateExerciseDto);
     },
     onSuccess: () => {
-      successToast('Your answer has been deleted');
+      successToast('你的練習本已更新');
       invalidateCommentsQuery();
     },
     onSettled: () => {
@@ -55,7 +55,7 @@ export const useExercise = () => {
       return services.deleteExercise(exerciseId);
     },
     onSuccess: () => {
-      successToast('Your exercise has been deleted');
+      successToast('你的練習本已删除');
       invalidateCommentsQuery();
     },
     onSettled: () => {

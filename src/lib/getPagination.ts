@@ -1,5 +1,5 @@
-export const getPagination = (currentPage: number, totalPages: number) => {
-  const maxVisiblePages = 7; // Number of pages to display in the pagination
+export const getPagination = (currentPage: number, totalPages: number, isMobile = false) => {
+  const maxVisiblePages = isMobile ? 5 : 7; // Number of pages to display in the pagination
   let startPage = Math.max(1, currentPage - Math.floor(maxVisiblePages / 2));
   const endPage = Math.min(totalPages, startPage + maxVisiblePages - 1);
 

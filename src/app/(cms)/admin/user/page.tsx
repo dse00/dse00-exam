@@ -15,7 +15,14 @@ const CmsUserListPage = async () => {
 
   return (
     <div>
-      <BaseTable data={users} columns={columns} filter='email' />
+      <BaseTable
+        data={users}
+        columns={columns}
+        filter={{
+          key: 'email',
+          name: 'Email',
+        }}
+      />
     </div>
   );
 };

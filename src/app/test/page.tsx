@@ -1,6 +1,8 @@
 import Image from 'next/image';
 
 import { Badge } from '@/components/ui/badge';
+import { LanguageEnum } from '@/constants';
+import { getImageNameByLang } from '@/lib/getImageNameByLang';
 import services from '@/services';
 
 const Testpage = async () => {
@@ -16,7 +18,7 @@ const Testpage = async () => {
             <Badge>
               {data.year} Q {data.questionNo}
             </Badge>
-            <Image src={data.questionImage.replace('.png', '_tc.png')} alt={data._id} width={700} height={200} />
+            <Image src={getImageNameByLang(data, LanguageEnum.EN)} alt={data._id} width={700} height={200} />
           </div>
         );
       })}

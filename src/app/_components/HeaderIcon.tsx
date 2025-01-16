@@ -1,5 +1,5 @@
 'use client';
-import Image from 'next/image';
+import { Leaf } from 'lucide-react';
 import Link from 'next/link';
 
 import { useSubscription } from '@/hooks';
@@ -12,14 +12,10 @@ const HeaderIcon = () => {
       href={'/'}
       className='typo-round text-white font-black text-3xl drop-shadow-[0_0px_6px_rgba(255,255,255,0.7)]'
     >
-      {isActiveSubscription ? (
-        <div className='flex gap-4'>
-          <Image src='/images/leaf.png' width={34} height={34} alt='icon' />
-          <span> DSE00+ exam</span>
-        </div>
-      ) : (
-        ' DSE00 exam'
-      )}
+      <div className='flex gap-4 items-center'>
+        <Leaf size={32} fill={isActiveSubscription ? '#eab308' : ''} />
+        <span> {isActiveSubscription ? 'DSE00+ exam' : 'DSE00 exam'}</span>
+      </div>
     </Link>
   );
 };

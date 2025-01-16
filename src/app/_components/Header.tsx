@@ -21,12 +21,8 @@ const Header: FC = () => {
         )} */}
 
         <div className='flex items-center gap-10 grow'>
-          <div className='sm:flex gap-7 hidden'>
-            <Link
-              className={'text-white text-[15px]'}
-              href={'https://www.dse00.com/p/core-cutoff.html'}
-              target='_blank'
-            >
+          <div className='sm:flex gap-8 hidden'>
+            <Link className={'text-white text-[15px]'} href={'https://www.dse00.com/p/tutor.html'} target='_blank'>
               DSE00 AI 補習配對
             </Link>
             <Link
@@ -36,11 +32,7 @@ const Header: FC = () => {
             >
               2024 Cut-off
             </Link>
-            <Link
-              className={'text-white text-[15px]'}
-              href={'https://www.dse00.com/p/core-cutoff.html'}
-              target='_blank'
-            >
+            <Link className={'text-white text-[15px]'} href={'https://www.dse00.com/p/jupas.html'} target='_blank'>
               JUPAS Cuf-off
             </Link>
           </div>

@@ -1,3 +1,4 @@
+import { Angry, Meh, Smile } from 'lucide-react';
 import { FC, useEffect, useState } from 'react';
 
 import { Button } from '@/components/ui/button';
@@ -59,7 +60,7 @@ const AnswerButtons: FC<props> = ({ question, userAnswer }) => {
 
   return (
     <div className='grid gap-3'>
-      <div className='flex gap-3'>
+      <div className='flex gap-3 items-center'>
         {answersOptions.map((answer, index) => (
           <Button
             style={{ backgroundColor: getButtonColor(answer) }}
@@ -67,7 +68,10 @@ const AnswerButtons: FC<props> = ({ question, userAnswer }) => {
             key={answer}
             onClick={() => handleOnClick(answer)}
           >
-            {answer.toUpperCase()}
+            {selectedAnswer === answer && selectedAnswer === question.answer && <Smile />}
+            {selectedAnswer === answer && selectedAnswer !== question.answer && <Angry />}
+
+            {answer}
           </Button>
         ))}
         {!selectedAnswer && !isSkep && (
@@ -75,6 +79,8 @@ const AnswerButtons: FC<props> = ({ question, userAnswer }) => {
             跳過
           </Button>
         )}
+
+        {isSkep && <Meh />}
       </div>
       {(selectedAnswer || isSkep) && <CorrectPercentageIndicator value={question.correctPercentage} />}
     </div>
