@@ -1,4 +1,5 @@
 'use client';
+import { Leaf, Wallet } from 'lucide-react';
 import { useRouter } from 'next/navigation';
 import { FC, useState } from 'react';
 
@@ -50,10 +51,17 @@ const PaymentConfirmDialog: FC<props> = ({ currentPlan }) => {
 
   return (
     <Dialog open={open} onOpenChange={setOpen}>
-      <DialogTrigger className={buttonVariants()}>確認付款</DialogTrigger>
+      <DialogTrigger className={buttonVariants()}>
+        確認付款 <Leaf />
+      </DialogTrigger>
       <DialogContent className='grid gap-4'>
         <DialogHeader>
-          <DialogTitle>確認付款</DialogTitle>
+          <DialogTitle>
+            <h1 className='flex items-center gap-4'>
+              <Wallet />
+              <span>確認付款</span>
+            </h1>
+          </DialogTitle>
         </DialogHeader>
 
         <div className='grid gap-4'>
@@ -76,7 +84,8 @@ const PaymentConfirmDialog: FC<props> = ({ currentPlan }) => {
         </div>
         <DialogFooter>
           <Button disabled={!answer.screenshot || !answer.email} onClick={toConfirmPayment}>
-            確認
+            <span>確認</span>
+            <Leaf />
           </Button>
         </DialogFooter>
       </DialogContent>

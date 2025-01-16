@@ -1,4 +1,5 @@
 'use client';
+import { MessageSquareMore, RectangleEllipsis } from 'lucide-react';
 import { FC, useEffect, useState } from 'react';
 
 import CustomAccordion from '@/components/CustomAccordion';
@@ -18,7 +19,7 @@ const AnswerDiscussion: FC<props> = ({ question }) => {
 
   const [showDiscussion, setShowDiscussion] = useState(false);
 
-  const { userAnswersData, createUserAnswer } = useUserAnswer();
+  const { userAnswersData } = useUserAnswer();
 
   const userAnswer = userAnswersData?.find(userAnswer => userAnswer.question._id === question._id);
 
@@ -32,6 +33,7 @@ const AnswerDiscussion: FC<props> = ({ question }) => {
     <div className='grid gap-2 w-full'>
       <div className='flex gap-3'>
         <Button size='sm' variant={showAns ? 'outline' : 'default'} onClick={() => setShowAns(!showAns)}>
+          <RectangleEllipsis />
           答案
         </Button>
         <Button
@@ -39,7 +41,8 @@ const AnswerDiscussion: FC<props> = ({ question }) => {
           variant={showDiscussion ? 'outline' : 'default'}
           onClick={() => setShowDiscussion(!showDiscussion)}
         >
-          討論(0)
+          <MessageSquareMore />
+          討論({question.comments?.length})
         </Button>
       </div>
       <div className='grid'>
@@ -47,7 +50,7 @@ const AnswerDiscussion: FC<props> = ({ question }) => {
           <AnswerButtons question={question} userAnswer={userAnswer?.answer} />
         </CustomAccordion>
         <CustomAccordion show={showDiscussion}>
-          <Discussion questionId={question._id} />
+          <Discussion questionId={question._id} comments={question.comments} />
         </CustomAccordion>
       </div>
     </div>

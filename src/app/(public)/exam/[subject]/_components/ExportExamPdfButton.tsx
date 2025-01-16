@@ -1,6 +1,6 @@
 'use client';
 
-import { FileText } from 'lucide-react';
+import { FileText, Smile } from 'lucide-react';
 import Link from 'next/link';
 import { FC, useState } from 'react';
 
@@ -35,10 +35,6 @@ const ExportExamPdfButton: FC<props> = ({ questions, questionsId }) => {
   const href = '/pdf/exam-paper/' + btoa((questionsId || questions?.map(q => q._id))?.join('/') as string);
 
   const toExportPdf = async () => {
-    if (!userData) {
-      return setLoginDialogOpen(true);
-    }
-
     putQuota('exam-pdf');
 
     window.open(
@@ -50,6 +46,9 @@ const ExportExamPdfButton: FC<props> = ({ questions, questionsId }) => {
   };
 
   const handleOnClickPdf = () => {
+    if (!userData) {
+      return setLoginDialogOpen(true);
+    }
     if (!isActiveSubscription) {
       setIsDialogOpen(true);
     } else {
@@ -60,8 +59,8 @@ const ExportExamPdfButton: FC<props> = ({ questions, questionsId }) => {
   return (
     <>
       <Button onClick={handleOnClickPdf}>
-        生成試卷 <FileText />
-        PDF
+        <FileText />
+        生成試卷 PDF
       </Button>
       <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
         <DialogContent>
@@ -69,7 +68,9 @@ const ExportExamPdfButton: FC<props> = ({ questions, questionsId }) => {
             <DialogTitle>
               <SupportDSE00Title />
             </DialogTitle>
-            <DialogDescription>每日限額已使用 {quotaData?.count}/3，訂閱會員無限制使用</DialogDescription>
+            <DialogDescription>
+              伺服器成本上升，每日限額剩餘 {3 - (quotaData?.count || 0)}，訂閱會員無限制使用
+            </DialogDescription>
           </DialogHeader>
           <DialogFooter>
             <Button
@@ -81,6 +82,7 @@ const ExportExamPdfButton: FC<props> = ({ questions, questionsId }) => {
             </Button>
             <Link href={'/membership'} target='_blank' className={buttonVariants()}>
               訂閱
+              <Smile />
             </Link>
           </DialogFooter>
         </DialogContent>

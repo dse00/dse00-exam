@@ -15,7 +15,7 @@ type Props = {
 export default ({ questions, totalPage, currentPage = 1, header }: Props) => {
   return (
     <div className='grid gap-6'>
-      <div className='flex items-center gap-10'>
+      <div className='flex sm:items-center sm:gap-10 gap-2 flex-col items-start sm:flex-row'>
         <ProblemListSidebar questions={questions} header={header} currentPage={currentPage} />
         <ExportExamPdfButton questions={questions} />
       </div>

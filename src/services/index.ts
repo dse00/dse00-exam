@@ -46,7 +46,8 @@ export default {
       body: JSON.stringify({ email, password }),
     });
     if (!res.ok) {
-      throw new Error('error');
+      const data = await res.json();
+      throw new Error(data.message);
     }
 
     return res.json();

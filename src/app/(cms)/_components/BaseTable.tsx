@@ -9,12 +9,11 @@ import {
   Table as TableType,
   useReactTable,
 } from '@tanstack/react-table';
-import { ChevronLeft, ChevronRight } from 'lucide-react';
+import { ChevronLeft, ChevronRight, Search } from 'lucide-react';
 import Image from 'next/image';
 import React from 'react';
 
 import { Button } from '@/components/ui/button';
-import { Input } from '@/components/ui/input';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
 import { FREE_USER_QUOTA } from '@/constants';
@@ -30,7 +29,10 @@ export function BaseTable<T>({
 }: {
   data: T[];
   columns: ColumnDef<T>[];
-  filter: string;
+  filter: {
+    key: string;
+    name: string;
+  };
   table?: TableType<T>;
   batchActionButton?: React.ReactNode;
 }) {
@@ -55,14 +57,19 @@ export function BaseTable<T>({
   };
 
   return (
-    <div className='w-full'>
-      <div className='flex items-center justify-between py-4'>
-        <Input
-          placeholder={`搜尋 ${filter}...`}
-          value={(table.getColumn(filter)?.getFilterValue() as string) ?? ''}
-          onChange={event => table.getColumn(filter)?.setFilterValue(event.target.value)}
-          className='max-w-sm'
-        />
+    <div className='w-full grid gap-4'>
+      {/* input & action buttons */}
+
+      <div className='flex sm:items-center justify-between flex-col sm:flex-row items-start gap-4'>
+        <div className='flex items-center border rounded-md p-2 gap-4 text-sm'>
+          <Search size={16} />
+          <input
+            placeholder={`搜尋${filter.name}...`}
+            value={(table.getColumn(filter.key)?.getFilterValue() as string) ?? ''}
+            onChange={event => table.getColumn(filter.key)?.setFilterValue(event.target.value)}
+            className='bg-transparent focus:outline-none placeholder:font-[300]'
+          />
+        </div>
         {batchActionButton}
         {/* <DropdownMenu>
           <DropdownMenuTrigger asChild>
@@ -89,6 +96,9 @@ export function BaseTable<T>({
           </DropdownMenuContent>
         </DropdownMenu> */}
       </div>
+
+      {/* table */}
+
       <div className='rounded-md border'>
         <Table>
           <TableHeader>
@@ -121,7 +131,10 @@ export function BaseTable<T>({
           </TableBody>
         </Table>
       </div>
-      <div className='flex items-center justify-between space-x-2 py-4'>
+
+      {/* pagination */}
+
+      <div className='flex items-center justify-between space-x-2'>
         {/* 已選擇數目 */}
         <div className='text-sm text-muted-foreground'>
           {table.getFilteredSelectedRowModel().rows.length > 0 && (

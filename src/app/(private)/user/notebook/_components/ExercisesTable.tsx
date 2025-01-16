@@ -1,7 +1,7 @@
 'use client';
 
 import { ColumnDef } from '@tanstack/react-table';
-import { MoreHorizontal } from 'lucide-react';
+import { CircleX, Clock10, Eye, MoreHorizontal, NotebookPen } from 'lucide-react';
 import Link from 'next/link';
 import * as React from 'react';
 
@@ -12,7 +12,6 @@ import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
-  DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
 import { useExercise } from '@/hooks/useExercise';
@@ -52,7 +51,12 @@ export const columns: ColumnDef<ExerciseListItemType>[] = [
   },
   {
     accessorKey: 'timeLimited',
-    header: '時限',
+    header: () => (
+      <div className='flex gap-1 items-center'>
+        <Clock10 size={16} />
+        時限
+      </div>
+    ),
     cell: ({ row }) => {
       return <div className='font-medium text-left'>{Math.ceil(row.getValue('timeLimited'))} 分鐘</div>;
     },
@@ -69,6 +73,7 @@ export const columns: ColumnDef<ExerciseListItemType>[] = [
             href={`/exam/${row.original.subject}/exercise/${row.original._id}`}
             className={buttonVariants({ size: 'sm' })}
           >
+            <NotebookPen />
             開始
           </Link>
         )}
@@ -101,10 +106,13 @@ export const columns: ColumnDef<ExerciseListItemType>[] = [
           </DropdownMenuTrigger>
           <DropdownMenuContent align='end'>
             <DropdownMenuItem>
+              <Eye />
               <Link href={`/exam/${exercise.subject}/exercise/${exercise._id}`}>查看題目</Link>
             </DropdownMenuItem>
-            <DropdownMenuSeparator />
-            <DropdownMenuItem onClick={() => toDeleteRecord(exercise._id)}>刪除記錄</DropdownMenuItem>
+            <DropdownMenuItem onClick={() => toDeleteRecord(exercise._id)}>
+              <CircleX />
+              刪除記錄
+            </DropdownMenuItem>
           </DropdownMenuContent>
         </DropdownMenu>
       );
@@ -113,5 +121,14 @@ export const columns: ColumnDef<ExerciseListItemType>[] = [
 ];
 
 export function ExercisesTable({ data }: { data: ExerciseListItemType[] }) {
-  return <BaseTable columns={columns} data={data} filter='exerciseName' />;
+  return (
+    <BaseTable
+      columns={columns}
+      data={data}
+      filter={{
+        key: 'exerciseName',
+        name: '練習本名稱',
+      }}
+    />
+  );
 }

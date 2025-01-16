@@ -1,10 +1,12 @@
+import { CommentType } from './comment';
+
 export type QuestionType = {
   _id: string;
-  questionImage: string;
   answer: string;
   topic: string;
   year: number;
   questionNo: number;
+  comments: CommentType[];
   createdAt: string;
   updatedAt: string;
   correctPercentage: number;

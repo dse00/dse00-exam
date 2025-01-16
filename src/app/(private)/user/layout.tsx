@@ -5,6 +5,7 @@ import { useState } from 'react';
 
 import { menuItems } from '@/app/_components/AvatarAndMenu';
 import Header from '@/app/_components/Header';
+import { useLanguage } from '@/components/LanguageButton';
 import {
   Breadcrumb,
   BreadcrumbItem,
@@ -14,6 +15,7 @@ import {
 } from '@/components/ui/breadcrumb';
 import { buttonVariants } from '@/components/ui/button';
 import { Calendar } from '@/components/ui/calendar';
+import { cn } from '@/lib/utils';
 
 export type LayoutProps = {
   children: React.ReactNode;
@@ -23,6 +25,8 @@ export default ({ children }: LayoutProps) => {
   const [date, setDate] = useState<Date | undefined>(new Date());
 
   const pathname = usePathname();
+
+  useLanguage();
 
   return (
     <div className='flex flex-col items-center gap-6'>
@@ -47,12 +51,17 @@ export default ({ children }: LayoutProps) => {
             <Link
               key={item.title}
               href={item.href}
-              className={buttonVariants({ variant: pathname === item.href ? 'default' : 'ghost' })}
+              className={cn(
+                buttonVariants({ variant: pathname === item.href ? 'default' : 'ghost' }),
+                'grid grid-cols-3'
+              )}
             >
-              {item.title}
+              <span className='mr-2'>{item.smallIcon}</span>
+              <span>{item.title}</span>
             </Link>
           ))}
         </div>
+
         <div className='grow'>{children}</div>
       </div>
     </div>

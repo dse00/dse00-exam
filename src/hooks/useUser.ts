@@ -42,8 +42,7 @@ export const useUser = () => {
       }, 1000);
     },
     onError: error => {
-      errorToast('登入失敗');
-      console.error(error);
+      errorToast(error.message);
     },
   });
 

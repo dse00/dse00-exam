@@ -42,13 +42,13 @@ const QuestionCard: FC<props> = ({ question, questionNo }) => {
           </CardDescription>
         </CardHeader>
         <CardContent>
-          <div className='relative max-w-[720px] grid gap-4'>
+          <div className='relative sm:max-w-[720px] max-w-full grid gap-4'>
             <Skeleton className='h-8 w-full' />
-            <div className='grid gap-4 ml-12'>
-              <Skeleton className='h-8 w-80' />
-              <Skeleton className='h-8 w-80' />
-              <Skeleton className='h-8 w-80' />
-              <Skeleton className='h-8 w-80' />
+            <div className='grid gap-4 pl-12'>
+              <Skeleton className='h-8 sm:w-80 max-w-full' />
+              <Skeleton className='h-8 sm:w-80 max-w-full' />
+              <Skeleton className='h-8 sm:w-80 max-w-full' />
+              <Skeleton className='h-8 sm:w-80 max-w-full' />
             </div>
             <div className='absolute bg-[#ffffff33] backdrop-blur-sm w-full h-full items-center justify-center rounded-lg flex flex-col gap-4'>
               <LockKeyhole size={'40'} />
@@ -86,14 +86,7 @@ const QuestionCard: FC<props> = ({ question, questionNo }) => {
       </CardHeader>
       <CardContent>
         <div className='relative max-w-[720px]'>
-          <Image
-            src={getImageNameByLang(question, language)}
-            className=''
-            alt='question'
-            width={1000}
-            height={100}
-            priority
-          />
+          <Image src={getImageNameByLang(question, language)} alt='question' width={1000} height={100} priority />
         </div>
       </CardContent>
       <CardFooter>
