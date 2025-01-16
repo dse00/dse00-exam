@@ -1,3 +1,4 @@
+'use client';
 import { ListTree } from 'lucide-react';
 import Link from 'next/link';
 import { FC } from 'react';
@@ -13,8 +14,11 @@ import {
   SheetTitle,
   SheetTrigger,
 } from '@/components/ui/sheet';
+import { usePaperNameMapping } from '@/hooks/usePaperNameMapping';
 import { getDifficulty, getDifficultyStyle } from '@/lib/getDifficulty';
 import { QuestionType } from '@/types/question';
+
+import ClientPaperName from './ClientPaperName';
 
 type props = {
   questions: QuestionType[];
@@ -23,12 +27,14 @@ type props = {
 };
 
 export const ProblemListSidebar: FC<props> = ({ questions, header, currentPage }) => {
+  const { paperNameMappingData, displayNameKey } = usePaperNameMapping();
+
   return (
     <Sheet>
       <SheetTrigger asChild>
         <button className='flex items-center gap-4 hover:bg-[#00000009] rounded-lg p-2'>
           <ListTree size={30} />
-          <span className='text-2xl font-bold'>{header}</span>
+          <ClientPaperName nameKey={header} />
         </button>
       </SheetTrigger>
       <SheetContent side='left'>
@@ -44,7 +50,7 @@ export const ProblemListSidebar: FC<props> = ({ questions, header, currentPage }
                 className='w-full flex items-center justify-between'
               >
                 <div>
-                  {(currentPage - 1) * 10 + index + 1}. {question.topic}
+                  {(currentPage - 1) * 10 + index + 1}. {paperNameMappingData?.[question.topic]?.[displayNameKey]}
                 </div>
                 <Badge variant={'secondary'} className={getDifficultyStyle(question.correctPercentage)}>
                   {getDifficulty(question.correctPercentage)}

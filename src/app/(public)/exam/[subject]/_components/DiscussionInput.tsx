@@ -14,17 +14,18 @@ const DiscussionInput: FC<props> = ({ questionId }) => {
   const [value, setValue] = useState('');
   const { userData } = useUser();
 
-  const { successToast } = useMyToast();
+  const { successToast, errorToast } = useMyToast();
   const { createComment } = useComment(questionId);
   const { setLoginDialogOpen } = useAppStore();
 
   const submit = () => {
     if (!userData) {
       setLoginDialogOpen(true);
-      successToast('Please login to post a comment');
+      successToast('登入後才能發佈答案');
 
       return;
     }
+    if (value.length < 10) return errorToast('答案至少要有10個字');
     const createCommentDto = {
       question: questionId,
       user: userData?.user,
@@ -40,7 +41,7 @@ const DiscussionInput: FC<props> = ({ questionId }) => {
       <CustomAvatar size={40} />
       <div className='w-full flex flex-col items-start gap-2'>
         <Textarea rows={5} value={value} onChange={e => setValue(e.target.value)} placeholder='請解釋你的答案' />
-        <Button size='sm' onClick={submit}>
+        <Button size='sm' onClick={submit} disabled={value.length < 10}>
           發佈
         </Button>
       </div>

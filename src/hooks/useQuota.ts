@@ -3,7 +3,6 @@ import Cookies from 'js-cookie';
 
 import { QUERY_KEYS } from '@/constants';
 import services from '@/services';
-import { PutQuotaDto } from '@/types/quota';
 
 export const useQuota = (topic: string) => {
   const queryClient = useQueryClient();
@@ -22,8 +21,8 @@ export const useQuota = (topic: string) => {
     staleTime: 1000 * 60 * 60 * 24 * 365, // 1 year
   });
 
-  const { mutate: updateQuota } = useMutation({
-    mutationFn: (createProductsDto: PutQuotaDto) => {
+  const { mutate: putQuota } = useMutation({
+    mutationFn: (topic: string) => {
       return services.putQuota({
         token: token as string,
         topic,
@@ -38,5 +37,5 @@ export const useQuota = (topic: string) => {
     queryClient.invalidateQueries({ queryKey: [QUERY_KEYS.QUOTA] });
   };
 
-  return { quotaData, isError };
+  return { quotaData, isError, putQuota };
 };

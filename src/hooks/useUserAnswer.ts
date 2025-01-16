@@ -45,5 +45,5 @@ export const useUserAnswer = () => {
 
   const invalidateUserAnswersQuery = () => queryClient.invalidateQueries({ queryKey: [QUERY_KEYS.USER_ANSWERS] });
 
-  return { userAnswersData, createUserAnswer, deleteUserAnswer };
+  return { userAnswersData, createUserAnswer, deleteUserAnswer, invalidateUserAnswersQuery };
 };

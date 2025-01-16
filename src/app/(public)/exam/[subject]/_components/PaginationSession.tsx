@@ -1,7 +1,7 @@
 'use client';
 
 import { usePathname } from 'next/navigation';
-import { FC, useState } from 'react';
+import { FC } from 'react';
 
 import {
   Pagination,
@@ -38,7 +38,7 @@ const PaginationSession: FC<props> = ({ numPages, page }) => {
             </PaginationItem>
           );
         })}
-        {page < numPages - 2 && (
+        {page < numPages - 3 && (
           <PaginationItem>
             <PaginationEllipsis />
           </PaginationItem>

@@ -1,4 +1,5 @@
 'use client';
+import { Leaf } from 'lucide-react';
 import { useRouter } from 'next/navigation';
 import { FC } from 'react';
 
@@ -23,7 +24,11 @@ const MembershipJoinButton: FC<props> = ({ plan }) => {
     router.push(`membership/payment/${plan}`);
   };
 
-  return <Button onClick={toJoin}>加入</Button>;
+  return (
+    <Button onClick={toJoin}>
+      加入 <Leaf />
+    </Button>
+  );
 };
 
 export default MembershipJoinButton;

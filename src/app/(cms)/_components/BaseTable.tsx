@@ -1,72 +1,73 @@
 'use client';
 import {
   ColumnDef,
-  ColumnFiltersState,
   flexRender,
   getCoreRowModel,
   getFilteredRowModel,
   getPaginationRowModel,
   getSortedRowModel,
-  SortingState,
+  Table as TableType,
   useReactTable,
-  VisibilityState,
 } from '@tanstack/react-table';
-import { ChevronDown } from 'lucide-react';
+import { ChevronLeft, ChevronRight } from 'lucide-react';
+import Image from 'next/image';
 import React from 'react';
 
 import { Button } from '@/components/ui/button';
-import {
-  DropdownMenu,
-  DropdownMenuCheckboxItem,
-  DropdownMenuContent,
-  DropdownMenuTrigger,
-} from '@/components/ui/dropdown-menu';
 import { Input } from '@/components/ui/input';
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
+import { FREE_USER_QUOTA } from '@/constants';
+import { useSubscription } from '@/hooks';
+import { useAppStore } from '@/store';
 
-export function BaseTable<T>({ data, columns, filter }: { data: T[]; columns: ColumnDef<T>[]; filter: string }) {
-  const [sorting, setSorting] = React.useState<SortingState>([]);
-  const [columnFilters, setColumnFilters] = React.useState<ColumnFiltersState>([]);
-  const [columnVisibility, setColumnVisibility] = React.useState<VisibilityState>({});
-  const [rowSelection, setRowSelection] = React.useState({});
-  const [pageSize, setPageSize] = React.useState(20); // State for rows per page
+export function BaseTable<T>({
+  data,
+  columns,
+  filter,
+  table,
+  batchActionButton,
+}: {
+  data: T[];
+  columns: ColumnDef<T>[];
+  filter: string;
+  table: TableType<T>;
+  batchActionButton?: React.ReactNode;
+}) {
+  const { isActiveSubscription } = useSubscription();
+  const { setCallForSubscriptionDialogOpen } = useAppStore();
+  table =
+    table ||
+    useReactTable({
+      data,
+      columns,
+      getCoreRowModel: getCoreRowModel(),
+      getPaginationRowModel: getPaginationRowModel(),
+      getSortedRowModel: getSortedRowModel(),
+      getFilteredRowModel: getFilteredRowModel(),
+    });
 
-  const table = useReactTable({
-    data,
-    columns,
-    onSortingChange: setSorting,
-    onColumnFiltersChange: setColumnFilters,
-    getCoreRowModel: getCoreRowModel(),
-    getPaginationRowModel: getPaginationRowModel(),
-    getSortedRowModel: getSortedRowModel(),
-    getFilteredRowModel: getFilteredRowModel(),
-    onColumnVisibilityChange: setColumnVisibility,
-    onRowSelectionChange: setRowSelection,
-    state: {
-      sorting,
-      columnFilters,
-      columnVisibility,
-      rowSelection,
-      pagination: {
-        pageSize, // Dynamically control the number of rows per page
-        pageIndex: 0, // Default to the first page
-      },
-    },
-  });
+  const handleOnSelect = (value: string) => {
+    if (!isActiveSubscription && +value > FREE_USER_QUOTA.MAXIMUM_DISPLAY_SELECT_ITEMS) {
+      return setCallForSubscriptionDialogOpen(true);
+    }
+    table.setPageSize(+value);
+  };
 
   return (
     <div className='w-full'>
-      <div className='flex items-center py-4'>
+      <div className='flex items-center justify-between py-4'>
         <Input
-          placeholder={`Filter ${filter}...`}
+          placeholder={`搜尋 ${filter}...`}
           value={(table.getColumn(filter)?.getFilterValue() as string) ?? ''}
           onChange={event => table.getColumn(filter)?.setFilterValue(event.target.value)}
           className='max-w-sm'
         />
-        <DropdownMenu>
+        {batchActionButton}
+        {/* <DropdownMenu>
           <DropdownMenuTrigger asChild>
             <Button variant='outline' className='ml-auto'>
-              Columns <ChevronDown />
+              顯示 <ChevronDown />
             </Button>
           </DropdownMenuTrigger>
           <DropdownMenuContent align='end'>
@@ -86,7 +87,7 @@ export function BaseTable<T>({ data, columns, filter }: { data: T[]; columns: Co
                 );
               })}
           </DropdownMenuContent>
-        </DropdownMenu>
+        </DropdownMenu> */}
       </div>
       <div className='rounded-md border'>
         <Table>
@@ -113,7 +114,7 @@ export function BaseTable<T>({ data, columns, filter }: { data: T[]; columns: Co
             ) : (
               <TableRow>
                 <TableCell colSpan={columns.length} className='h-24 text-center'>
-                  No results.
+                  暫時沒有東西
                 </TableCell>
               </TableRow>
             )}
@@ -121,16 +122,39 @@ export function BaseTable<T>({ data, columns, filter }: { data: T[]; columns: Co
         </Table>
       </div>
       <div className='flex items-center justify-between space-x-2 py-4'>
-        <div className='flex items-center space-x-2'>
-          <span>Rows per page:</span>
-          <select value={pageSize} onChange={e => setPageSize(Number(e.target.value))} className='border rounded p-1'>
-            {[5, 10, 20, 50].map(size => (
-              <option key={size} value={size}>
-                {size}
-              </option>
-            ))}
-          </select>
+        {/* 已選擇數目 */}
+        <div className='text-sm text-muted-foreground'>
+          {table.getFilteredSelectedRowModel().rows.length > 0 && (
+            <>
+              {table.getFilteredSelectedRowModel().rows.length} / {table.getFilteredRowModel().rows.length} 已選擇
+            </>
+          )}
         </div>
+
+        {/* 顯示數目 */}
+        <div className='flex items-center space-x-2'>
+          <Select onValueChange={handleOnSelect} defaultValue='10'>
+            <SelectTrigger className='w-[80px] text-center'>
+              <SelectValue placeholder='顯示數目' />
+            </SelectTrigger>
+            <SelectContent>
+              {[10, 20, 50, 100, 200, 500].map(size => (
+                <SelectItem key={size} value={size.toString()}>
+                  {size > FREE_USER_QUOTA.MAXIMUM_DISPLAY_SELECT_ITEMS ? (
+                    <div className='flex items-center gap-2'>
+                      <span>{size}</span>
+                      <Image src={'/images/leaf.png'} width={16} height={16} alt='learn more' />
+                    </div>
+                  ) : (
+                    size
+                  )}
+                </SelectItem>
+              ))}
+            </SelectContent>
+          </Select>
+        </div>
+
+        {/* 分頁 */}
         <div className='space-x-2'>
           <Button
             variant='outline'
@@ -138,10 +162,10 @@ export function BaseTable<T>({ data, columns, filter }: { data: T[]; columns: Co
             onClick={() => table.previousPage()}
             disabled={!table.getCanPreviousPage()}
           >
-            Previous
+            <ChevronLeft />
           </Button>
           <Button variant='outline' size='sm' onClick={() => table.nextPage()} disabled={!table.getCanNextPage()}>
-            Next
+            <ChevronRight />
           </Button>
         </div>
       </div>

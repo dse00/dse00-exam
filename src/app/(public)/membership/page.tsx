@@ -1,9 +1,7 @@
-import { BellPlus, BookOpenCheck, Infinity, LibraryBig } from 'lucide-react';
+import { BellPlus, BookOpenCheck, Database, Infinity, Leaf, LibraryBig, ScrollText } from 'lucide-react';
 import { NextPage } from 'next';
-import Link from 'next/link';
 import { FC } from 'react';
 
-import { buttonVariants } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
 import services from '@/services';
 
@@ -18,7 +16,9 @@ const MembershipPage: NextPage = async () => {
   return (
     <div className='container sm:py-20 py-10'>
       <div className='max-w-4xl mx-auto grid sm:gap-20 gap-10'>
-        <h1 className='typo-round sm:text-6xl text-4xl text-center'>DSE00 +</h1>
+        <h1 className='typo-round sm:text-6xl text-4xl justify-center flex'>
+          DSE00 +<Leaf />
+        </h1>
 
         <div className='flex flex-col sm:flex-row sm:gap-20 gap-10 justify-between'>
           <Card className='px-1 shadow-xl'>
@@ -35,6 +35,7 @@ const MembershipPage: NextPage = async () => {
               <MembershipJoinButton plan={plan1month?.key as string} />
             </CardFooter>
           </Card>
+
           <Card
             className='px-1 shadow-xl'
             style={{
@@ -68,7 +69,7 @@ const MembershipPage: NextPage = async () => {
           {[
             {
               title: 'Extremely Hard 題庫',
-              description: '提供更多高難度題目，讓你更好地準備DSE考試。。',
+              description: '提供更多高難度題目，讓你更好地準備DSE考試。',
               icon: <BookOpenCheck />,
             },
             {
@@ -80,6 +81,16 @@ const MembershipPage: NextPage = async () => {
               title: '無限練習本',
               description: '可以保存無限個練習本，方便你分類練習。',
               icon: <Infinity />,
+            },
+            {
+              title: '生成試卷',
+              description: '可以生成自己的試卷，方便你練習。',
+              icon: <ScrollText />,
+            },
+            {
+              title: '25× 訪問容量',
+              description: '訪問更多題目，生成更長試卷。',
+              icon: <Database />,
             },
             {
               title: '未來更新',

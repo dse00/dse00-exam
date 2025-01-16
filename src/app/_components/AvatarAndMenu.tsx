@@ -83,7 +83,7 @@ export default function AvatarAndMenu() {
         <div className=' grid gap-4'>
           <div className='flex gap-4'>
             <img src={FAKE_USER_ICON} alt='user_icon' className='w-14 h-14 object-cover rounded-full' />
-            <div className='grid'>
+            <div className='grid gap-1'>
               <span className='font-black ml-2'>{userData.name}</span>
 
               {isActiveSubscription ? (

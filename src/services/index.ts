@@ -3,7 +3,7 @@ import { CommentType, CreateCommentType } from '@/types/comment';
 import { CreateExerciseDto, ExerciseListItemType, ExerciseType, UpdateExerciseDto } from '@/types/exercise';
 import { CreatePaymentRecordDto, PaymentType } from '@/types/payment';
 import { PlanType } from '@/types/plan';
-import { HomeContentType, PaperType, QuestionType } from '@/types/question';
+import { HomeContentType, QuestionType } from '@/types/question';
 import { PutQuotaDto, QuotaType } from '@/types/quota';
 import { SubscriptionType } from '@/types/subscription';
 import { UserType } from '@/types/user';
@@ -25,6 +25,8 @@ export default {
   getHealth: async () => apiClient.get('/health'),
 
   getContent: async (): Promise<HomeContentType> => apiClient.get('/questions/get-content'),
+
+  getPaperNameMapping: async (): Promise<any> => apiClient.get('/questions/name-mapping'),
 
   getUserProfile: async (token: string): Promise<UserType> => {
     const res = await fetch(tutorAPI + '/auth/' + encodeURIComponent(token) + '/getUserByToken');
@@ -136,4 +138,8 @@ export default {
         Authorization: `Bearer ${token}`,
       },
     }),
+
+  test: async (): Promise<QuestionType[]> => {
+    return tryCatch(apiClient.get('/questions/test'));
+  },
 };

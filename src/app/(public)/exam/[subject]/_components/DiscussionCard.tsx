@@ -14,7 +14,7 @@ const DiscussionCard: FC<props> = ({ discussion, isMyComment, questionId }) => {
   const { deleteComment } = useComment(questionId);
 
   const onDeleteComment = () => {
-    const confirm = window.confirm('confirm delete?');
+    const confirm = window.confirm('確定要刪除這個留言嗎?');
     if (!confirm) return;
     deleteComment(discussion._id);
   };

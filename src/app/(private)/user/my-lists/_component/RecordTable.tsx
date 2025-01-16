@@ -2,30 +2,18 @@
 
 import {
   ColumnDef,
-  ColumnFiltersState,
-  flexRender,
   getCoreRowModel,
   getFilteredRowModel,
   getPaginationRowModel,
   getSortedRowModel,
-  SortingState,
   useReactTable,
-  VisibilityState,
 } from '@tanstack/react-table';
-import {
-  ArrowUpDown,
-  ChevronLeft,
-  ChevronRight,
-  CircleCheckBig,
-  CircleX,
-  Eye,
-  LoaderCircle,
-  MoreHorizontal,
-  Trash2,
-} from 'lucide-react';
+import { ArrowUpDown, CircleCheckBig, CircleX, Eye, LoaderCircle, MoreHorizontal, Trash2 } from 'lucide-react';
 import Link from 'next/link';
 import * as React from 'react';
 
+import { BaseTable } from '@/app/(cms)/_components/BaseTable';
+import ExportExamPdfButton from '@/app/(public)/exam/[subject]/_components/ExportExamPdfButton';
 import { Badge } from '@/components/ui/badge';
 import { Button, buttonVariants } from '@/components/ui/button';
 import { Checkbox } from '@/components/ui/checkbox';
@@ -36,9 +24,9 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
-import { Input } from '@/components/ui/input';
-import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
 import { useUserAnswer } from '@/hooks';
+import services from '@/services';
+import { useAppStore } from '@/store';
 import { UserAnswerType } from '@/types/userAnswer';
 
 export const columns: ColumnDef<UserAnswerType>[] = [
@@ -167,64 +155,56 @@ export const columns: ColumnDef<UserAnswerType>[] = [
 ];
 
 export function RecordTable({ data }: { data: UserAnswerType[] }) {
-  const [sorting, setSorting] = React.useState<SortingState>([]);
-  const { deleteUserAnswer } = useUserAnswer();
-  const [columnFilters, setColumnFilters] = React.useState<ColumnFiltersState>([]);
-  const [columnVisibility, setColumnVisibility] = React.useState<VisibilityState>({});
-  const [rowSelection, setRowSelection] = React.useState({});
+  const { invalidateUserAnswersQuery } = useUserAnswer();
+  const { setLoading } = useAppStore();
 
-  const toDeleteAll = (ids: string[]) => {
+  const toDeleteAll = async (ids: string[]) => {
     const confirm = window.confirm(`確定刪除 ${ids.length} 條記錄嗎?`);
     if (!confirm) return;
-    ids.forEach(id => {
-      deleteUserAnswer(id);
-    });
+    setLoading(true);
+
+    for (const id of ids) {
+      await services.deleteUserAnswer(id);
+    }
+    invalidateUserAnswersQuery();
+    setLoading(false);
   };
-
-  const selectedQuestionIdArray = Object.entries(rowSelection)
-    ?.filter(([key, value]) => value)
-    ?.map(([key, value]) => data[parseInt(key)]?.question._id);
-
-  const selectedAnswerIdArray = Object.entries(rowSelection)
-    ?.filter(([key, value]) => value)
-    .map(([key, value]) => data[parseInt(key)]?._id);
 
   const table = useReactTable({
     data,
     columns,
-    onSortingChange: setSorting,
-    onColumnFiltersChange: setColumnFilters,
     getCoreRowModel: getCoreRowModel(),
     getPaginationRowModel: getPaginationRowModel(),
     getSortedRowModel: getSortedRowModel(),
     getFilteredRowModel: getFilteredRowModel(),
-    onColumnVisibilityChange: setColumnVisibility,
-    onRowSelectionChange: setRowSelection,
-    state: {
-      sorting,
-      columnFilters,
-      columnVisibility,
-      rowSelection,
-    },
   });
 
+  const selectedQuestionIdArray = Object.entries(table.getState().rowSelection)
+    ?.filter(([key, value]) => value)
+    ?.map(([key, value]) => data[parseInt(key)]?.question._id);
+
+  const selectedAnswerIdArray = Object.entries(table.getState().rowSelection)
+    ?.filter(([key, value]) => value)
+    .map(([key, value]) => data[parseInt(key)]?._id);
+
   return (
-    <div className='w-full'>
-      <div className='flex items-center justify-between py-4'>
-        <Input
-          placeholder='搜尋'
-          value={(table.getColumn('questionNo')?.getFilterValue() as string) ?? ''}
-          onChange={event => table.getColumn('questionNo')?.setFilterValue(event.target.value)}
-          className='max-w-sm'
-        />
+    <BaseTable
+      data={data}
+      columns={columns}
+      filter={'questionNo'}
+      table={table}
+      batchActionButton={
         <div className='flex gap-2'>
           {selectedQuestionIdArray.length > 0 && (
-            <Link
-              className={buttonVariants({ variant: 'default' })}
-              href={`/exam/user/${selectedQuestionIdArray.join('/')}`}
-            >
-              查看點選題目
-            </Link>
+            <>
+              <ExportExamPdfButton questionsId={selectedQuestionIdArray} />
+              <Link
+                className={buttonVariants({ variant: 'default' })}
+                href={`/exam/user/${selectedQuestionIdArray.join('/')}`}
+              >
+                查看點選題目
+              </Link>
+            </>
           )}
           <Button
             variant={'ghost'}
@@ -234,63 +214,7 @@ export function RecordTable({ data }: { data: UserAnswerType[] }) {
             <Trash2 />
           </Button>
         </div>
-      </div>
-      <div className='rounded-md border'>
-        <Table>
-          <TableHeader>
-            {table.getHeaderGroups().map(headerGroup => (
-              <TableRow key={headerGroup.id}>
-                {headerGroup.headers.map(header => {
-                  return (
-                    <TableHead key={header.id}>
-                      {header.isPlaceholder ? null : flexRender(header.column.columnDef.header, header.getContext())}
-                    </TableHead>
-                  );
-                })}
-              </TableRow>
-            ))}
-          </TableHeader>
-          <TableBody>
-            {table.getRowModel().rows?.length ? (
-              table.getRowModel().rows.map(row => (
-                <TableRow key={row.id} data-state={row.getIsSelected() && 'selected'}>
-                  {row.getVisibleCells().map(cell => (
-                    <TableCell key={cell.id}>{flexRender(cell.column.columnDef.cell, cell.getContext())}</TableCell>
-                  ))}
-                </TableRow>
-              ))
-            ) : (
-              <TableRow>
-                <TableCell colSpan={columns.length} className='h-24 text-center'>
-                  暫時沒有東西
-                </TableCell>
-              </TableRow>
-            )}
-          </TableBody>
-        </Table>
-      </div>
-      <div className='flex items-center justify-end space-x-2 py-4'>
-        <div className='flex-1 text-sm text-muted-foreground'>
-          {table.getFilteredSelectedRowModel().rows.length > 0 && (
-            <>
-              {table.getFilteredSelectedRowModel().rows.length} / {table.getFilteredRowModel().rows.length} 已選擇
-            </>
-          )}
-        </div>
-        <div className='space-x-2'>
-          <Button
-            variant='outline'
-            size='sm'
-            onClick={() => table.previousPage()}
-            disabled={!table.getCanPreviousPage()}
-          >
-            <ChevronLeft />
-          </Button>
-          <Button variant='outline' size='sm' onClick={() => table.nextPage()} disabled={!table.getCanNextPage()}>
-            <ChevronRight />
-          </Button>
-        </div>
-      </div>
-    </div>
+      }
+    />
   );
 }

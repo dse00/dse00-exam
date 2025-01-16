@@ -14,7 +14,7 @@ const UserQuestionPage: NextPage<UserQuestionPageProps> = async ({ params }) => 
 
   return (
     <div>
-      <QuestionsDisplay questions={questions} header={questionIds.map(id => id.substring(20)).join('-')} />
+      <QuestionsDisplay questions={questions} header={`自選${questionIds.length}題目`} />
     </div>
   );
 };

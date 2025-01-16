@@ -1,4 +1,4 @@
-import { LanguageEnum } from '@/components/LanguageButton';
+import { LanguageEnum } from '@/constants';
 
 export const processImageNameByLang = (imageName: string, lang: LanguageEnum | null) => {
   if (lang === LanguageEnum.TC) {

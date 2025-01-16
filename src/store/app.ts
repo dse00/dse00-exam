@@ -1,6 +1,6 @@
 import { create } from 'zustand';
 
-import { LanguageEnum } from '@/components/LanguageButton';
+import { LanguageEnum } from '@/constants';
 
 export type State = {
   counter: number;
@@ -12,6 +12,8 @@ export type State = {
   setLanguage: (language: LanguageEnum) => void;
   loading: boolean;
   setLoading: (loading: boolean) => void;
+  callForSubscriptionDialogOpen: boolean;
+  setCallForSubscriptionDialogOpen: (open: boolean) => void;
 };
 
 export const useAppStore = create<State>((set, get) => ({
@@ -24,4 +26,6 @@ export const useAppStore = create<State>((set, get) => ({
   setLanguage: (language: LanguageEnum) => set({ language }),
   loading: false,
   setLoading: (loading: boolean) => set({ loading }),
+  callForSubscriptionDialogOpen: false,
+  setCallForSubscriptionDialogOpen: (open: boolean) => set({ callForSubscriptionDialogOpen: open }),
 }));

@@ -17,7 +17,7 @@ export default ({ questions, totalPage, currentPage = 1, header }: Props) => {
     <div className='grid gap-6'>
       <div className='flex items-center gap-10'>
         <ProblemListSidebar questions={questions} header={header} currentPage={currentPage} />
-        <ExportExamPdfButton href={'/pdf/exam-paper/' + btoa(questions.map(q => q._id).join('/'))} />
+        <ExportExamPdfButton questions={questions} />
       </div>
 
       <div className='grid gap-10'>
