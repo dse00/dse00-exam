@@ -4,7 +4,7 @@ import { FC } from 'react';
 
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
-import { processImageNameByLang } from '@/lib/processImageNameByLang';
+import { getImageNameByLang } from '@/lib/getImageNameByLang';
 import { useAppStore } from '@/store';
 import { QuestionType } from '@/types/question';
 
@@ -39,7 +39,7 @@ const ExerciseQuestionCard: FC<props> = ({ question, index, setAnswers, answers 
       <CardContent>
         <div className='relative max-w-[720px]'>
           <Image
-            src={processImageNameByLang(question.questionImage, language)}
+            src={getImageNameByLang(question, language)}
             className=''
             alt='question'
             width={1000}

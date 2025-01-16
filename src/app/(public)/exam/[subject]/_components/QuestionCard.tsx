@@ -10,7 +10,7 @@ import { Skeleton } from '@/components/ui/skeleton';
 import { QUESTION_DIFFICULTY_THRESHOLD } from '@/constants';
 import { useSubscription } from '@/hooks';
 import { getDifficulty, getDifficultyStyle } from '@/lib/getDifficulty';
-import { processImageNameByLang } from '@/lib/processImageNameByLang';
+import { getImageNameByLang } from '@/lib/getImageNameByLang';
 import { cn } from '@/lib/utils';
 import { useAppStore } from '@/store';
 import { QuestionType } from '@/types/question';
@@ -87,7 +87,7 @@ const QuestionCard: FC<props> = ({ question, questionNo }) => {
       <CardContent>
         <div className='relative max-w-[720px]'>
           <Image
-            src={processImageNameByLang(question.questionImage, language)}
+            src={getImageNameByLang(question, language)}
             className=''
             alt='question'
             width={1000}
