@@ -1,7 +1,6 @@
 'use client';
 import { useParams } from 'next/navigation';
 
-import { ProblemListSidebar } from '@/app/_components/ProblemListSidebar';
 import LanguageButton from '@/components/LanguageButton';
 import {
   Breadcrumb,
@@ -10,6 +9,7 @@ import {
   BreadcrumbList,
   BreadcrumbSeparator,
 } from '@/components/ui/breadcrumb';
+import { usePaperNameMapping } from '@/hooks/usePaperNameMapping';
 
 export type LayoutProps = {
   children: React.ReactNode;
@@ -17,6 +17,7 @@ export type LayoutProps = {
 
 export default ({ children }: LayoutProps) => {
   const params = useParams();
+  const { displayNameKey, paperNameMappingData } = usePaperNameMapping();
 
   return (
     <div className='flex flex-col'>
@@ -30,7 +31,7 @@ export default ({ children }: LayoutProps) => {
           </BreadcrumbItem>
           <BreadcrumbSeparator />
           <BreadcrumbItem>
-            <BreadcrumbLink>{params.subject}</BreadcrumbLink>
+            <BreadcrumbLink>{paperNameMappingData?.[params.subject as string]?.[displayNameKey]}</BreadcrumbLink>
           </BreadcrumbItem>
           {params.exerciseId && (
             <>
@@ -44,7 +45,7 @@ export default ({ children }: LayoutProps) => {
             <>
               <BreadcrumbSeparator />
               <BreadcrumbItem>
-                <BreadcrumbLink>{params.topic}</BreadcrumbLink>
+                <BreadcrumbLink>{paperNameMappingData?.[params.topic as string]?.[displayNameKey]}</BreadcrumbLink>
               </BreadcrumbItem>
             </>
           )}
@@ -52,7 +53,7 @@ export default ({ children }: LayoutProps) => {
             <>
               <BreadcrumbSeparator />
               <BreadcrumbItem>
-                <BreadcrumbLink>{params.difficulty}</BreadcrumbLink>
+                <BreadcrumbLink>{paperNameMappingData?.[params.difficulty as string]?.[displayNameKey]}</BreadcrumbLink>
               </BreadcrumbItem>
             </>
           )}

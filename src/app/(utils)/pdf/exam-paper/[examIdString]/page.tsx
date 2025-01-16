@@ -3,7 +3,7 @@ import Image from 'next/image';
 import { redirect } from 'next/navigation';
 import { FC } from 'react';
 
-import { LanguageEnum } from '@/components/LanguageButton';
+import { LanguageEnum } from '@/constants';
 import { processImageNameByLang } from '@/lib/processImageNameByLang';
 import services from '@/services';
 
@@ -12,11 +12,14 @@ type PageProps = {
 };
 
 const PdfPage: FC<PageProps> = async ({ params }) => {
-  const examIdString = (await params).examIdString;
+  const p = await params; // Encrypted question ids
+  const encryptedExamIdId = p.examIdString;
+
   let questionIds: string[];
 
   try {
-    questionIds = atob(examIdString).split('/');
+    const decryptedString = atob(decodeURIComponent(encryptedExamIdId));
+    questionIds = decryptedString.split('/');
   } catch (error) {
     redirect('/not-found');
   }
@@ -31,9 +34,19 @@ const PdfPage: FC<PageProps> = async ({ params }) => {
     <div className='bg-white min-h-screen font-[time] py-10'>
       <div className='bg-white h-full container mx-auto p-5 grid gap-10'>
         <div className='font-bold leading-7'>
-          <h2>共 {questions.length} 條。</h2>
-          <h2>本試卷的附圖不一定依比例繪成。</h2>
-          <h2>選出每條的最佳答案。</h2>
+          {language === LanguageEnum.EN ? (
+            <>
+              <h2>There are {questions.length} questions in.</h2>
+              <h2>The diagrams in this paper are not necessarily drawn to scale.</h2>
+              <h2>Choose the best answer for each question.</h2>
+            </>
+          ) : (
+            <>
+              <h2>共 {questions.length} 條。</h2>
+              <h2>本試卷的附圖不一定依比例繪成。</h2>
+              <h2>選出每條的最佳答案。</h2>
+            </>
+          )}
         </div>
         <div className='grid gap-20'>
           {questions.map((question, index) => {
@@ -54,7 +67,7 @@ const PdfPage: FC<PageProps> = async ({ params }) => {
             );
           })}
         </div>
-        <h2 className='font-bold text-center'>⎻ 試卷完 ⎻</h2>
+        <h2 className='font-bold text-center'>{language === LanguageEnum.EN ? 'END OF PAPER' : '⎻ 試卷完 ⎻'}</h2>
       </div>
     </div>
   );

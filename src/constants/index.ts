@@ -8,6 +8,7 @@ export const QUERY_KEYS = {
   RANDOM_QUESTIONS: 'RANDOM_QUESTIONS',
   SUBSCRIPTION: 'SUBSCRIPTION',
   QUOTA: 'QUOTA',
+  PAPER_NAME_MAPPING: 'PAPER_NAME_MAPPING',
 };
 
 export const CMS_QUERY_KEYS = {
@@ -25,3 +26,13 @@ export const QUESTION_DIFFICULTY_THRESHOLD = {
   HARD: 45,
   EXTREME_HARD: 30,
 };
+
+export const FREE_USER_QUOTA = {
+  EXPORT_PDF_QUOTA_DAILY: 3,
+  MAXIMUM_DISPLAY_SELECT_ITEMS: 20,
+};
+
+export enum LanguageEnum {
+  TC = 'tc',
+  EN = 'en',
+}

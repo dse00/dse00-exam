@@ -19,6 +19,7 @@ import { useExercise } from '@/hooks/useExercise';
 import { useAppStore } from '@/store';
 import { ExerciseType } from '@/types/exercise';
 
+import ExportExamPdfButton from '../../_components/ExportExamPdfButton';
 import ExerciseQuestionCard from './ExerciseQuestionCard';
 
 type props = {
@@ -38,7 +39,7 @@ const ExercisePaper: FC<props> = ({ exercise }) => {
 
   const { createExercise, updateExercise } = useExercise();
 
-  const { setLoginDialogOpen } = useAppStore();
+  const { setLoginDialogOpen, setLoading } = useAppStore();
 
   const { userData } = useUser();
 
@@ -52,6 +53,7 @@ const ExercisePaper: FC<props> = ({ exercise }) => {
 
       return;
     }
+    setLoading(true);
     if (isRandom) {
       createExercise({
         questions: questions.map((q, i) => q._id),
@@ -88,7 +90,10 @@ const ExercisePaper: FC<props> = ({ exercise }) => {
   }, [recordedAnswers]);
 
   return (
-    <div className='grid gap-6'>
+    <div className='grid gap-6 items-start'>
+      <div>
+        <ExportExamPdfButton questions={questions} />
+      </div>
       {questions.map((question, index) => (
         <ExerciseQuestionCard
           key={question._id}
@@ -141,6 +146,7 @@ const ExercisePaper: FC<props> = ({ exercise }) => {
             </TableFooter>
           </Table>
           <DialogFooter>
+            <ExportExamPdfButton questions={questions} />
             <Button onClick={toSaveRecord}>保存記錄</Button>
           </DialogFooter>
         </DialogContent>

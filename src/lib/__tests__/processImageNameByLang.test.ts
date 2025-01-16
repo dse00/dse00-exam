@@ -1,4 +1,4 @@
-import { LanguageEnum } from '@/components/LanguageButton';
+import { LanguageEnum } from '@/constants';
 
 import { processImageNameByLang } from '../processImageNameByLang';
 

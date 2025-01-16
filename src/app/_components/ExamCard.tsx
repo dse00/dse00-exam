@@ -16,7 +16,8 @@ const ExamCard: FC<props> = ({ exam, isFeatured, styles }) => {
     <Card className='h-full flex flex-col'>
       <CardHeader className='grow flex flex-col justify-between'>
         <CardTitle className={styles}>{exam.displayName}</CardTitle>
-        <CardDescription>香港中學文憑試</CardDescription>
+
+        <CardDescription>{exam.displayNameTc}</CardDescription>
       </CardHeader>
       <CardContent className='grow'>
         <p>共 {exam.numberOfquestions} 題</p>

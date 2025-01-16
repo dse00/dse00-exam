@@ -2,14 +2,10 @@
 import Cookies from 'js-cookie';
 import { useEffect } from 'react';
 
+import { LanguageEnum } from '@/constants';
 import { useAppStore } from '@/store';
 
 import { Button } from './ui/button';
-
-export enum LanguageEnum {
-  TC = 'tc',
-  EN = 'en',
-}
 
 const LanguageButton = () => {
   const { setLanguage, language } = useAppStore();

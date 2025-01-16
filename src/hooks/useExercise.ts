@@ -2,7 +2,7 @@ import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 
 import { QUERY_KEYS } from '@/constants';
 import services from '@/services';
-import { CreateCommentType } from '@/types/comment';
+import { useAppStore } from '@/store';
 import { CreateExerciseDto, UpdateExerciseDto } from '@/types/exercise';
 
 import { useMyToast } from './useMyToast';
@@ -12,6 +12,7 @@ export const useExercise = () => {
   const queryClient = useQueryClient();
 
   const { successToast } = useMyToast();
+  const { setLoading } = useAppStore();
 
   const { userData } = useUser();
   const { data: userExerciseData } = useQuery({
@@ -31,6 +32,9 @@ export const useExercise = () => {
       successToast('Your exercise has been created');
       invalidateCommentsQuery();
     },
+    onSettled: () => {
+      setLoading(false);
+    },
   });
 
   const { mutate: updateExercise } = useMutation({
@@ -41,6 +45,9 @@ export const useExercise = () => {
       successToast('Your answer has been deleted');
       invalidateCommentsQuery();
     },
+    onSettled: () => {
+      setLoading(false);
+    },
   });
 
   const { mutate: deleteExercise } = useMutation({
@@ -50,6 +57,9 @@ export const useExercise = () => {
     onSuccess: () => {
       successToast('Your exercise has been deleted');
       invalidateCommentsQuery();
+    },
+    onSettled: () => {
+      setLoading(false);
     },
   });
 

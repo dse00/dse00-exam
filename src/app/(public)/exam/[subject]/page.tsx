@@ -20,6 +20,6 @@ const ExamMathsPage: NextPage<props> = async ({ searchParams, params }) => {
 
   const { data: questions, total }: any = await services.getQuestions({ page, subject });
 
-  return <QuestionsDisplay questions={questions} totalPage={total} currentPage={page} header='Maths Exam' />;
+  return <QuestionsDisplay questions={questions} totalPage={total} currentPage={page} header={subject as string} />;
 };
 export default ExamMathsPage;
