@@ -3,6 +3,7 @@ import { FC, useEffect, useState } from 'react';
 
 import { Button } from '@/components/ui/button';
 import { useUser, useUserAnswer } from '@/hooks';
+import { logEvent } from '@/lib/ga';
 import { useAppStore } from '@/store';
 import { QuestionType } from '@/types/question';
 
@@ -49,6 +50,13 @@ const AnswerButtons: FC<props> = ({ question, userAnswer }) => {
     if (!userData) return setLoginDialogOpen(true);
     if (selectedAnswer || isSkep) return;
     setSelectedAnswer(buttonAnswer);
+
+    logEvent({
+      action: 'button_click',
+      category: 'UI Interaction',
+      label: 'Subscribe Button',
+      value: 1,
+    });
 
     createUserAnswer({
       question: question._id,
