@@ -1,5 +1,5 @@
 'use client';
-import { FC, useEffect, useRef, useState } from 'react';
+import { FC, useEffect, useState } from 'react';
 
 import CustomAccordion from '@/components/CustomAccordion';
 import { Button } from '@/components/ui/button';

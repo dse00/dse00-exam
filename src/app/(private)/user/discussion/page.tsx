@@ -1,7 +1,6 @@
 'use client';
 
 import { useUserComment } from '@/hooks';
-import { useExercise } from '@/hooks/useExercise';
 
 import { CommentTable } from './_components/CommentTable';
 

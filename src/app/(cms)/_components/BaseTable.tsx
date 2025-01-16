@@ -31,7 +31,7 @@ export function BaseTable<T>({
   data: T[];
   columns: ColumnDef<T>[];
   filter: string;
-  table: TableType<T>;
+  table?: TableType<T>;
   batchActionButton?: React.ReactNode;
 }) {
   const { isActiveSubscription } = useSubscription();
