@@ -8,8 +8,6 @@ import services from '@/services';
 const Testpage = async () => {
   const testData = await services.test();
 
-  console.log(testData);
-
   return (
     <div className='grid gap-4'>
       {testData.map(data => {
