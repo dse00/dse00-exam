@@ -7,7 +7,7 @@ import services from '@/services';
 
 import ExamCard from '../_components/ExamCard';
 import FeatureCard from '../_components/FeatureCard';
-import RankingBoard from '../_components/RankingBoard';
+import LeaderBoards from '../_components/LeaderBoards';
 import styles from './index.module.css';
 
 export default async function Home() {
@@ -28,7 +28,7 @@ export default async function Home() {
 
           {/* Ranking */}
           <div className='basis-1/3 self-auto'>
-            <RankingBoard />
+            <LeaderBoards />
           </div>
         </div>
 

@@ -1,6 +1,7 @@
 import apiClient from '@/services/ExamApiClient';
 import { CommentType, CreateCommentType } from '@/types/comment';
 import { CreateExerciseDto, ExerciseListItemType, ExerciseType, UpdateExerciseDto } from '@/types/exercise';
+import { MessageType } from '@/types/message';
 import { CreatePaymentRecordDto, PaymentType } from '@/types/payment';
 import { PlanType } from '@/types/plan';
 import { HomeContentType, QuestionType } from '@/types/question';
@@ -146,4 +147,16 @@ export default {
   },
 
   getRanking: async (): Promise<RankingType[]> => apiClient.get('/answers/ranking'),
+
+  getMessageByUser: async (token: string): Promise<MessageType[]> =>
+    apiClient.get('/messages/user', {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    }),
+
+  acknowledgeMessage: async (messageId: string): Promise<MessageType> =>
+    apiClient.put('/messages/' + messageId, {
+      acknowledged: true,
+    }),
 };
