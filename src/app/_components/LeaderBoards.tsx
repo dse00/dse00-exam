@@ -6,7 +6,7 @@ import { cn } from '@/lib/utils';
 import services from '@/services';
 import { RankingType } from '@/types/ranking';
 
-import LeaderBoardMobile from './RankingBoardMobile';
+import LeaderBoardMobile from './LeaderBoardMobile';
 
 const getRankingStyle = (rank: number) => {
   switch (rank) {
@@ -21,7 +21,7 @@ const getRankingStyle = (rank: number) => {
   }
 };
 
-const RankingBoard = async () => {
+const LeaderBoards = async () => {
   const ranking = await services.getRanking();
 
   return (
@@ -38,7 +38,7 @@ const RankingBoard = async () => {
   );
 };
 
-export default RankingBoard;
+export default LeaderBoards;
 
 const LeaderBoard: FC<{ rankings: RankingType[] }> = ({ rankings }) => {
   return (
@@ -53,7 +53,7 @@ const LeaderBoard: FC<{ rankings: RankingType[] }> = ({ rankings }) => {
           <span className='text-end'>分數</span>
         </div>
         <ScrollArea className={cn('rounded-md h-[180px]')}>
-          <div className='grid gap-4 pt-2 pb-10'>
+          <div className='grid gap-3 pt-2 pb-10'>
             {rankings.map((rank, i) => (
               <div
                 key={rank.user.user}

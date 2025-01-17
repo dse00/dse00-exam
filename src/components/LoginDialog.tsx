@@ -3,7 +3,7 @@ import { usePathname } from 'next/navigation';
 import { useState } from 'react';
 
 import { Button, buttonVariants } from '@/components/ui/button';
-import { Dialog, DialogContent, DialogTitle } from '@/components/ui/dialog';
+import { Dialog, DialogContent, DialogDescription, DialogTitle } from '@/components/ui/dialog';
 import { Input } from '@/components/ui/input';
 import { useUser } from '@/hooks';
 import { useAppStore } from '@/store';
@@ -44,7 +44,7 @@ export function LoginDialog() {
             />
           </div>
 
-          <div className='flex justify-between items-center'>
+          <DialogDescription className='flex justify-between items-center'>
             <Link
               href={`https://www.dse00.com/p/login.html?origin=${process.env.NEXT_PUBLIC_REACT_APP_API_BASE_URL + pathname}`}
               target='_blank'
@@ -55,7 +55,7 @@ export function LoginDialog() {
             <Button onClick={onSubmit} disabled={!credentials.email || !credentials.password}>
               快速登入
             </Button>
-          </div>
+          </DialogDescription>
         </form>
       </DialogContent>
     </Dialog>
