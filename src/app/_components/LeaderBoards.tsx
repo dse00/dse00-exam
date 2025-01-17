@@ -21,8 +21,10 @@ const getRankingStyle = (rank: number) => {
   }
 };
 
-const LeaderBoards = async () => {
+const LeaderBoards: FC<{ readOnly: boolean }> = async ({ readOnly = false }) => {
   const ranking = await services.getRanking();
+
+  if (readOnly) return <LeaderBoard rankings={ranking} />;
 
   return (
     <>

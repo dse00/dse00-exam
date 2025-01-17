@@ -1,3 +1,4 @@
+'use client';
 import { Leaf } from 'lucide-react';
 import { useEffect, useState } from 'react';
 

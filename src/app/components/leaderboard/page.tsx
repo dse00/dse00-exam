@@ -1,7 +1,7 @@
 import LeaderBoard from '@/app/_components/LeaderBoards';
 
 const LeaderBoardComponent = () => {
-  return <LeaderBoard />;
+  return <LeaderBoard readOnly />;
 };
 
 export default LeaderBoardComponent;
