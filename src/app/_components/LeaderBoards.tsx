@@ -24,16 +24,16 @@ const getRankingStyle = (rank: number) => {
 const LeaderBoards: FC<{ readOnly?: boolean }> = async ({ readOnly = false }) => {
   const ranking = await services.getRanking();
 
-  if (readOnly) return <LeaderBoard rankings={ranking} />;
+  if (readOnly) return <LeaderBoard rankings={ranking} readOnly={readOnly} />;
 
   return (
     <>
       <div className='hidden sm:block'>
-        <LeaderBoard rankings={ranking} readOnly={readOnly} />
+        <LeaderBoard rankings={ranking} />
       </div>
       <div className='block sm:hidden'>
         <LeaderBoardMobile>
-          <LeaderBoard rankings={ranking} readOnly={readOnly} />
+          <LeaderBoard rankings={ranking} />
         </LeaderBoardMobile>
       </div>
     </>
@@ -76,7 +76,7 @@ const LeaderBoard: FC<{ rankings: RankingType[]; readOnly?: boolean }> = ({ rank
               </div>
             ))}
           </div>
-          {!readOnly && <FadeOutBorder />}
+          {!readOnly && <FadeOutBorder position='bottom' />}
         </ScrollArea>
       </div>
     </div>
