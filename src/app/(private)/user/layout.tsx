@@ -4,6 +4,7 @@ import { usePathname } from 'next/navigation';
 import { useState } from 'react';
 
 import { menuItems } from '@/app/_components/AvatarAndMenu';
+import Footer from '@/app/_components/Footer';
 import Header from '@/app/_components/Header';
 import { useLanguage } from '@/components/LanguageButton';
 import {
@@ -44,7 +45,7 @@ export default ({ children }: LayoutProps) => {
           </BreadcrumbList>
         </Breadcrumb>
       </div>
-      <div className='container justify-center gap-20 flex px-2 items-start'>
+      <div className='container justify-center gap-20 flex px-2 items-start min-h-[72vh]'>
         <div className='gap-6 hidden sm:grid'>
           <Calendar mode='single' selected={date} onSelect={setDate} className='rounded-md border' />
           {menuItems.map((item, index) => (
@@ -64,6 +65,7 @@ export default ({ children }: LayoutProps) => {
 
         <div className='grow'>{children}</div>
       </div>
+      <Footer />
     </div>
   );
 };

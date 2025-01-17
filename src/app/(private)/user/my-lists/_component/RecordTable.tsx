@@ -201,7 +201,7 @@ export function RecordTable({ data }: { data: UserAnswerType[] }) {
       }}
       table={table}
       batchActionButton={
-        <div className='flex gap-2'>
+        <div className='flex gap-2 flex-row-reverse sm:flex-row'>
           {selectedQuestionIdArray.length > 0 && (
             <>
               <ExportExamPdfButton questionsId={selectedQuestionIdArray} />
