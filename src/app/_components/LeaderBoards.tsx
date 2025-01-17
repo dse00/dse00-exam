@@ -29,11 +29,11 @@ const LeaderBoards: FC<{ readOnly?: boolean }> = async ({ readOnly = false }) =>
   return (
     <>
       <div className='hidden sm:block'>
-        <LeaderBoard rankings={ranking} />
+        <LeaderBoard rankings={ranking} readOnly={readOnly} />
       </div>
       <div className='block sm:hidden'>
         <LeaderBoardMobile>
-          <LeaderBoard rankings={ranking} />
+          <LeaderBoard rankings={ranking} readOnly={readOnly} />
         </LeaderBoardMobile>
       </div>
     </>
@@ -42,7 +42,7 @@ const LeaderBoards: FC<{ readOnly?: boolean }> = async ({ readOnly = false }) =>
 
 export default LeaderBoards;
 
-const LeaderBoard: FC<{ rankings: RankingType[] }> = ({ rankings }) => {
+const LeaderBoard: FC<{ rankings: RankingType[]; readOnly?: boolean }> = ({ rankings, readOnly = false }) => {
   return (
     <div className='relative'>
       <div className='grid gap-2 h-[220px] overflow-hidden'>
@@ -76,7 +76,7 @@ const LeaderBoard: FC<{ rankings: RankingType[] }> = ({ rankings }) => {
               </div>
             ))}
           </div>
-          <FadeOutBorder position='bottom' />
+          {!readOnly && <FadeOutBorder />}
         </ScrollArea>
       </div>
     </div>

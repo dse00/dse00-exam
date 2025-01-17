@@ -1,12 +1,4 @@
-<div onclick="goDse00Exam" id="dse00-exam-entry" target="_blank">
-  <embed src="https://exam.dse00.com/components/leaderboard" width="100%" height="220px" />
-</div>
-
+<!-- add token to the link of DSE00 Exam -->
 <script>
-  const token = Cookies.get('token');
-  const dse00ExamEntryLink = document.querySelector('#dse00-exam-entry');
-
-  const goDse00Exam = () => {
-    window.open('https://exam.dse00.com?token=' + encodeURIComponent(token), '_blank');
-  };
+  document.querySelector('#main-menu-nav li a').href += '?token=' + encodeURIComponent(Cookies.get('token'));
 </script>
