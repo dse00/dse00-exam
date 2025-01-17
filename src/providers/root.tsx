@@ -4,7 +4,6 @@ import { FC } from 'react';
 
 import CallForSubscriptionDialog from '@/app/_components/CallForSubscriptionDialog';
 import GoogleAnalytic from '@/app/_components/GoogleAnalytic';
-import MessageDialog from '@/app/_components/MessageDialog';
 import LoginDialog from '@/components/LoginDialog';
 import { Toaster } from '@/components/ui/toaster';
 import WebLoading from '@/components/WebLoading';
@@ -28,7 +27,6 @@ const RootProvider: FC<props> = ({ children }) => {
           <CallForSubscriptionDialog />
           <WebLoading />
           <GoogleAnalytic />
-          <MessageDialog />
         </>
       </ReactQueryProvider>
       <Toaster />

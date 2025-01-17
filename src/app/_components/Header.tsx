@@ -3,6 +3,7 @@ import { FC } from 'react';
 
 import AvatarAndMenu from './AvatarAndMenu';
 import HeaderIcon from './HeaderIcon';
+import MessageDialog from './MessageDialog';
 
 const Header: FC = () => {
   return (
@@ -38,6 +39,7 @@ const Header: FC = () => {
           </div>
         </div>
         <AvatarAndMenu />
+        <MessageDialog />
       </div>
     </header>
   );
