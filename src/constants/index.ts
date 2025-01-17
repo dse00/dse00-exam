@@ -38,3 +38,10 @@ export enum LanguageEnum {
   TC = 'tc',
   EN = 'en',
 }
+
+export const webData = {
+  title: 'DSE00 exam',
+  slogen: '一站式操卷工具',
+  description: '準備 DSE 考試的操卷網站',
+  icons: ['/favicon.ico'],
+};
