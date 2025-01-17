@@ -1,9 +1,10 @@
+'use client';
 import { Anvil, Medal } from 'lucide-react';
 import { FC } from 'react';
 
 import { ScrollArea } from '@/components/ui/scroll-area';
+import { useRanking } from '@/hooks/useRanking';
 import { cn } from '@/lib/utils';
-import services from '@/services';
 import { RankingType } from '@/types/ranking';
 
 import LeaderBoardMobile from './LeaderBoardMobile';
@@ -21,19 +22,21 @@ const getRankingStyle = (rank: number) => {
   }
 };
 
-const LeaderBoards: FC<{ readOnly?: boolean }> = async ({ readOnly = false }) => {
-  const ranking = await services.getRanking();
+const LeaderBoards: FC<{ readOnly?: boolean }> = ({ readOnly = false }) => {
+  const { rankingData } = useRanking();
 
-  if (readOnly) return <LeaderBoard rankings={ranking} readOnly={readOnly} />;
+  if (!rankingData) return null;
+
+  if (readOnly) return <LeaderBoard rankings={rankingData} readOnly={readOnly} />;
 
   return (
     <>
       <div className='hidden sm:block'>
-        <LeaderBoard rankings={ranking} />
+        <LeaderBoard rankings={rankingData} />
       </div>
       <div className='block sm:hidden'>
         <LeaderBoardMobile>
-          <LeaderBoard rankings={ranking} />
+          <LeaderBoard rankings={rankingData} />
         </LeaderBoardMobile>
       </div>
     </>
@@ -55,6 +58,8 @@ const LeaderBoard: FC<{ rankings: RankingType[]; readOnly?: boolean }> = ({ rank
           <span className='text-end'>分數</span>
         </div>
         <ScrollArea className={cn('rounded-md h-[180px]')}>
+          {!readOnly && <FadeOutBorder height={20} />}
+
           <div className='grid gap-3 pt-2 pb-10'>
             {rankings.map((rank, i) => (
               <div
@@ -83,15 +88,16 @@ const LeaderBoard: FC<{ rankings: RankingType[]; readOnly?: boolean }> = ({ rank
   );
 };
 
-const FadeOutBorder: FC<{ position?: 'top' | 'bottom' }> = ({ position = 'top' }) => {
+const FadeOutBorder: FC<{ position?: 'top' | 'bottom'; height?: number }> = ({ position = 'top', height }) => {
   return (
     <div
-      className='h-20 w-full absolute'
+      className='w-full absolute'
       style={{
         background: 'linear-gradient(#fffcf8, #fffcf800)',
         transform: position === 'top' ? 'none' : 'rotate(180deg)',
         top: position === 'top' ? 0 : 'auto',
         bottom: position === 'bottom' ? 0 : 'auto',
+        height: height ? `${height}px` : '30px',
       }}
     />
   );

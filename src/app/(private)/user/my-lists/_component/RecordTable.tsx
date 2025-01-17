@@ -26,6 +26,8 @@ import {
 } from '@/components/ui/dropdown-menu';
 import { useUserAnswer } from '@/hooks';
 import { usePaperNameMapping } from '@/hooks/usePaperNameMapping';
+import { getDifficulty, getDifficultyStyle } from '@/lib/getDifficulty';
+import { cn } from '@/lib/utils';
 import services from '@/services';
 import { useAppStore } from '@/store';
 import { UserAnswerType } from '@/types/userAnswer';
@@ -52,27 +54,23 @@ export function RecordTable({ data }: { data: UserAnswerType[] }) {
       enableSorting: false,
       enableHiding: false,
     },
-    {
-      accessorKey: 'questionNo',
-      header: ({ column }) => {
-        return (
-          <Button variant='ghost' onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}>
-            題號
-            <ArrowUpDown />
-          </Button>
-        );
-      },
-      cell: ({ row }) => <div className='uppercase pl-4'>{row.getValue('questionNo')}</div>,
-    },
+    // {
+    //   accessorKey: 'questionNo',
+    //   header: ({ column }) => {
+    //     return (
+    //       <Button variant='ghost' onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}>
+    //         題號
+    //         <ArrowUpDown />
+    //       </Button>
+    //     );
+    //   },
+    //   cell: ({ row }) => <div className='uppercase pl-4'>{row.getValue('questionNo')}</div>,
+    // },
     {
       accessorKey: 'topic',
       header: ({ column }) => {
         return (
-          <Button
-            variant='ghost'
-            onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}
-            className='hidden sm:flex'
-          >
+          <Button variant='ghost' onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')} className=''>
             主題
             <ArrowUpDown />
           </Button>
@@ -80,11 +78,33 @@ export function RecordTable({ data }: { data: UserAnswerType[] }) {
       },
       cell: ({ row }) => {
         return (
-          <div className='capitalize hidden sm:block ml-4'>
-            <Badge variant={'outline'} className='mr-3'>
+          <div className='capitalize flex ml-4 gap-2'>
+            <Badge variant={'outline'} className='sm:block hidden'>
               math
             </Badge>
             {paperNameMappingData?.[row.getValue('topic') as string]?.[displayNameKey]}
+          </div>
+        );
+      },
+    },
+    {
+      accessorKey: 'correctPercentage',
+      header: ({ column }) => {
+        return (
+          <Button variant='ghost' onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}>
+            難度
+            <ArrowUpDown />
+          </Button>
+        );
+      },
+      cell: ({ row }) => {
+        const difficulty = row.getValue('correctPercentage');
+
+        return (
+          <div className={cn(getDifficultyStyle(difficulty as number), 'pl-7')}>
+            {getDifficulty(difficulty as number)
+              .substring(0, 1)
+              .toUpperCase()}
           </div>
         );
       },
@@ -196,7 +216,7 @@ export function RecordTable({ data }: { data: UserAnswerType[] }) {
       data={data}
       columns={columns}
       filter={{
-        key: 'questionNo',
+        key: 'topic',
         name: '題號',
       }}
       table={table}
