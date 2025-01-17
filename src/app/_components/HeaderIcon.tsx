@@ -13,7 +13,7 @@ const HeaderIcon = () => {
       className='typo-round text-white font-black text-3xl drop-shadow-[0_0px_6px_rgba(255,255,255,0.7)]'
     >
       <div className='flex gap-4 items-center'>
-        <Leaf size={32} fill={isActiveSubscription ? '#eab308' : ''} />
+        <Leaf size={32} fill={isActiveSubscription ? '#eab308' : '#9A1111'} />
         <span> {isActiveSubscription ? 'DSE00+ exam' : 'DSE00 exam'}</span>
       </div>
     </Link>
