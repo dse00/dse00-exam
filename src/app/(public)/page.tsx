@@ -1,4 +1,4 @@
-import { Bomb, FlaskRound, Layers2, Rocket, Shuffle } from 'lucide-react';
+import { Bomb, FlaskRound, Layers2, Rocket } from 'lucide-react';
 import Link from 'next/link';
 
 import { buttonVariants } from '@/components/ui/button';
@@ -6,6 +6,8 @@ import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle }
 import services from '@/services';
 
 import ExamCard from '../_components/ExamCard';
+import FeatureCard from '../_components/FeatureCard';
+import RankingBoard from '../_components/RankingBoard';
 import styles from './index.module.css';
 
 export default async function Home() {
@@ -14,30 +16,19 @@ export default async function Home() {
   return (
     <main className='container mx-auto'>
       <div className='grid gap-10'>
-        {/* Featured */}
-        <div>
-          <div className='flex w-full gap-0 sm:gap-6 items-stretch'>
-            <div className='basis-2/3'>
-              <ExamCard
-                exam={paperBySubjects[0]}
-                isFeatured
-                styles='text-3xl font-black'
-                cardStyles={'rounded-r-none sm:rounded-xl border-r-0 sm:border'}
-              />
-            </div>
-            <div className='basis-1/3 self-auto'>
-              <ExamCard
-                cardStyles={'rounded-l-none sm:rounded-xl border-l-0 sm:border'}
-                exam={{
-                  path: 'maths/exercise/random',
-                  topic: 'random',
-                  displayName: '隨機練習',
-                  displayNameTc: '隨機練習',
-                  numberOfquestions: 10,
-                }}
-                icon={<Shuffle />}
-              />
-            </div>
+        <div className='flex sm:flex-row flex-col w-full gap-8 sm:gap-10 items-stretch'>
+          {/* Featured */}
+          <div className='basis-2/3'>
+            <FeatureCard
+              exam={paperBySubjects[0]}
+              styles='text-3xl font-black'
+              cardStyles={'rounded-r-none sm:rounded-xl border-r-0 sm:border'}
+            />
+          </div>
+
+          {/* Ranking */}
+          <div className='basis-1/3 self-auto'>
+            <RankingBoard />
           </div>
         </div>
 
@@ -93,7 +84,7 @@ export default async function Home() {
           <FlaskRound />
           <span>化學、生物、物理</span>
         </h1>
-        <div className='gap-3 sm:gap-6 grid grid-cols-3'>
+        <div className='gap-3 sm:gap-6 grid sm:grid-cols-3 grid-cols-1'>
           {['Physics', 'Chemistry', 'Biology'].map(subject => (
             <Card key={subject} className='hover:scale-105 transition cursor-pointer'>
               <CardHeader>
@@ -104,7 +95,7 @@ export default async function Home() {
                 <CardDescription />
               </CardHeader>
               <CardContent>
-                <p>Is Coming</p>
+                <p>Is Coming ...</p>
               </CardContent>
               <CardFooter />
             </Card>

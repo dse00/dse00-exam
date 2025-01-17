@@ -5,6 +5,7 @@ import { CreatePaymentRecordDto, PaymentType } from '@/types/payment';
 import { PlanType } from '@/types/plan';
 import { HomeContentType, QuestionType } from '@/types/question';
 import { PutQuotaDto, QuotaType } from '@/types/quota';
+import { RankingType } from '@/types/ranking';
 import { SubscriptionType } from '@/types/subscription';
 import { UserType } from '@/types/user';
 import { CreateUserAnswerType, UserAnswerType } from '@/types/userAnswer';
@@ -143,4 +144,6 @@ export default {
   test: async (): Promise<QuestionType[]> => {
     return tryCatch(apiClient.get('/questions/test'));
   },
+
+  getRanking: async (): Promise<RankingType[]> => apiClient.get('/answers/ranking'),
 };
