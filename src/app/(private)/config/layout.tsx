@@ -42,8 +42,8 @@ export default ({ children }: { children: React.ReactNode }) => {
             </BreadcrumbList>
           </Breadcrumb>
         </div>
-        <div className='container justify-center gap-20 flex px-2 items-start'>
-          <div className='gap-6 hidden sm:grid'>
+        <div className='container justify-center gap-20 flex px-2 sm:items-start flex-col sm:flex-row items-center'>
+          <div className='gap-6 grid'>
             {menuItems.map((item, index) => (
               <Link
                 key={item.title}

@@ -9,7 +9,7 @@ export default ({ children }: LayoutProps) => {
   return (
     <div className='flex flex-col items-center sm:gap-10 gap-8'>
       <Header />
-      <div className='container justify-center px-2'>{children}</div>
+      <div className='container justify-center px-2 min-h-[75vh]'>{children}</div>
       <Footer />
     </div>
   );

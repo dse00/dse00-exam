@@ -3,7 +3,7 @@ import { FC } from 'react';
 type props = {};
 const Footer: FC<props> = () => {
   return (
-    <footer className='bg-light_brown w-full px-2 py-10'>
+    <footer className='bg-light_brown w-full px-2 py-10 shadow-[0_0_4px_#00000015]'>
       <div className='container mx-auto'>
         <div className='flex gap-6 text-sm text-gray-500 flex-col sm:flex-row'>
           <span>© 2025 DSE00</span>

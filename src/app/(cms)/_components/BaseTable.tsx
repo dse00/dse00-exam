@@ -57,7 +57,7 @@ export function BaseTable<T>({
   };
 
   return (
-    <div className='w-full grid gap-4'>
+    <div className='w-full grid gap-4 pb-10'>
       {/* input & action buttons */}
 
       <div className='flex sm:items-center justify-between flex-col sm:flex-row items-start gap-4'>
