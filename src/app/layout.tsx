@@ -6,7 +6,7 @@ import Script from 'next/script';
 import RootProvider from '@/providers/root';
 
 export const metadata: Metadata = {
-  title: 'DSE00 Exam',
+  title: 'DSE00 Exam - 一站式操卷工具',
   description: '準備 DSE 考試的操卷網站',
   icons: ['/favicon.ico'],
 };
