@@ -52,9 +52,9 @@ const AnswerButtons: FC<props> = ({ question, userAnswer }) => {
     setSelectedAnswer(buttonAnswer);
 
     logEvent({
-      action: 'button_click',
+      action: 'answer_question',
       category: 'UI Interaction',
-      label: 'Subscribe Button',
+      label: 'Answer Question',
       value: 1,
     });
 

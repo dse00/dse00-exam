@@ -16,6 +16,7 @@ const UserNotebookPage = () => {
             ...(ans.question as QuestionType),
             questionNo: ans.question.year + 'Q' + ans.question.questionNo,
             questionId: ans.question._id,
+            correctPercentage: ans.question.correctPercentage,
             ...ans,
           }))}
         />
