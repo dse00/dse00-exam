@@ -22,12 +22,7 @@ export default ({ questions, totalPage, currentPage = 1, header }: Props) => {
 
       <div className='grid gap-10'>
         {questions?.map((question: QuestionType, index: number) => (
-          <QuestionCard
-            key={question._id}
-            question={question}
-            index={index}
-            questionNo={((currentPage || 1) - 1) * 10 + index + 1}
-          />
+          <QuestionCard key={question._id} question={question} questionNo={((currentPage || 1) - 1) * 10 + index + 1} />
         ))}
       </div>
       {totalPage && currentPage && <PaginationSession numPages={Math.ceil(totalPage / 10)} page={currentPage} />}

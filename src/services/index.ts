@@ -159,4 +159,16 @@ export default {
     apiClient.put('/messages/' + messageId, {
       acknowledged: true,
     }),
+
+  updateUserProfile: async (updateDto: { name: string; user: string }): Promise<String> => {
+    const res = await fetch(tutorAPI + '/student-files', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(updateDto),
+    });
+
+    return 'ok';
+  },
 };

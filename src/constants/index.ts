@@ -45,3 +45,8 @@ export const webData = {
   description: '準備 DSE 考試的操卷網站',
   icons: ['/favicon.ico'],
 };
+
+export const COOKIES_KEY = {
+  LAST_QUESTION: 'lastQuestion',
+  TOKEN: 'token',
+};

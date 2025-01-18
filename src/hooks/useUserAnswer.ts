@@ -38,7 +38,7 @@ export const useUserAnswer = () => {
       return services.deleteUserAnswer(answerId);
     },
     onSuccess: () => {
-      successToast('Your answer has been deleted');
+      successToast('刪除成功');
       invalidateUserAnswersQuery();
     },
   });

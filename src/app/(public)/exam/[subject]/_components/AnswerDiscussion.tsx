@@ -12,9 +12,10 @@ import Discussion from './Discussion';
 
 type props = {
   question: QuestionType;
+  index: number;
 };
 
-const AnswerDiscussion: FC<props> = ({ question }) => {
+const AnswerDiscussion: FC<props> = ({ question, index }) => {
   const [showAns, setShowAns] = useState(false);
 
   const [showDiscussion, setShowDiscussion] = useState(false);
@@ -47,7 +48,7 @@ const AnswerDiscussion: FC<props> = ({ question }) => {
       </div>
       <div className='grid'>
         <CustomAccordion show={showAns}>
-          <AnswerButtons question={question} userAnswer={userAnswer?.answer} />
+          <AnswerButtons question={question} userAnswer={userAnswer?.answer} index={index} />
         </CustomAccordion>
         <CustomAccordion show={showDiscussion}>
           <Discussion questionId={question._id} comments={question.comments} />

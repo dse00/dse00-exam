@@ -14,6 +14,10 @@ import { buttonVariants } from '@/components/ui/button';
 
 const menuItems = [
   {
+    title: '個人設置',
+    href: '/config/personal',
+  },
+  {
     title: '訂閱',
     href: '/config/subscription',
   },
