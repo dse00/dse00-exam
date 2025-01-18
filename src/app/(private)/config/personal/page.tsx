@@ -25,7 +25,7 @@ const FormSchema = z.object({
   }),
 });
 
-export function ConfigPersonalPage() {
+function ConfigPersonalPage() {
   const { userData, invalidateUserQuery } = useUser();
   const form = useForm<z.infer<typeof FormSchema>>({
     resolver: zodResolver(FormSchema),
