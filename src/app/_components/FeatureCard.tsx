@@ -6,7 +6,6 @@ import { buttonVariants } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
 import { cn } from '@/lib/utils';
 import { PaperType } from '@/types/question';
-
 interface props {
   exam: PaperType;
   styles?: string;
@@ -14,7 +13,7 @@ interface props {
   cardStyles?: string;
 }
 
-const FeatureCard: FC<props> = ({ exam, styles, icon, cardStyles }) => {
+const FeatureCard: FC<props> = async ({ exam, styles, icon, cardStyles }) => {
   return (
     <Card className={cn('h-full flex flex-col', cardStyles)}>
       <CardHeader className='grow flex flex-col justify-between'>

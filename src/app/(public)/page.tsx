@@ -1,5 +1,7 @@
-import { Bomb, FlaskRound, Layers2, Rocket } from 'lucide-react';
+import { BicepsFlexed, Bomb, FlaskRound, History, Layers2, Rocket } from 'lucide-react';
+import { cookies } from 'next/headers';
 import Link from 'next/link';
+import * as R from 'ramda';
 
 import { buttonVariants } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
@@ -12,6 +14,9 @@ import styles from './index.module.css';
 
 export default async function Home() {
   const { paperBySubjects, mathPaperByTopic, mathPaperByDifficulty } = await services.getContent();
+
+  const cookiesStore = await cookies();
+  const lastQuestion = JSON.parse(cookiesStore.get('lastQuestion')?.value || '{}');
 
   return (
     <main className='container mx-auto'>
@@ -31,6 +36,37 @@ export default async function Home() {
             <LeaderBoards />
           </div>
         </div>
+
+        {/* continue */}
+        {R.isNotEmpty(lastQuestion) && (
+          <>
+            <h1 className={styles.title}>
+              <History />
+              <span>繼續上次...</span>
+            </h1>
+            <div className='flex'>
+              <Card className='shrink-1'>
+                <CardHeader>
+                  <CardTitle>Q{lastQuestion.questionNo}</CardTitle>
+                  <CardDescription>{lastQuestion.title}</CardDescription>
+                </CardHeader>
+                <CardContent className='grow' />
+                <CardFooter>
+                  <Link
+                    className={buttonVariants()}
+                    href={`${lastQuestion.href}?page=${Math.ceil(lastQuestion.questionNo / 10)}`}
+                  >
+                    <BicepsFlexed />
+                    繼續
+                    <span className='-scale-x-100'>
+                      <BicepsFlexed />
+                    </span>
+                  </Link>
+                </CardFooter>
+              </Card>
+            </div>
+          </>
+        )}
 
         {/* Topic */}
         <h1 className={styles.title}>

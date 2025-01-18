@@ -1,7 +1,10 @@
+import Cookies from 'js-cookie';
 import { Angry, Meh, Smile } from 'lucide-react';
+import { useParams, usePathname } from 'next/navigation';
 import { FC, useEffect, useState } from 'react';
 
 import { Button } from '@/components/ui/button';
+import { COOKIES_KEY } from '@/constants';
 import { useUser, useUserAnswer } from '@/hooks';
 import { logEvent } from '@/lib/ga';
 import { useAppStore } from '@/store';
@@ -13,8 +16,9 @@ export const answersOptions = ['A', 'B', 'C', 'D'];
 type props = {
   question: QuestionType;
   userAnswer?: string;
+  index: number;
 };
-const AnswerButtons: FC<props> = ({ question, userAnswer }) => {
+const AnswerButtons: FC<props> = ({ question, userAnswer, index }) => {
   const [selectedAnswer, setSelectedAnswer] = useState<string | null>(null);
 
   const { userData } = useUser();
@@ -24,6 +28,10 @@ const AnswerButtons: FC<props> = ({ question, userAnswer }) => {
   const [isSkep, setIsSkip] = useState(false);
 
   const { createUserAnswer } = useUserAnswer();
+
+  const pathname = usePathname();
+
+  const params = useParams();
 
   useEffect(() => {
     if (userAnswer) {
@@ -51,6 +59,7 @@ const AnswerButtons: FC<props> = ({ question, userAnswer }) => {
     if (selectedAnswer || isSkep) return;
     setSelectedAnswer(buttonAnswer);
 
+    // test GA events
     logEvent({
       action: 'answer_question',
       category: 'UI Interaction',
@@ -64,6 +73,17 @@ const AnswerButtons: FC<props> = ({ question, userAnswer }) => {
       user: userData?.user as string,
       correct: question.answer === buttonAnswer,
     });
+
+    // set cookie for last question to continue
+    Cookies.set(
+      COOKIES_KEY.LAST_QUESTION,
+      JSON.stringify({
+        href: pathname, // e.g /exam/maths
+        questionNo: index, // question number e.g Q63
+        title: params.topic || params.subject, // e.g maths
+      }),
+      { expires: 365 }
+    );
   };
 
   return (

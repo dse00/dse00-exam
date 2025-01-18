@@ -50,5 +50,5 @@ export const useUser = () => {
     queryClient.invalidateQueries({ queryKey: [QUERY_KEYS.USER_PROFILE] });
   };
 
-  return { userData, isError, loginUser };
+  return { userData, isError, loginUser, invalidateUserQuery };
 };

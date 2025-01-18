@@ -19,7 +19,6 @@ import AnswerDiscussion from './AnswerDiscussion';
 
 interface props {
   question: QuestionType;
-  index: number;
   questionNo: number;
 }
 
@@ -90,7 +89,7 @@ const QuestionCard: FC<props> = ({ question, questionNo }) => {
         </div>
       </CardContent>
       <CardFooter>
-        <AnswerDiscussion question={question} />
+        <AnswerDiscussion question={question} index={questionNo} />
       </CardFooter>
     </Card>
   );

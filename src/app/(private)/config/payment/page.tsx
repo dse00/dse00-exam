@@ -18,6 +18,11 @@ const UserConfigPaymentPage = async () => {
   return (
     <div>
       <div className='grid gap-4'>
+        {paymentData.length === 0 && (
+          <div className='flex flex-col gap-4'>
+            <h1 className='text-2xl font-bold'>沒有記錄</h1>
+          </div>
+        )}
         {paymentData.map(payment => (
           <PaymentCard key={payment._id} payment={payment} />
         ))}

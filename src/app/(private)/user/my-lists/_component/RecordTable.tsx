@@ -211,6 +211,11 @@ export function RecordTable({ data }: { data: UserAnswerType[] }) {
     ?.filter(([key, value]) => value)
     .map(([key, value]) => data[parseInt(key)]?._id);
 
+  const handleToDeleteAll = async () => {
+    await toDeleteAll(selectedAnswerIdArray);
+    table.setRowSelection({});
+  };
+
   return (
     <BaseTable
       data={data}
@@ -234,11 +239,7 @@ export function RecordTable({ data }: { data: UserAnswerType[] }) {
               </Link>
             </>
           )}
-          <Button
-            variant={'ghost'}
-            disabled={selectedQuestionIdArray.length === 0}
-            onClick={() => toDeleteAll(selectedAnswerIdArray)}
-          >
+          <Button variant={'ghost'} disabled={selectedQuestionIdArray.length === 0} onClick={handleToDeleteAll}>
             <Trash2 />
           </Button>
         </div>
