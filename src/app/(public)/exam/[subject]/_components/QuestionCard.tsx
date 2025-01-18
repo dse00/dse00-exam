@@ -4,6 +4,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { FC } from 'react';
 
+import AdSense from '@/components/AdSense';
 import { buttonVariants } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
 import { Skeleton } from '@/components/ui/skeleton';
@@ -73,25 +74,28 @@ const QuestionCard: FC<props> = ({ question, questionNo }) => {
   }
 
   return (
-    <Card>
-      <CardHeader>
-        <CardTitle className='flex justify-between items-start'>
-          <span>Q{questionNo} </span>
-          {/* <Badge>{question.year}Q{question.questionNo}</Badge> */}
-        </CardTitle>
-        <CardDescription className={getDifficultyStyle(question.correctPercentage)}>
-          {getDifficulty(question.correctPercentage)}
-        </CardDescription>
-      </CardHeader>
-      <CardContent>
-        <div className='relative max-w-[720px]'>
-          <Image src={getImageNameByLang(question, language)} alt='question' width={1000} height={100} priority />
-        </div>
-      </CardContent>
-      <CardFooter>
-        <AnswerDiscussion question={question} index={questionNo} />
-      </CardFooter>
-    </Card>
+    <>
+      <Card>
+        <CardHeader>
+          <CardTitle className='flex justify-between items-start'>
+            <span>Q{questionNo} </span>
+            {/* <Badge>{question.year}Q{question.questionNo}</Badge> */}
+          </CardTitle>
+          <CardDescription className={getDifficultyStyle(question.correctPercentage)}>
+            {getDifficulty(question.correctPercentage)}
+          </CardDescription>
+        </CardHeader>
+        <CardContent>
+          <div className='relative max-w-[720px]'>
+            <Image src={getImageNameByLang(question, language)} alt='question' width={1000} height={100} priority />
+          </div>
+        </CardContent>
+        <CardFooter>
+          <AnswerDiscussion question={question} index={questionNo} />
+        </CardFooter>
+      </Card>
+      {questionNo % 4 === 0 && <AdSense />}
+    </>
   );
 };
 
