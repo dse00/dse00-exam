@@ -145,7 +145,7 @@ const ExercisePaper: FC<props> = ({ exercise }) => {
               </TableRow>
             </TableFooter>
           </Table>
-          <DialogFooter>
+          <DialogFooter className='gap-3'>
             <ExportExamPdfButton questions={questions} />
             <Button onClick={toSaveRecord}>保存記錄</Button>
           </DialogFooter>

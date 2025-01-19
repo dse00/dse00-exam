@@ -1,4 +1,4 @@
-import { BicepsFlexed, Bomb, FlaskRound, History, Layers2, Rocket } from 'lucide-react';
+import { Bomb, FlaskRound, History, Layers2, Rocket } from 'lucide-react';
 import { cookies } from 'next/headers';
 import Link from 'next/link';
 import * as R from 'ramda';
@@ -9,6 +9,7 @@ import services from '@/services';
 
 import ExamCard from '../_components/ExamCard';
 import FeatureCard from '../_components/FeatureCard';
+import LastQuestionContinueCard from '../_components/LastQuestionContinueCard';
 import LeaderBoards from '../_components/LeaderBoards';
 import styles from './index.module.css';
 
@@ -24,11 +25,7 @@ export default async function Home() {
         <div className='flex sm:flex-row flex-col w-full gap-8 sm:gap-10 items-stretch'>
           {/* Featured */}
           <div className='basis-2/3'>
-            <FeatureCard
-              exam={paperBySubjects[0]}
-              styles='text-3xl font-black'
-              cardStyles={'rounded-r-none sm:rounded-xl border-r-0 sm:border'}
-            />
+            <FeatureCard exam={paperBySubjects[0]} styles='text-3xl font-black' />
           </div>
 
           {/* Ranking */}
@@ -37,7 +34,7 @@ export default async function Home() {
           </div>
         </div>
 
-        {/* continue */}
+        {/* Continue */}
         {R.isNotEmpty(lastQuestion) && (
           <>
             <h1 className={styles.title}>
@@ -45,25 +42,7 @@ export default async function Home() {
               <span>繼續上次...</span>
             </h1>
             <div className='flex'>
-              <Card className='shrink-1'>
-                <CardHeader>
-                  <CardTitle>Q{lastQuestion.questionNo}</CardTitle>
-                  <CardDescription>{lastQuestion.title}</CardDescription>
-                </CardHeader>
-                <CardContent className='grow' />
-                <CardFooter>
-                  <Link
-                    className={buttonVariants()}
-                    href={`${lastQuestion.href}?page=${Math.ceil(lastQuestion.questionNo / 10)}`}
-                  >
-                    <BicepsFlexed />
-                    繼續
-                    <span className='-scale-x-100'>
-                      <BicepsFlexed />
-                    </span>
-                  </Link>
-                </CardFooter>
-              </Card>
+              <LastQuestionContinueCard lastQuestion={lastQuestion} />
             </div>
           </>
         )}
