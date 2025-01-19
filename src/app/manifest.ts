@@ -7,8 +7,6 @@ export default function manifest(): MetadataRoute.Manifest {
     description: 'DSE00 exam',
     start_url: '/',
     display: 'standalone',
-    background_color: '#9A1111',
-    theme_color: '#fffcf8',
     icons: [
       {
         src: '/images/icon.png',
