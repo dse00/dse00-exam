@@ -2,7 +2,7 @@ import { NextPage } from 'next';
 
 import services from '@/services';
 
-import QuestionsDisplay from '../../_components/QuestionsDisplay';
+import QuestionsDisplay from '../../questions/_components/QuestionsDisplay';
 
 export type SearchParams = Promise<{ [key: string]: string | string[] | undefined }>;
 

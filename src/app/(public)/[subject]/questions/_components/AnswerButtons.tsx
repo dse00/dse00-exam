@@ -78,7 +78,7 @@ const AnswerButtons: FC<props> = ({ question, userAnswer, index }) => {
     Cookies.set(
       COOKIES_KEY.LAST_QUESTION,
       JSON.stringify({
-        href: pathname, // e.g /exam/maths
+        href: pathname, // e.g /maths
         questionNo: index, // question number e.g Q63
         title: params.topic || params.subject, // e.g maths
       }),

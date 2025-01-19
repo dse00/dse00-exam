@@ -28,11 +28,11 @@ const FeatureCard: FC<props> = async ({ exam, styles, icon, cardStyles }) => {
         <p>共 {exam.numberOfquestions} 題</p>
       </CardContent>
       <CardFooter className='flex gap-4'>
-        <Link className={buttonVariants()} href={`/exam/${exam.path}`}>
+        <Link className={buttonVariants()} href={`/${exam.path}`}>
           <NotebookPen />
           <span>開始</span>
         </Link>
-        <Link className={buttonVariants({ variant: 'secondary' })} href={'/exam/maths/exercise/random'}>
+        <Link className={buttonVariants({ variant: 'secondary' })} href={'/maths/exercise/random'}>
           <Shuffle />
           <span>隨機練習</span>
         </Link>

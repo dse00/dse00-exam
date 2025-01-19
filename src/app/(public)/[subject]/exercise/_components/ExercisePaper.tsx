@@ -19,7 +19,7 @@ import { useExercise } from '@/hooks/useExercise';
 import { useAppStore } from '@/store';
 import { ExerciseType } from '@/types/exercise';
 
-import ExportExamPdfButton from '../../_components/ExportExamPdfButton';
+import ExportExamPdfButton from '../../questions/_components/ExportExamPdfButton';
 import ExerciseQuestionCard from './ExerciseQuestionCard';
 
 type props = {

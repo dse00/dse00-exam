@@ -3,7 +3,7 @@ import { QuestionType } from '@/types/question';
 
 import { getImageNameByLang } from '../getImageNameByLang';
 
-const testQuestion: QuestionType = {
+const testQuestion: Partial<QuestionType> = {
   _id: 'testId',
   subject: 'testSubject',
   year: 2022,
@@ -17,12 +17,12 @@ const testQuestion: QuestionType = {
 
 describe('getImageNameByLang', () => {
   it('should return correct pagination when in the middle of pages', () => {
-    const result = getImageNameByLang(testQuestion, LanguageEnum.EN);
+    const result = getImageNameByLang(testQuestion as QuestionType, LanguageEnum.EN);
     expect(result).toEqual('testSubject_en.png');
   });
 
   it('should return correct pagination when in the middle of pages', () => {
-    const result = getImageNameByLang(testQuestion, LanguageEnum.TC);
+    const result = getImageNameByLang(testQuestion as QuestionType, LanguageEnum.TC);
     expect(result).toEqual('testSubject_tc.png');
   });
 });

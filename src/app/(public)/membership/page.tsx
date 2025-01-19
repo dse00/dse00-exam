@@ -1,4 +1,14 @@
-import { BellPlus, BookOpenCheck, Database, Infinity, Leaf, LibraryBig, ScrollText, Smile } from 'lucide-react';
+import {
+  BellPlus,
+  BookOpenCheck,
+  Database,
+  Infinity,
+  Leaf,
+  LibraryBig,
+  MegaphoneOff,
+  ScrollText,
+  Smile,
+} from 'lucide-react';
 import { NextPage } from 'next';
 import { FC } from 'react';
 
@@ -126,6 +136,11 @@ const MembershipPage: NextPage = async () => {
               title: '25× 訪問容量',
               description: '訪問更多題目，生成更長試卷。',
               icon: <Database />,
+            },
+            {
+              title: '無廣告',
+              description: '不會有任何廣告打擾你的練習。',
+              icon: <MegaphoneOff />,
             },
             {
               title: '未來更新',

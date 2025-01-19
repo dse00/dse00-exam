@@ -47,7 +47,7 @@ export const ProblemListSidebar: FC<props> = ({ questions, header, currentPage }
         </SheetHeader>
         <div className='grid gap-4 py-10'>
           {questions?.map((question: QuestionType, index: number) => (
-            <Link key={question._id} href={`/exam/user/${question._id}`}>
+            <Link key={question._id} href={`/questions/${question._id}`}>
               <Button
                 variant={index % 2 === 0 ? 'ghost' : 'secondary'}
                 className='w-full flex sm:items-center justify-between flex-col sm:flex-row items-start'

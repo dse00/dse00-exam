@@ -13,7 +13,7 @@ import Link from 'next/link';
 import * as React from 'react';
 
 import { BaseTable } from '@/app/(cms)/_components/BaseTable';
-import ExportExamPdfButton from '@/app/(public)/exam/[subject]/_components/ExportExamPdfButton';
+import ExportExamPdfButton from '@/app/(public)/[subject]/questions/_components/ExportExamPdfButton';
 import { Badge } from '@/components/ui/badge';
 import { Button, buttonVariants } from '@/components/ui/button';
 import { Checkbox } from '@/components/ui/checkbox';
@@ -160,7 +160,7 @@ export function RecordTable({ data }: { data: UserAnswerType[] }) {
             </DropdownMenuTrigger>
             <DropdownMenuContent align='end'>
               {/* <DropdownMenuLabel>Actions</DropdownMenuLabel> */}
-              <Link href={`/exam/user/${answer.question._id}`}>
+              <Link href={`/${answer.question.subject}/questions/${answer.question._id}`}>
                 <DropdownMenuItem>
                   <Eye />
                   <span>查看題目</span>

@@ -70,7 +70,7 @@ export const columns: ColumnDef<ExerciseListItemType>[] = [
           <span>{row.original.score}</span>
         ) : (
           <Link
-            href={`/exam/${row.original.subject}/exercise/${row.original._id}`}
+            href={`/${row.original.subject}/exercise/${row.original._id}`}
             className={buttonVariants({ size: 'sm' })}
           >
             <NotebookPen />
@@ -107,7 +107,7 @@ export const columns: ColumnDef<ExerciseListItemType>[] = [
           <DropdownMenuContent align='end'>
             <DropdownMenuItem>
               <Eye />
-              <Link href={`/exam/${exercise.subject}/exercise/${exercise._id}`}>查看題目</Link>
+              <Link href={`/${exercise.subject}/exercise/${exercise._id}`}>查看題目</Link>
             </DropdownMenuItem>
             <DropdownMenuItem onClick={() => toDeleteRecord(exercise._id)}>
               <CircleX />
