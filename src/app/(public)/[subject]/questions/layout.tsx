@@ -7,7 +7,7 @@ export async function generateMetadata({ params }: { params: Promise<{ subject: 
   const mapData = await services.getPaperNameMapping();
 
   return {
-    title: mapData[p.subject].displayName + ' - ' + webData.title, // Dynamic title
+    title: mapData[p.subject]?.displayName + ' - ' + webData.title, // Dynamic title
   };
 }
 

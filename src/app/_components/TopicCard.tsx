@@ -15,7 +15,7 @@ interface props {
   cardStyles?: string;
 }
 
-const ExamCard: FC<props> = ({ exam, isFeatured, styles, icon, cardStyles }) => {
+const TopicCard: FC<props> = ({ exam, isFeatured, styles, icon, cardStyles }) => {
   return (
     <Card className={cn('h-full flex flex-col', cardStyles)}>
       <CardHeader className='grow flex flex-col justify-between'>
@@ -34,7 +34,7 @@ const ExamCard: FC<props> = ({ exam, isFeatured, styles, icon, cardStyles }) => 
           className={cn(buttonVariants({ variant: isFeatured ? 'default' : 'secondary' }), {
             'px-0': !isFeatured,
           })}
-          href={`/exam/${exam.path}`}
+          href={`/${exam.path}`}
         >
           {isFeatured ? (
             <>
@@ -53,4 +53,4 @@ const ExamCard: FC<props> = ({ exam, isFeatured, styles, icon, cardStyles }) => 
   );
 };
 
-export default ExamCard;
+export default TopicCard;

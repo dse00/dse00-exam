@@ -3,14 +3,14 @@ import { cookies } from 'next/headers';
 import Link from 'next/link';
 import * as R from 'ramda';
 
+import TopicCard from '@/app/_components/TopicCard';
 import { buttonVariants } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
 import services from '@/services';
 
-import ExamCard from '../_components/ExamCard';
-import FeatureCard from '../_components/FeatureCard';
-import LastQuestionContinueCard from '../_components/LastQuestionContinueCard';
-import LeaderBoards from '../_components/LeaderBoards';
+import FeatureCard from '../../_components/FeatureCard';
+import LastQuestionContinueCard from '../../_components/LastQuestionContinueCard';
+import LeaderBoards from '../../_components/LeaderBoards';
 import styles from './index.module.css';
 
 export default async function Home() {
@@ -54,7 +54,7 @@ export default async function Home() {
         </h1>
         <div className='grid grid-cols-2 gap-3 sm:gap-6 md:grid-cols-3 lg:grid-cols-4'>
           {mathPaperByTopic.map(subject => (
-            <ExamCard key={subject.displayName} exam={subject} />
+            <TopicCard key={subject.displayName} exam={subject} />
           ))}
         </div>
 
@@ -68,7 +68,7 @@ export default async function Home() {
           {mathPaperByDifficulty.map((subject, i) =>
             subject.topic !== 'ExtremeHard' ? (
               <div key={subject.displayName} className='md:col-span-3'>
-                <ExamCard
+                <TopicCard
                   exam={subject}
                   styles={['text-green-600', 'text-yellow-500', 'text-red-700'][i]}
                   isFeatured={subject.topic === 'Medium'}
@@ -84,7 +84,7 @@ export default async function Home() {
                   <p>共 {subject.numberOfquestions} 題</p>
                 </CardContent>
                 <CardFooter>
-                  <Link className={buttonVariants({ variant: 'secondary' })} href={`/exam/${subject.path}`}>
+                  <Link className={buttonVariants({ variant: 'secondary' })} href={`/${subject.path}`}>
                     開始
                   </Link>
                 </CardFooter>

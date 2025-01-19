@@ -1,7 +1,7 @@
 import services from '@/services';
 
-import QuestionsDisplay from '../_components/QuestionsDisplay';
-import { SearchParams } from '../page';
+import QuestionsDisplay from '../questions/_components/QuestionsDisplay';
+import { SearchParams } from '../questions/page';
 
 const MathTopicPage = async ({
   params,

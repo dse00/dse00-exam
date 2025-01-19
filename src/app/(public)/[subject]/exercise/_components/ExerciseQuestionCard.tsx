@@ -8,7 +8,7 @@ import { getImageNameByLang } from '@/lib/getImageNameByLang';
 import { useAppStore } from '@/store';
 import { QuestionType } from '@/types/question';
 
-import { answersOptions } from '../../_components/AnswerButtons';
+import { answersOptions } from '../../questions/_components/AnswerButtons';
 
 interface props {
   question: QuestionType;
