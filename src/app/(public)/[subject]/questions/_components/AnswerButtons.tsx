@@ -1,6 +1,6 @@
 import Cookies from 'js-cookie';
 import { Angry, Meh, Smile } from 'lucide-react';
-import { useParams, usePathname } from 'next/navigation';
+import { usePathname } from 'next/navigation';
 import { FC, useEffect, useState } from 'react';
 
 import { Button } from '@/components/ui/button';
@@ -8,7 +8,7 @@ import { COOKIES_KEY } from '@/constants';
 import { useUser, useUserAnswer } from '@/hooks';
 import { logEvent } from '@/lib/ga';
 import { useAppStore } from '@/store';
-import { QuestionType } from '@/types/question';
+import { LastQuestionType, QuestionType } from '@/types/question';
 
 import CorrectPercentageIndicator from './CorrectPercentageIndicator';
 export const answersOptions = ['A', 'B', 'C', 'D'];
@@ -30,8 +30,6 @@ const AnswerButtons: FC<props> = ({ question, userAnswer, index }) => {
   const { createUserAnswer } = useUserAnswer();
 
   const pathname = usePathname();
-
-  const params = useParams();
 
   useEffect(() => {
     if (userAnswer) {
@@ -76,12 +74,13 @@ const AnswerButtons: FC<props> = ({ question, userAnswer, index }) => {
 
     // set cookie for last question to continue
     Cookies.set(
-      COOKIES_KEY.LAST_QUESTION,
+      COOKIES_KEY.LAST_QUESTIONS + question.subject,
       JSON.stringify({
         href: pathname, // e.g /maths
         questionNo: index, // question number e.g Q63
-        title: params.topic || params.subject, // e.g maths
-      }),
+        title: question.topic || question.subject, // e.g maths
+        createdAt: new Date().toISOString(),
+      } as LastQuestionType),
       { expires: 365 }
     );
   };

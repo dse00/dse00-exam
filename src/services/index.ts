@@ -4,7 +4,7 @@ import { CreateExerciseDto, ExerciseListItemType, ExerciseType, UpdateExerciseDt
 import { MessageType } from '@/types/message';
 import { CreatePaymentRecordDto, PaymentType } from '@/types/payment';
 import { PlanType } from '@/types/plan';
-import { HomeContentType, QuestionType } from '@/types/question';
+import { HomeContentType, QuestionType, SubjectContentType } from '@/types/question';
 import { PutQuotaDto, QuotaType } from '@/types/quota';
 import { RankingType } from '@/types/ranking';
 import { SubscriptionType } from '@/types/subscription';
@@ -26,7 +26,8 @@ const tryCatch = async (fn: any, defaultValue?: any) => {
 export default {
   getHealth: async () => apiClient.get('/health'),
 
-  getContent: async (): Promise<HomeContentType> => apiClient.get('/questions/get-content'),
+  getContent: async (subject: string): Promise<SubjectContentType> =>
+    apiClient.get('/questions/get-content?subject=' + subject),
 
   getPaperNameMapping: async (): Promise<any> => apiClient.get('/questions/name-mapping'),
 
@@ -171,4 +172,6 @@ export default {
 
     return 'ok';
   },
+
+  getHomeContent: async (): Promise<HomeContentType> => apiClient.get('/questions/home-content'),
 };

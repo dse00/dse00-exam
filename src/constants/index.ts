@@ -31,7 +31,7 @@ export const QUESTION_DIFFICULTY_THRESHOLD = {
 
 export const FREE_USER_QUOTA = {
   EXPORT_PDF_QUOTA_DAILY: 3,
-  MAXIMUM_DISPLAY_SELECT_ITEMS: 20,
+  MAXIMUM_DISPLAY_SELECT_ITEMS: 10,
 };
 
 export enum LanguageEnum {
@@ -47,6 +47,6 @@ export const webData = {
 };
 
 export const COOKIES_KEY = {
-  LAST_QUESTION: 'lastQuestion',
+  LAST_QUESTIONS: 'lastQuestions',
   TOKEN: 'token',
 };

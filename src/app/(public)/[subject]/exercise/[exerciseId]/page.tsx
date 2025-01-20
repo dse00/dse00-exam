@@ -9,16 +9,16 @@ export type SearchParams = Promise<{ [key: string]: string | string[] | undefine
 
 type props = {
   searchParams: SearchParams;
-  params: Promise<{ exerciseId: string }>;
+  params: Promise<{ exerciseId: string; subject: string }>;
 };
 
 const ExamMathsExercisePage: NextPage<props> = async ({ params }) => {
-  const { exerciseId } = await params;
+  const { exerciseId, subject } = await params;
 
   let exercise: ExerciseType;
 
   if (exerciseId === 'random') {
-    exercise = await services.getRandomExercise('maths');
+    exercise = await services.getRandomExercise(subject);
   } else {
     exercise = await services.getExercise(exerciseId);
   }

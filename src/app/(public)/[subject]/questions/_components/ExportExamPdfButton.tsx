@@ -69,14 +69,14 @@ const ExportExamPdfButton: FC<props> = ({ questions, questionsId }) => {
               <SupportDSE00Title />
             </DialogTitle>
             <DialogDescription>
-              伺服器成本上升，每日限額剩餘 {3 - (quotaData?.count || 0)}，訂閱會員無限制使用
+              伺服器成本上升，每日限額剩餘 {2 - (quotaData?.count || 0)}，訂閱會員無限制使用
             </DialogDescription>
           </DialogHeader>
           <DialogFooter>
             <Button
               onClick={toExportPdf}
               variant={'secondary'}
-              disabled={(quotaData?.count as number) >= 3 && !isActiveSubscription}
+              disabled={(quotaData?.count as number) >= 2 && !isActiveSubscription}
             >
               繼續
             </Button>

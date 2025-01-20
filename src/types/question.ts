@@ -21,10 +21,10 @@ export type PaperType = {
   numberOfquestions: number;
 };
 
-export type HomeContentType = {
+export type SubjectContentType = {
   paperBySubjects: PaperType[];
-  mathPaperByTopic: PaperType[];
-  mathPaperByDifficulty: PaperType[];
+  paperByTopic: PaperType[];
+  paperByDifficulty: PaperType[];
 };
 
 export enum QuestionDifficultyEnum {
@@ -33,3 +33,14 @@ export enum QuestionDifficultyEnum {
   hard = 'hard',
   extremeHard = 'extreme hard',
 }
+
+export type HomeContentType = {
+  [key: string]: PaperType;
+};
+
+export type LastQuestionType = {
+  href: string;
+  questionNo: number;
+  title: string;
+  createdAt: string;
+};

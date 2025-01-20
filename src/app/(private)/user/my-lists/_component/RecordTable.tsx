@@ -54,44 +54,49 @@ export function RecordTable({ data }: { data: UserAnswerType[] }) {
       enableSorting: false,
       enableHiding: false,
     },
-    // {
-    //   accessorKey: 'questionNo',
-    //   header: ({ column }) => {
-    //     return (
-    //       <Button variant='ghost' onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}>
-    //         題號
-    //         <ArrowUpDown />
-    //       </Button>
-    //     );
-    //   },
-    //   cell: ({ row }) => <div className='uppercase pl-4'>{row.getValue('questionNo')}</div>,
-    // },
+    {
+      accessorKey: 'subject',
+      header: ({ column }) => {
+        return (
+          <Button
+            variant='ghost'
+            onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}
+            className='sm:flex hidden px-0'
+          >
+            科目
+            <ArrowUpDown />
+          </Button>
+        );
+      },
+      cell: ({ row }) => (
+        <div className='sm:flex hidden'>
+          <Badge variant={'outline'}>{row.getValue('subject')}</Badge>
+        </div>
+      ),
+    },
     {
       accessorKey: 'topic',
       header: ({ column }) => {
         return (
-          <Button variant='ghost' onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')} className=''>
+          <Button variant='ghost' onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')} className='px-0'>
             主題
             <ArrowUpDown />
           </Button>
         );
       },
       cell: ({ row }) => {
-        return (
-          <div className='capitalize flex ml-4 gap-2'>
-            <Badge variant={'outline'} className='sm:block hidden'>
-              math
-            </Badge>
-            {paperNameMappingData?.[row.getValue('topic') as string]?.[displayNameKey]}
-          </div>
-        );
+        return <div className=''>{paperNameMappingData?.[row.getValue('topic') as string]?.[displayNameKey]}</div>;
       },
     },
     {
       accessorKey: 'correctPercentage',
       header: ({ column }) => {
         return (
-          <Button variant='ghost' onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}>
+          <Button
+            variant='ghost'
+            onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}
+            className='sm:flex hidden'
+          >
             難度
             <ArrowUpDown />
           </Button>
@@ -113,7 +118,7 @@ export function RecordTable({ data }: { data: UserAnswerType[] }) {
       accessorKey: 'correct',
       header: ({ column }) => {
         return (
-          <Button variant='ghost' onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}>
+          <Button variant='ghost' onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')} className='px-0'>
             評分
             <ArrowUpDown />
           </Button>
@@ -123,7 +128,7 @@ export function RecordTable({ data }: { data: UserAnswerType[] }) {
         const isCorrect = row.getValue('correct');
 
         return (
-          <div className='pl-4'>
+          <div className=''>
             {isCorrect ? (
               <div className='text-green-600 flex items-center gap-2'>
                 <Smile size={'16'} />
