@@ -54,7 +54,7 @@ const PdfPage: FC<PageProps> = async ({ params }) => {
         <div className='font-bold leading-7'>
           {language === LanguageEnum.EN ? (
             <>
-              <h2>There are {subcriptedQuestions.length} questions in.</h2>
+              <h2>There are {subcriptedQuestions.length} questions in total.</h2>
               <h2>The diagrams in this paper are not necessarily drawn to scale.</h2>
               <h2>Choose the best answer for each question.</h2>
             </>
