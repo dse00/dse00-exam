@@ -98,7 +98,7 @@ const HomePage = async () => {
               <p className='opacity-95 leading-9'>
                 透過不同科目的練習，提升自己的學習能力，並且在操練過程中，即時提供回饋，讓你更了解自己的學習狀況。
               </p>
-              <Button variant={'secondary'} asChild>
+              <Button variant={'secondary'} asChild size={'xl'}>
                 <Link href='/maths'>
                   <BicepsFlexed />
                   <span>開始操練</span>
