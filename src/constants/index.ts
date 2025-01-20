@@ -11,6 +11,7 @@ export const QUERY_KEYS = {
   PAPER_NAME_MAPPING: 'PAPER_NAME_MAPPING',
   MESSAGES: 'MESSAGES',
   RANKING: 'RANKING',
+  THRESHOLD: 'THRESHOLD',
 };
 
 export const CMS_QUERY_KEYS = {
@@ -21,12 +22,6 @@ export const CMS_QUERY_KEYS = {
   CMS_PAYMENT: 'CMS_PAYMENT',
   CMS_SUBSCRIPTION: 'CMS_SUBSCRIPTION',
   CMS_QUOTA: 'CMS_QUOTA',
-};
-
-export const QUESTION_DIFFICULTY_THRESHOLD = {
-  EASY: 70,
-  HARD: 48,
-  EXTREME_HARD: 35,
 };
 
 export const FREE_USER_QUOTA = {
@@ -49,4 +44,5 @@ export const webData = {
 export const COOKIES_KEY = {
   LAST_QUESTIONS: 'lastQuestions',
   TOKEN: 'token',
+  LANGUAGE: 'language',
 };

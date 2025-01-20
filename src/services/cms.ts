@@ -40,4 +40,6 @@ export default {
 
   deleteSubscription: async (subscriptionId: string): Promise<SubscriptionType> =>
     apiClient.delete(`/subscriptions/${subscriptionId}`, getCmsHeader()),
+
+  getAllAnswers: async (): Promise<any> => apiClient.get('/answers', getCmsHeader()),
 };

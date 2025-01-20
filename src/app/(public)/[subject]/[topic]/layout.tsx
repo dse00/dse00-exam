@@ -1,12 +1,13 @@
 import { webData } from '@/constants';
-import services from '@/services';
+import { getNameByLang } from '@/lib/server';
 
-export async function generateMetadata({ params }: { params: Promise<{ topic: string }> }) {
+export async function generateMetadata({ params }: { params: Promise<{ topic: string; subject: string }> }) {
   const p = await params;
-  const mapData = await services.getPaperNameMapping();
+
+  const [topicName, subjectName] = await getNameByLang([p.topic, p.subject]);
 
   return {
-    title: mapData[p.topic]?.displayName + ' - ' + webData.title, // Dynamic title
+    title: `${topicName} ${subjectName} - ${webData.title}`, // Dynamic title,
   };
 }
 

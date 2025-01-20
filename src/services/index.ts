@@ -4,7 +4,7 @@ import { CreateExerciseDto, ExerciseListItemType, ExerciseType, UpdateExerciseDt
 import { MessageType } from '@/types/message';
 import { CreatePaymentRecordDto, PaymentType } from '@/types/payment';
 import { PlanType } from '@/types/plan';
-import { HomeContentType, QuestionType, SubjectContentType } from '@/types/question';
+import { HomeContentType, QuestionType, SubjectContentType, ThresholdType } from '@/types/question';
 import { PutQuotaDto, QuotaType } from '@/types/quota';
 import { RankingType } from '@/types/ranking';
 import { SubscriptionType } from '@/types/subscription';
@@ -174,4 +174,6 @@ export default {
   },
 
   getHomeContent: async (): Promise<HomeContentType> => apiClient.get('/questions/home-content'),
+
+  getDifficultyThreshold: async (): Promise<ThresholdType> => apiClient.get('/questions/difficulty-threshold'),
 };

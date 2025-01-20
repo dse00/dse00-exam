@@ -7,8 +7,8 @@ import { FC } from 'react';
 import { buttonVariants } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
 import { Skeleton } from '@/components/ui/skeleton';
-import { QUESTION_DIFFICULTY_THRESHOLD } from '@/constants';
 import { useSubscription } from '@/hooks';
+import { useThreshold } from '@/hooks/useThreshold';
 import { getDifficulty, getDifficultyStyle } from '@/lib/getDifficulty';
 import { getImageNameByLang } from '@/lib/getImageNameByLang';
 import { cn } from '@/lib/utils';
@@ -25,10 +25,13 @@ interface props {
 const QuestionCard: FC<props> = ({ question, questionNo }) => {
   const { language } = useAppStore();
   const { isActiveSubscription } = useSubscription();
+  const { thresholdData } = useThreshold();
 
-  if (!language) return null;
+  if (!language || !thresholdData) return null;
 
-  if (question.correctPercentage <= QUESTION_DIFFICULTY_THRESHOLD.EXTREME_HARD && !isActiveSubscription) {
+  const questionDifficulty = getDifficulty(thresholdData, question.subject, question.correctPercentage);
+
+  if (question.correctPercentage <= thresholdData[question.subject].ExtremeHard && !isActiveSubscription) {
     return (
       <Card id={questionNo.toString()}>
         <CardHeader>
@@ -36,9 +39,7 @@ const QuestionCard: FC<props> = ({ question, questionNo }) => {
             <span>Q{questionNo} </span>
             {/* <Badge>{question.year}Q{question.questionNo}</Badge> */}
           </CardTitle>
-          <CardDescription className={getDifficultyStyle(question.correctPercentage)}>
-            {getDifficulty(question.correctPercentage)}
-          </CardDescription>
+          <CardDescription className={getDifficultyStyle(questionDifficulty)}>{questionDifficulty}</CardDescription>
         </CardHeader>
         <CardContent>
           <div className='relative sm:max-w-[720px] max-w-full grid gap-4'>
@@ -80,9 +81,7 @@ const QuestionCard: FC<props> = ({ question, questionNo }) => {
             <span>Q{questionNo} </span>
             {/* <Badge>{question.year}Q{question.questionNo}</Badge> */}
           </CardTitle>
-          <CardDescription className={getDifficultyStyle(question.correctPercentage)}>
-            {getDifficulty(question.correctPercentage)}
-          </CardDescription>
+          <CardDescription className={getDifficultyStyle(questionDifficulty)}>{questionDifficulty}</CardDescription>
         </CardHeader>
         <CardContent>
           <div className='relative max-w-[720px]'>

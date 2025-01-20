@@ -8,15 +8,15 @@ export type SearchParams = Promise<{ [key: string]: string | string[] | undefine
 
 type props = {
   searchParams: SearchParams;
-  params: Promise<{ difficulty: string }>;
+  params: Promise<{ difficulty: string; subject: string }>;
 };
 
 const ExamMathsDifficultyPage: NextPage<props> = async ({ searchParams, params }) => {
   const { page = 1 } = await searchParams;
 
-  const { difficulty } = await params;
+  const { difficulty, subject } = await params;
 
-  const { data: questions, total }: any = await services.getQuestions({ page, difficulty });
+  const { data: questions, total }: any = await services.getQuestions({ page, difficulty, subject });
 
   return <QuestionsDisplay questions={questions} totalPage={total} currentPage={page as number} header={difficulty} />;
 };

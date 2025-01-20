@@ -14,6 +14,7 @@ import {
   SheetTrigger,
 } from '@/components/ui/sheet';
 import { usePaperNameMapping } from '@/hooks/usePaperNameMapping';
+import { useThreshold } from '@/hooks/useThreshold';
 import { getDifficulty, getDifficultyStyle } from '@/lib/getDifficulty';
 import { cn } from '@/lib/utils';
 import { QuestionType } from '@/types/question';
@@ -28,6 +29,9 @@ type props = {
 
 export const ProblemListSidebar: FC<props> = ({ questions, header, currentPage }) => {
   const { paperNameMappingData, displayNameKey } = usePaperNameMapping();
+  const { thresholdData } = useThreshold();
+
+  if (!thresholdData) return null;
 
   return (
     <Sheet>
@@ -56,8 +60,13 @@ export const ProblemListSidebar: FC<props> = ({ questions, header, currentPage }
                   {(currentPage - 1) * 10 + index + 1}. {paperNameMappingData?.[question.topic]?.[displayNameKey]}
                 </div>
 
-                <span className={cn(getDifficultyStyle(question.correctPercentage), 'text-xs')}>
-                  {getDifficulty(question.correctPercentage)}
+                <span
+                  className={cn(
+                    getDifficultyStyle(getDifficulty(thresholdData, question.subject, question.correctPercentage)),
+                    'text-xs'
+                  )}
+                >
+                  {getDifficulty(thresholdData, question.subject, question.correctPercentage)}
                 </span>
               </Button>
             </Link>

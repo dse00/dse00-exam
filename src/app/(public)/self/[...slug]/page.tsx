@@ -2,7 +2,7 @@ import { NextPage } from 'next';
 
 import services from '@/services';
 
-import QuestionsDisplay from '../_components/QuestionsDisplay';
+import QuestionsDisplay from '../../[subject]/questions/_components/QuestionsDisplay';
 
 type UserQuestionPageProps = {
   params: Promise<{ slug: string[] }>;

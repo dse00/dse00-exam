@@ -26,6 +26,7 @@ import {
 } from '@/components/ui/dropdown-menu';
 import { useUserAnswer } from '@/hooks';
 import { usePaperNameMapping } from '@/hooks/usePaperNameMapping';
+import { useThreshold } from '@/hooks/useThreshold';
 import { getDifficulty, getDifficultyStyle } from '@/lib/getDifficulty';
 import { cn } from '@/lib/utils';
 import services from '@/services';
@@ -103,14 +104,14 @@ export function RecordTable({ data }: { data: UserAnswerType[] }) {
         );
       },
       cell: ({ row }) => {
-        const difficulty = row.getValue('correctPercentage');
+        const correctPercentage = row.getValue('correctPercentage');
+        const { thresholdData } = useThreshold();
+
+        if (!thresholdData) return null;
+        const difficulty = getDifficulty(thresholdData, row.getValue('subject'), correctPercentage as number);
 
         return (
-          <div className={cn(getDifficultyStyle(difficulty as number), 'pl-7')}>
-            {getDifficulty(difficulty as number)
-              .substring(0, 1)
-              .toUpperCase()}
-          </div>
+          <div className={cn(getDifficultyStyle(difficulty), 'pl-7')}>{difficulty.substring(0, 1).toUpperCase()}</div>
         );
       },
     },
@@ -237,7 +238,7 @@ export function RecordTable({ data }: { data: UserAnswerType[] }) {
               <ExportExamPdfButton questionsId={selectedQuestionIdArray} />
               <Link
                 className={buttonVariants({ variant: 'default' })}
-                href={`/exam/user/${selectedQuestionIdArray.join('/')}`}
+                href={`/self/${selectedQuestionIdArray.join('/')}`}
               >
                 <Eye />
                 查看點選題目

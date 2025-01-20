@@ -71,8 +71,8 @@ const data = {
       icon: Bot,
       items: [
         {
-          title: 'List',
-          url: '#',
+          title: 'Answer',
+          url: '/admin/questions/answers',
         },
         {
           title: 'Exercise',
