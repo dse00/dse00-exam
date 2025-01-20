@@ -3,6 +3,7 @@ import Cookies from 'js-cookie';
 
 import { QUERY_KEYS } from '@/constants';
 import services from '@/services';
+import { SubscriptionType } from '@/types/subscription';
 
 export const useSubscription = () => {
   const queryClient = useQueryClient();
@@ -21,11 +22,17 @@ export const useSubscription = () => {
     staleTime: 1000 * 60 * 60 * 24 * 365, // 1 year
   });
 
-  const isActiveSubscription = new Date(subscriptionData?.at(-1)?.endDate as any) >= new Date();
+  const isActiveSubscription = checkISActiveSubscription(subscriptionData as SubscriptionType[]);
 
-  const invalidateUserQuery = () => {
+  const invalidateSubscriptionQuery = () => {
     queryClient.invalidateQueries({ queryKey: [QUERY_KEYS.SUBSCRIPTION] });
   };
 
-  return { subscriptionData, isError, isActiveSubscription };
+  return { subscriptionData, isError, isActiveSubscription, invalidateSubscriptionQuery };
+};
+
+export const checkISActiveSubscription = (subscriptionData: SubscriptionType[]) => {
+  if (!subscriptionData) return false;
+
+  return new Date(subscriptionData?.at(-1)?.endDate as any) >= new Date();
 };

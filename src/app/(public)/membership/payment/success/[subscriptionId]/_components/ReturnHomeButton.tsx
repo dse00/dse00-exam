@@ -1,20 +1,18 @@
 'use client';
-import { useQueryClient } from '@tanstack/react-query';
 import { useEffect } from 'react';
 
 import { Button } from '@/components/ui/button';
-import { QUERY_KEYS } from '@/constants';
+import { useSubscription } from '@/hooks';
 
 const ReturnHomeButton = () => {
+  const { invalidateSubscriptionQuery } = useSubscription();
   const toReturnHome = () => {
     window.location.href = '/';
   };
 
-  const queryClient = useQueryClient();
-
   useEffect(() => {
-    queryClient.invalidateQueries({ queryKey: [QUERY_KEYS.USER_PROFILE] });
-  }, [queryClient]);
+    invalidateSubscriptionQuery();
+  }, []);
 
   return (
     <Button size={'lg'} onClick={toReturnHome}>
