@@ -18,7 +18,7 @@ const menuItems = [
     href: '/config/personal',
   },
   {
-    title: '訂閱',
+    title: '訂閱記錄',
     href: '/config/subscription',
   },
   {

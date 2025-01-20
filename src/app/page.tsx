@@ -81,7 +81,7 @@ const HomePage = async () => {
         <div>
           {lastQuestions.length ? (
             <div className='grid gap-10'>
-              <h1 className='sm:text-4xl text-3xl font-bold leading-[4.2rem] flex gap-3 items-center'>
+              <h1 className='sm:text-4xl text-2xl font-bold leading-[4.2rem] flex gap-3 items-center'>
                 <History size={30} />
                 <span>繼續上次...</span>
               </h1>

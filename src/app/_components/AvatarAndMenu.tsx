@@ -20,19 +20,19 @@ export const menuItems = [
     smallIcon: <LibraryBig />,
     title: '我的記錄',
     href: '/user/my-lists',
-    icon: 'https://assets.leetcode.com/static_assets/public/webpack_bundles/images/list.be52ffc55.png',
+    icon: '/images/my-lists.png',
   },
   {
     smallIcon: <SquareSigma />,
     title: '練習本',
     href: '/user/notebook',
-    icon: 'https://leetcode.com/static/webpack_bundles/images/notebook.44bf4230c.png',
+    icon: '/images/notebook.png',
   },
   {
     smallIcon: <MessageSquareMore />,
     title: '討論',
     href: '/user/discussion',
-    icon: 'https://leetcode.com/static/webpack_bundles/images/answer.08334763f.png',
+    icon: '/images/discussion.png',
   },
 ];
 
@@ -128,7 +128,7 @@ export default function AvatarAndMenu() {
                 <span>管理員</span>
               </Button>
             )}
-            <Button variant={'ghost'} onClick={() => toRedirect('/config/subscription')} className={'justify-start'}>
+            <Button variant={'ghost'} onClick={() => toRedirect('/config/personal')} className={'justify-start'}>
               <Settings />
               <span>個人檔案</span>
             </Button>

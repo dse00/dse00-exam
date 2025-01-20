@@ -228,7 +228,7 @@ export function RecordTable({ data }: { data: UserAnswerType[] }) {
       columns={columns}
       filter={{
         key: 'topic',
-        name: '題號',
+        name: '主題',
       }}
       table={table}
       batchActionButton={
