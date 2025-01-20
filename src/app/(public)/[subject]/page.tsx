@@ -1,4 +1,4 @@
-import { Bomb, FlaskRound, History, Layers2, Rocket } from 'lucide-react';
+import { History, Layers2, Rocket } from 'lucide-react';
 import { cookies } from 'next/headers';
 import Link from 'next/link';
 import * as R from 'ramda';
@@ -13,8 +13,10 @@ import LastQuestionContinueCard from '../../_components/LastQuestionContinueCard
 import LeaderBoards from '../../_components/LeaderBoards';
 import styles from './index.module.css';
 
-export default async function Home() {
-  const { paperBySubjects, mathPaperByTopic, mathPaperByDifficulty } = await services.getContent();
+export default async function SubjectPage({ params }: { params: Promise<{ subject: string }> }) {
+  const p = await params;
+
+  const { paperBySubjects, paperByTopic, paperByDifficulty } = await services.getContent(p.subject);
 
   const cookiesStore = await cookies();
   const lastQuestion = JSON.parse(cookiesStore.get('lastQuestion')?.value || '{}');
@@ -25,7 +27,7 @@ export default async function Home() {
         <div className='flex sm:flex-row flex-col w-full gap-8 sm:gap-10 items-stretch'>
           {/* Featured */}
           <div className='basis-2/3'>
-            <FeatureCard exam={paperBySubjects[0]} styles='text-3xl font-black' />
+            <FeatureCard exam={paperBySubjects[0]} styles='text-3xl font-black' subject={p.subject} />
           </div>
 
           {/* Ranking */}
@@ -53,7 +55,7 @@ export default async function Home() {
           <span>分類操練</span>
         </h1>
         <div className='grid grid-cols-2 gap-3 sm:gap-6 md:grid-cols-3 lg:grid-cols-4'>
-          {mathPaperByTopic.map(subject => (
+          {paperByTopic.map(subject => (
             <TopicCard key={subject.displayName} exam={subject} />
           ))}
         </div>
@@ -65,7 +67,7 @@ export default async function Home() {
           <span>分難度操練</span>
         </h1>
         <div className='grid grid-cols-2 gap-3 sm:gap-6 md:grid-cols-11'>
-          {mathPaperByDifficulty.map((subject, i) =>
+          {paperByDifficulty.map((subject, i) =>
             subject.topic !== 'ExtremeHard' ? (
               <div key={subject.displayName} className='md:col-span-3'>
                 <TopicCard
@@ -91,30 +93,6 @@ export default async function Home() {
               </Card>
             )
           )}
-        </div>
-
-        {/* Coming */}
-
-        <h1 className={styles.title}>
-          <FlaskRound />
-          <span>化學、生物、物理</span>
-        </h1>
-        <div className='gap-3 sm:gap-6 grid sm:grid-cols-3 grid-cols-1'>
-          {['Physics', 'Chemistry', 'Biology'].map(subject => (
-            <Card key={subject} className='hover:scale-105 transition cursor-pointer'>
-              <CardHeader>
-                <CardTitle className='flex items-center gap-4'>
-                  <Bomb />
-                  <span>{subject}</span>
-                </CardTitle>
-                <CardDescription />
-              </CardHeader>
-              <CardContent>
-                <p>Is Coming ...</p>
-              </CardContent>
-              <CardFooter />
-            </Card>
-          ))}
         </div>
       </div>
     </main>

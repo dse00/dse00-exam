@@ -6,6 +6,7 @@ import { FC } from 'react';
 import { buttonVariants } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
 import { usePaperNameMapping } from '@/hooks/usePaperNameMapping';
+import { cn } from '@/lib/utils';
 const LastQuestionContinueCard: FC<{
   lastQuestion: {
     questionNo: number;
@@ -18,15 +19,15 @@ const LastQuestionContinueCard: FC<{
   if (!paperNameMappingData) return null;
 
   return (
-    <Card className='shrink-1'>
+    <Card className='shrink-1 w-40'>
       <CardHeader>
         <CardTitle>Q{lastQuestion.questionNo}</CardTitle>
-        <CardDescription>{getPaperNameByLang(lastQuestion.title)}</CardDescription>
+        <CardDescription className='line-clamp-2'>{getPaperNameByLang(lastQuestion.title)}</CardDescription>
       </CardHeader>
       <CardContent className='grow' />
       <CardFooter>
         <Link
-          className={buttonVariants()}
+          className={cn(buttonVariants())}
           href={`${lastQuestion.href}?page=${Math.ceil(lastQuestion.questionNo / 10)}`}
         >
           <BicepsFlexed />

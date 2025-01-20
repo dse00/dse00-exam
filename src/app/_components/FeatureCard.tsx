@@ -11,9 +11,10 @@ interface props {
   styles?: string;
   icon?: ReactNode;
   cardStyles?: string;
+  subject: string;
 }
 
-const FeatureCard: FC<props> = async ({ exam, styles, icon, cardStyles }) => {
+const FeatureCard: FC<props> = async ({ exam, styles, icon, cardStyles, subject }) => {
   return (
     <Card className={cn('h-full flex flex-col', cardStyles)}>
       <CardHeader className='grow flex flex-col justify-between'>
@@ -32,7 +33,7 @@ const FeatureCard: FC<props> = async ({ exam, styles, icon, cardStyles }) => {
           <NotebookPen />
           <span>開始</span>
         </Link>
-        <Link className={buttonVariants({ variant: 'secondary' })} href={'/maths/exercise/random'}>
+        <Link className={buttonVariants({ variant: 'secondary' })} href={`/${subject}/exercise/random`}>
           <Shuffle />
           <span>隨機練習</span>
         </Link>

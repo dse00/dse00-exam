@@ -8,7 +8,7 @@ import MessageDialog from './MessageDialog';
 const Header: FC = () => {
   return (
     <header className='bg-main w-full h-[58px] flex justify-center items-center px-2'>
-      <div className='container flex items-center gap-10'>
+      <div className='container flex items-center sm:gap-10 gap-3'>
         <HeaderIcon />
         {/* {isExamPage ? (
           <div className='flex items-center gap-3'>
