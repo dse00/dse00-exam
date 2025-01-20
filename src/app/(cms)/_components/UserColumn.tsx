@@ -56,7 +56,7 @@ export const columns: ColumnDef<UserCoumnType>[] = [
     header: () => <div className='text-right'>Created At</div>,
     cell: ({ row }) => {
       return (
-        <div className='text-right font-medium'>{moment(row.getValue('createdAt')).format('YYYY-MM-DD hh:mm')}</div>
+        <div className='text-right font-medium'>{moment(row.getValue('createdAt')).format('YYYY-MM-DD HH:mm')}</div>
       );
     },
   },

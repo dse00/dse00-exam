@@ -31,7 +31,9 @@ export default ({ children }: LayoutProps) => {
           </BreadcrumbItem>
           <BreadcrumbSeparator />
           <BreadcrumbItem>
-            <BreadcrumbLink>{paperNameMappingData?.[params.subject as string]?.[displayNameKey]}</BreadcrumbLink>
+            <BreadcrumbLink href={`/${params.subject}`}>
+              {paperNameMappingData?.[params.subject as string]?.[displayNameKey]}
+            </BreadcrumbLink>
           </BreadcrumbItem>
           {params.exerciseId && (
             <>

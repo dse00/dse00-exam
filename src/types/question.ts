@@ -44,3 +44,11 @@ export type LastQuestionType = {
   title: string;
   createdAt: string;
 };
+
+export type ThresholdType = {
+  [key: string]: {
+    Easy: number;
+    Hard: number;
+    ExtremeHard: number;
+  };
+};

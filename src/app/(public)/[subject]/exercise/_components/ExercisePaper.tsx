@@ -13,11 +13,12 @@ import {
   DialogTrigger,
 } from '@/components/ui/dialog';
 import { Table, TableBody, TableCell, TableFooter, TableHead, TableHeader, TableRow } from '@/components/ui/table';
-import { QUESTION_DIFFICULTY_THRESHOLD } from '@/constants';
 import { useUser } from '@/hooks';
 import { useExercise } from '@/hooks/useExercise';
+import { useThreshold } from '@/hooks/useThreshold';
 import { useAppStore } from '@/store';
 import { ExerciseType } from '@/types/exercise';
+import { ThresholdType } from '@/types/question';
 
 import ExportExamPdfButton from '../../questions/_components/ExportExamPdfButton';
 import ExerciseQuestionCard from './ExerciseQuestionCard';
@@ -41,7 +42,15 @@ const ExercisePaper: FC<props> = ({ exercise }) => {
 
   const { setLoginDialogOpen, setLoading } = useAppStore();
 
+  const { thresholdData } = useThreshold();
+
   const { userData } = useUser();
+
+  useEffect(() => {
+    if (recordedAnswers) {
+      setAnswers(recordedAnswers);
+    }
+  }, [recordedAnswers]);
 
   const toSubmitted = () => {
     setIsSubmitted(true);
@@ -72,22 +81,18 @@ const ExercisePaper: FC<props> = ({ exercise }) => {
       router.push('/user/notebook');
     }
   };
-  const getDifficultyLabel = (correctPercentage: number) => {
+  const getDifficultyLabel = (thresholdData: ThresholdType, subject: string, correctPercentage: number) => {
     switch (true) {
-      case correctPercentage >= QUESTION_DIFFICULTY_THRESHOLD.EASY:
+      case correctPercentage >= thresholdData[subject].Easy:
         return <span className='text-green-600'>Easy</span>;
-      case correctPercentage <= QUESTION_DIFFICULTY_THRESHOLD.HARD:
+      case correctPercentage <= thresholdData[subject].Hard:
         return <span className='text-red-700'>Hard</span>;
       default:
         return <span className='text-yellow-500'>Medium</span>;
     }
   };
 
-  useEffect(() => {
-    if (recordedAnswers) {
-      setAnswers(recordedAnswers);
-    }
-  }, [recordedAnswers]);
+  if (!thresholdData) return null;
 
   return (
     <div className='grid gap-6 items-start'>
@@ -127,7 +132,9 @@ const ExercisePaper: FC<props> = ({ exercise }) => {
                 <TableRow key={question._id}>
                   <TableCell className='font-medium'>{index + 1}</TableCell>
                   <TableCell>{question.year + 'Q' + question.questionNo}</TableCell>
-                  <TableCell>{getDifficultyLabel(question.correctPercentage)}</TableCell>
+                  <TableCell>
+                    {getDifficultyLabel(thresholdData, question.subject, question.correctPercentage)}
+                  </TableCell>
                   <TableCell className='text-right'>
                     {question.answer === answers[index] ? Math.round(100 / questions.length) : 0}
                   </TableCell>

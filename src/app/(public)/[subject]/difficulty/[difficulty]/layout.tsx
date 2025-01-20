@@ -1,12 +1,12 @@
 import { webData } from '@/constants';
-import services from '@/services';
+import { getNameByLang } from '@/lib/server';
 
-export async function generateMetadata({ params }: { params: Promise<{ difficulty: string }> }) {
+export async function generateMetadata({ params }: { params: Promise<{ difficulty: string; subject: string }> }) {
   const p = await params;
-  const mapData = await services.getPaperNameMapping();
+  const [difficultyName, subjectName] = await getNameByLang([p.difficulty, p.subject]);
 
   return {
-    title: mapData[p.difficulty].displayName + ' - ' + webData.title, // Dynamic title
+    title: `${difficultyName} ${subjectName} - ${webData.title}`, // Dynamic title
   };
 }
 

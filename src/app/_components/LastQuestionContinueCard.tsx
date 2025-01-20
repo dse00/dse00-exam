@@ -19,12 +19,12 @@ const LastQuestionContinueCard: FC<{
   if (!paperNameMappingData) return null;
 
   return (
-    <Card className='shrink-1 w-40'>
+    <Card className='shrink-1 w-40 grid'>
       <CardHeader>
         <CardTitle>Q{lastQuestion.questionNo}</CardTitle>
-        <CardDescription className='line-clamp-2'>{getPaperNameByLang(lastQuestion.title)}</CardDescription>
+        <CardDescription className='line-clamp-2 grow'>{getPaperNameByLang(lastQuestion.title)}</CardDescription>
       </CardHeader>
-      <CardContent className='grow' />
+      <CardContent />
       <CardFooter>
         <Link
           className={cn(buttonVariants())}

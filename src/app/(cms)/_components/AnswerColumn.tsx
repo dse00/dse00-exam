@@ -1,5 +1,4 @@
 'use client';
-import { Checkbox } from '@radix-ui/react-checkbox';
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -13,72 +12,57 @@ import moment from 'moment';
 import { Button } from '@/components/ui/button';
 import { useCmsPayment } from '@/hooks/cms/useCmsPayment';
 
-export type PaymentColumn = {
+export type AnswerColumn = {
   _id: string;
   createdAt: string;
   referenceId: string;
   message: string;
   status: string;
+  subject: string;
 };
 
-export const paymentColumn: ColumnDef<PaymentColumn>[] = [
-  {
-    id: 'select',
-    header: ({ table }) => (
-      <Checkbox
-        checked={table.getIsAllPageRowsSelected() || (table.getIsSomePageRowsSelected() && 'indeterminate')}
-        onCheckedChange={value => table.toggleAllPageRowsSelected(!!value)}
-        aria-label='Select all'
-      />
-    ),
-    cell: ({ row }) => (
-      <Checkbox
-        checked={row.getIsSelected()}
-        onCheckedChange={value => row.toggleSelected(!!value)}
-        aria-label='Select row'
-      />
-    ),
-    enableSorting: false,
-    enableHiding: true,
-  },
+export const answerColumn: ColumnDef<AnswerColumn>[] = [
   {
     accessorKey: '_id',
     header: () => <div className='hidden'>_id</div>,
     cell: ({ row }) => <div className='capitalize hidden'>{row.getValue('_id')}</div>,
   },
   {
-    accessorKey: 'status',
-    header: 'Status',
+    accessorKey: 'subject',
+    header: ({ column }) => {
+      return (
+        <Button variant='ghost' onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}>
+          subject
+          <ArrowUpDown />
+        </Button>
+      );
+    },
+    cell: ({ row }) => <div className='lowercase'>{row.getValue('subject')}</div>,
+  },
+  {
+    accessorKey: 'correct',
+    header: 'correct',
     cell: ({ row }) => (
       <div className='capitalize'>
-        {row.getValue('status') === 'success' ? (
-          <span className='flex text-green-500'>success</span>
-        ) : row.getValue('status') === 'fail' ? (
-          <span className='flex text-red-500'>fail</span>
+        {row.getValue('correct') ? (
+          <span className='flex text-green-500'>Correct</span>
         ) : (
-          <span className='flex text-yellow-600'>pending</span>
+          <span className='flex text-red-500'>Incorrect</span>
         )}
       </div>
     ),
   },
   {
-    accessorKey: 'message',
+    accessorKey: 'user',
     header: ({ column }) => {
       return (
-        <Button variant='ghost' onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}>
-          message
+        <Button variant='ghost' onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')} className='px-0'>
+          user
           <ArrowUpDown />
         </Button>
       );
     },
-    cell: ({ row }) => <div className='lowercase'>{row.getValue('message')}</div>,
-  },
-  {
-    accessorKey: 'referenceId',
-    header: () => <div className='text-right'>referenceId</div>,
-    cell: ({ row }) => {
-      return <div className='text-right font-medium'>{row.getValue('referenceId')}</div>;
-    },
+    cell: ({ row }) => <div className='lowercase'>{(row.getValue('user') as string).substring(20)}</div>,
   },
   {
     accessorKey: 'createdAt',

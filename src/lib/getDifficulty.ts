@@ -1,11 +1,10 @@
-import { QUESTION_DIFFICULTY_THRESHOLD } from '@/constants';
-import { QuestionDifficultyEnum } from '@/types/question';
+import { QuestionDifficultyEnum, ThresholdType } from '@/types/question';
 
-export const getDifficulty = (correctPercentage: number) => {
-  if (correctPercentage >= QUESTION_DIFFICULTY_THRESHOLD.EASY) {
+export const getDifficulty = (thresholdData: ThresholdType, subject: string, correctPercentage: number) => {
+  if (correctPercentage >= thresholdData[subject].Easy) {
     return QuestionDifficultyEnum.easy;
-  } else if (correctPercentage <= QUESTION_DIFFICULTY_THRESHOLD.HARD) {
-    return correctPercentage <= QUESTION_DIFFICULTY_THRESHOLD.EXTREME_HARD
+  } else if (correctPercentage <= thresholdData[subject].Hard) {
+    return correctPercentage <= thresholdData[subject].ExtremeHard
       ? QuestionDifficultyEnum.extremeHard
       : QuestionDifficultyEnum.hard;
   } else {
@@ -13,12 +12,15 @@ export const getDifficulty = (correctPercentage: number) => {
   }
 };
 
-export const getDifficultyStyle = (correctPercentage: number) => {
-  if (correctPercentage >= QUESTION_DIFFICULTY_THRESHOLD.EASY) {
-    return 'text-green-600';
-  } else if (correctPercentage <= QUESTION_DIFFICULTY_THRESHOLD.HARD) {
-    return correctPercentage <= QUESTION_DIFFICULTY_THRESHOLD.EXTREME_HARD ? 'text-red-900 uppercase' : 'text-red-700';
-  } else {
-    return 'text-yellow-500';
+export const getDifficultyStyle = (level: QuestionDifficultyEnum) => {
+  switch (level) {
+    case QuestionDifficultyEnum.easy:
+      return 'text-green-600';
+    case QuestionDifficultyEnum.medium:
+      return 'text-yellow-500';
+    case QuestionDifficultyEnum.hard:
+      return 'text-red-700';
+    case QuestionDifficultyEnum.extremeHard:
+      return 'text-red-900 uppercase';
   }
 };

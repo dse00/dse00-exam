@@ -26,6 +26,8 @@ const PdfPage: FC<PageProps> = async ({ params }) => {
 
   const questions = await services.getQuestionsByArray(questionIds);
 
+  console.log(questionIds);
+
   const cookieStore = await cookies();
 
   const language = (cookieStore.get('language')?.value || LanguageEnum.EN) as LanguageEnum;

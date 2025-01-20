@@ -67,8 +67,6 @@ const HomePage = async () => {
     .filter(question => question.href)
     .toSorted((a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()); // sort the last questions by date
 
-  console.log('lastQuestions', lastQuestions);
-
   return (
     <div className='relative'>
       <div className='z-10 relative'>
