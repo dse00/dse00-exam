@@ -11,6 +11,7 @@ export type QuestionType = {
   updatedAt: string;
   correctPercentage: number;
   subject: string;
+  belongTo?: number;
 };
 
 export type PaperType = {

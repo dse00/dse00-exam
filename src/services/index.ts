@@ -147,7 +147,7 @@ export default {
     return tryCatch(apiClient.get('/questions/test'));
   },
 
-  getRanking: async (): Promise<RankingType[]> => apiClient.get('/answers/ranking'),
+  getRanking: async (): Promise<RankingType[]> => apiClient.get('/answers/leaderboard'),
 
   getMessageByUser: async (token: string): Promise<MessageType[]> =>
     apiClient.get('/messages/user', {
@@ -176,4 +176,11 @@ export default {
   getHomeContent: async (): Promise<HomeContentType> => apiClient.get('/questions/home-content'),
 
   getDifficultyThreshold: async (): Promise<ThresholdType> => apiClient.get('/questions/difficulty-threshold'),
+
+  getRankingByUser: async (token: string): Promise<RankingType> =>
+    apiClient.get('/answers/ranking/', {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    }),
 };

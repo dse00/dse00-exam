@@ -1,11 +1,10 @@
 import { cookies } from 'next/headers';
-import Image from 'next/image';
 import { redirect } from 'next/navigation';
 import { FC } from 'react';
 
+import QuestionImage from '@/components/QuestionImage';
 import { COOKIES_KEY, LanguageEnum } from '@/constants';
 import { checkISActiveSubscription } from '@/hooks';
-import { getImageNameByLang } from '@/lib/getImageNameByLang';
 import services from '@/services';
 
 type PageProps = {
@@ -71,16 +70,7 @@ const PdfPage: FC<PageProps> = async ({ params }) => {
             return (
               <div key={question._id} className='flex gap-10'>
                 <h3 className='pt-1'>{index + 1}.</h3>
-                <div className='relative max-w-[720px]'>
-                  <Image
-                    src={getImageNameByLang(question, language)}
-                    className=''
-                    alt='question'
-                    width={1000}
-                    height={100}
-                    priority
-                  />
-                </div>
+                <QuestionImage question={question} />
               </div>
             );
           })}

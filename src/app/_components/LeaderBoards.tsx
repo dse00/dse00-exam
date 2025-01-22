@@ -1,10 +1,10 @@
-'use client';
+'use server';
 import { Anvil, Medal } from 'lucide-react';
 import { FC } from 'react';
 
 import { ScrollArea } from '@/components/ui/scroll-area';
-import { useRanking } from '@/hooks/useRanking';
 import { cn } from '@/lib/utils';
+import services from '@/services';
 import { RankingType } from '@/types/ranking';
 
 import LeaderBoardMobile from './LeaderBoardMobile';
@@ -22,8 +22,8 @@ const getRankingStyle = (rank: number) => {
   }
 };
 
-const LeaderBoards: FC<{ readOnly?: boolean }> = ({ readOnly = false }) => {
-  const { rankingData } = useRanking();
+const LeaderBoards: FC<{ readOnly?: boolean }> = async ({ readOnly = false }) => {
+  const rankingData = await services.getRanking();
 
   if (!rankingData) return null;
 

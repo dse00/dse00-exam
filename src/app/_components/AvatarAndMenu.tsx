@@ -1,14 +1,25 @@
 'use client';
 import Cookies from 'js-cookie';
-import { ArrowBigLeft, Database, LibraryBig, LogOut, MessageSquareMore, Settings, SquareSigma } from 'lucide-react';
+import {
+  ArrowBigLeft,
+  Circle,
+  Database,
+  LibraryBig,
+  LogOut,
+  MessageSquareMore,
+  Settings,
+  SquareSigma,
+} from 'lucide-react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { usePathname, useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
 
+import { Badge } from '@/components/ui/badge';
 import { Button, buttonVariants } from '@/components/ui/button';
+import { HoverCard, HoverCardContent, HoverCardTrigger } from '@/components/ui/hover-card';
 import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover';
-import { useSubscription } from '@/hooks';
+import { useSubscription, useUserAnswer } from '@/hooks';
 import { useUser } from '@/hooks/useUser';
 import { cn } from '@/lib/utils';
 import { useAppStore } from '@/store';
@@ -37,7 +48,9 @@ export const menuItems = [
 ];
 
 export default function AvatarAndMenu() {
-  const { userData, isError } = useUser();
+  const { userData, isError, userRank } = useUser();
+
+  const { userScore } = useUserAnswer();
 
   const [isOpen, setIsOpen] = useState(false);
 
@@ -86,14 +99,29 @@ export default function AvatarAndMenu() {
         <div className=' grid gap-4'>
           <div className='flex gap-4'>
             <img src={FAKE_USER_ICON} alt='user_icon' className='w-14 h-14 object-cover rounded-full' />
-            <div className='grid gap-1'>
-              <span className='font-black ml-2'>{userData.name}</span>
+            <div className='grid gap-1 grow'>
+              <div className='flex justify-between'>
+                <span className='font-black ml-2'>{userData.name}</span>
+
+                <HoverCard>
+                  <HoverCardTrigger>
+                    <Badge className='gap-1' variant={'secondary'}>
+                      <Circle fill='black' size={8} />
+                      {userScore} #{userRank?.rank}
+                    </Badge>
+                  </HoverCardTrigger>
+                  <HoverCardContent className='text-sm flex items-center'>
+                    <Circle fill='black' size={8} />
+                    最近60天分數 #排名
+                  </HoverCardContent>
+                </HoverCard>
+              </div>
 
               {isActiveSubscription ? (
                 <Button
                   variant={'ghost'}
                   onClick={() => toRedirect('/membership')}
-                  className='text-sm text-primary hover:bg-[#00000009] px-2 py-1 rounded-lg typo-round text-green-500 flex gap-2'
+                  className='text-sm text-primary hover:bg-[#00000009] px-2 py-1 rounded-lg typo-round text-green-500 flex gap-2 justify-start'
                 >
                   <Image src={'/images/leaf.png'} alt='' width={20} height={20} />
                   <span> DSE00+ PLUS 會員</span>

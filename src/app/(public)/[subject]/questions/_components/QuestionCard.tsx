@@ -1,16 +1,15 @@
 'use client';
 import { LockKeyhole } from 'lucide-react';
-import Image from 'next/image';
 import Link from 'next/link';
 import { FC } from 'react';
 
+import QuestionImage from '@/components/QuestionImage';
 import { buttonVariants } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
 import { Skeleton } from '@/components/ui/skeleton';
 import { useSubscription } from '@/hooks';
 import { useThreshold } from '@/hooks/useThreshold';
 import { getDifficulty, getDifficultyStyle } from '@/lib/getDifficulty';
-import { getImageNameByLang } from '@/lib/getImageNameByLang';
 import { cn } from '@/lib/utils';
 import { useAppStore } from '@/store';
 import { QuestionType } from '@/types/question';
@@ -84,9 +83,7 @@ const QuestionCard: FC<props> = ({ question, questionNo }) => {
           <CardDescription className={getDifficultyStyle(questionDifficulty)}>{questionDifficulty}</CardDescription>
         </CardHeader>
         <CardContent>
-          <div className='relative max-w-[720px]'>
-            <Image src={getImageNameByLang(question, language)} alt='question' width={1000} height={100} priority />
-          </div>
+          <QuestionImage question={question} />
         </CardContent>
         <CardFooter>
           <AnswerDiscussion question={question} index={questionNo} />

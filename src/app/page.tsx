@@ -54,7 +54,6 @@ const subjects = [
     iconStroke: 'stroke-emerald-600',
     buttonFill: 'bg-emerald-500',
     textColor: 'text-emerald-800',
-    isComing: true,
   },
 ];
 

@@ -12,6 +12,7 @@ export const QUERY_KEYS = {
   MESSAGES: 'MESSAGES',
   RANKING: 'RANKING',
   THRESHOLD: 'THRESHOLD',
+  USER_RANK: 'USER_RANK',
 };
 
 export const CMS_QUERY_KEYS = {

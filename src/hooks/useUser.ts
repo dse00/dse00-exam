@@ -27,6 +27,18 @@ export const useUser = () => {
     staleTime: 1000 * 60 * 60 * 24 * 365, // 1 year
   });
 
+  const { data: userRank } = useQuery({
+    queryKey: [QUERY_KEYS.USER_RANK],
+    queryFn: () => {
+      return services.getRankingByUser(token as string);
+    },
+    retry: false,
+    throwOnError: false,
+    refetchOnWindowFocus: false,
+    enabled: !!token,
+    staleTime: 1000 * 60 * 60 * 24 * 365, // 1 year
+  });
+
   const { mutate: loginUser } = useMutation({
     mutationFn: (data: { email: string; password: string }) => services.loginUser(data.email, data.password),
     onSuccess: ({ token, name }: any) => {
@@ -50,5 +62,5 @@ export const useUser = () => {
     queryClient.invalidateQueries({ queryKey: [QUERY_KEYS.USER_PROFILE] });
   };
 
-  return { userData, isError, loginUser, invalidateUserQuery };
+  return { userData, userRank, isError, loginUser, invalidateUserQuery };
 };
