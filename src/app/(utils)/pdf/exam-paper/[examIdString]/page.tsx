@@ -70,7 +70,7 @@ const PdfPage: FC<PageProps> = async ({ params }) => {
             return (
               <div key={question._id} className='flex gap-10'>
                 <h3 className='pt-1'>{index + 1}.</h3>
-                <QuestionImage question={question} />
+                <QuestionImage question={question} language={language} />
               </div>
             );
           })}

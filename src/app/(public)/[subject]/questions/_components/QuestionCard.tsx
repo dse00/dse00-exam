@@ -83,7 +83,7 @@ const QuestionCard: FC<props> = ({ question, questionNo }) => {
           <CardDescription className={getDifficultyStyle(questionDifficulty)}>{questionDifficulty}</CardDescription>
         </CardHeader>
         <CardContent>
-          <QuestionImage question={question} />
+          <QuestionImage question={question} language={language} />
         </CardContent>
         <CardFooter>
           <AnswerDiscussion question={question} index={questionNo} />

@@ -36,7 +36,7 @@ const ExerciseQuestionCard: FC<props> = ({ question, index, setAnswers, answers 
         <CardTitle>Q{index + 1}</CardTitle>
       </CardHeader>
       <CardContent>
-        <QuestionImage question={question} />
+        <QuestionImage question={question} language={language} />
       </CardContent>
       <CardFooter className='flex gap-3'>
         {answersOptions.map(option => (
