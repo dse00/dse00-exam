@@ -183,4 +183,15 @@ export default {
         Authorization: `Bearer ${token}`,
       },
     }),
+
+  askAi: async (content: string, token: string): Promise<string> =>
+    apiClient.post(
+      '/ai',
+      { content },
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    ),
 };
