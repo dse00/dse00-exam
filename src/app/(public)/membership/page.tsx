@@ -110,11 +110,16 @@ const MembershipPage: NextPage = async () => {
           </Card>
         </div>
 
-        <div className='grid gap-12 sm:grid-cols-2 grid-cols-1 max-w-4xl mx-auto'>
+        <div className='grid gap-x-12 gap-y-16 sm:grid-cols-2 grid-cols-1 max-w-4xl mx-auto'>
           {[
             {
               title: 'Extremely Hard 題庫',
               description: '提供更多高難度題目，讓你更好地準備DSE考試。',
+              icon: <BookOpenCheck />,
+            },
+            {
+              title: 'AI 導師',
+              description: '24小時 AI 導師，隨時解答你的問題。',
               icon: <BookOpenCheck />,
             },
             {

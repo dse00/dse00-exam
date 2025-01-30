@@ -8,30 +8,50 @@ import React, { useEffect, useRef, useState } from 'react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { useSubscription, useUser } from '@/hooks';
+import { useMediaQuery } from '@/hooks/use-media-query';
 import { cn } from '@/lib/utils';
 import services from '@/services';
 import { useAppStore } from '@/store';
 
 import { Card, CardContent, CardFooter, CardHeader } from './ui/card';
+import { Drawer, DrawerContent, DrawerTitle, DrawerTrigger } from './ui/drawer';
 
 export default function ChatBot() {
   const [messages, setMessages] = useState([{ content: '你有咩唔明都可以問我！', role: 'bot' }]);
 
-  return (
-    <>
+  const triggerButtonClassname = 'fixed bottom-4 right-4 rounded-full overflow-hidden w-16 flex shadow-xl z-50';
+
+  const isDesktop = useMediaQuery('(min-width: 768px)');
+
+  if (isDesktop) {
+    return (
       <Popover>
         <PopoverTrigger asChild>
-          <button className='fixed bottom-4 right-4 rounded-full overflow-hidden w-12 flex shadow-xl z-50'>
+          <button className={triggerButtonClassname}>
             <Avatar>
               <AvatarImage src='/images/ai-tutor.png' alt='@shadcn' />
             </Avatar>
           </button>
         </PopoverTrigger>
-        <PopoverContent className='w-96 z-50 mr-4' sideOffset={10}>
+        <PopoverContent className='w-96 z-50 mr-4 shadow-md rounded-lg overflow-hidden' sideOffset={10}>
           <CardsChat messages={messages} setMessages={setMessages} />
         </PopoverContent>
       </Popover>
-    </>
+    );
+  }
+
+  return (
+    <Drawer>
+      <DrawerTrigger className='flex sm:hidden'>
+        <Avatar className={triggerButtonClassname}>
+          <AvatarImage src='/images/ai-tutor.png' alt='@shadcn' />
+        </Avatar>
+      </DrawerTrigger>
+      <DrawerContent>
+        <DrawerTitle />
+        <CardsChat messages={messages} setMessages={setMessages} />
+      </DrawerContent>
+    </Drawer>
   );
 }
 
@@ -88,7 +108,7 @@ function CardsChat({
 
   return (
     <>
-      <Card>
+      <Card className='border-none shadow-none'>
         <CardHeader className='flex flex-row items-center py-3'>
           <div className='flex items-center space-x-4'>
             <Avatar>
@@ -124,6 +144,7 @@ function CardsChat({
               autoComplete='off'
               value={input}
               onChange={event => setInput(event.target.value)}
+              maxLength={300}
             />
             <Button type='submit' size='icon' disabled={inputLength === 0 || isLoading}>
               <Send />

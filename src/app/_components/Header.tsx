@@ -25,10 +25,7 @@ const Header: FC = () => {
         )} */}
 
           <div className='flex items-center gap-10 grow'>
-            <div className='sm:flex gap-8 hidden'>
-              <Link className={'text-white text-[15px]'} href={'https://www.dse00.com/p/tutor.html'} target='_blank'>
-                DSE00 AI 補習配對
-              </Link>
+            <div className='sm:flex gap-10 hidden'>
               <Link
                 className={'text-white text-[15px]'}
                 href={'https://www.dse00.com/p/core-cutoff.html'}

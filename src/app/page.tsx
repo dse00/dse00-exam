@@ -2,6 +2,7 @@ import { Atom, BicepsFlexed, History, NotebookPen, Pyramid, Scale, TreePine } fr
 import { cookies } from 'next/headers';
 import Link from 'next/link';
 
+import ChatBot from '@/components/ChatBot';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { COOKIES_KEY } from '@/constants';
@@ -156,6 +157,7 @@ const HomePage = async () => {
           </div>
         ))}
       </div>
+      <ChatBot />
     </div>
   );
 };

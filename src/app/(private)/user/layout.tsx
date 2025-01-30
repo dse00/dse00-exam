@@ -6,6 +6,7 @@ import { useState } from 'react';
 import { menuItems } from '@/app/_components/AvatarAndMenu';
 import Footer from '@/app/_components/Footer';
 import Header from '@/app/_components/Header';
+import ChatBot from '@/components/ChatBot';
 import { useLanguage } from '@/components/LanguageButton';
 import {
   Breadcrumb,
@@ -66,6 +67,7 @@ export default ({ children }: LayoutProps) => {
         <div className='grow'>{children}</div>
       </div>
       <Footer />
+      <ChatBot />
     </div>
   );
 };
