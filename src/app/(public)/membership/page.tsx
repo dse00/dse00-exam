@@ -1,6 +1,6 @@
 import {
-  BellPlus,
   BookOpenCheck,
+  ClipboardMinus,
   Database,
   Infinity,
   Leaf,
@@ -123,9 +123,9 @@ const MembershipPage: NextPage = async () => {
               icon: <BookOpenCheck />,
             },
             {
-              title: '所有題庫',
-              description: '無限次數使用我們的練習模式，不用擔心次數限制。',
-              icon: <LibraryBig />,
+              title: '成績表',
+              description: '生成你的成績表，了解自己的學習狀況。',
+              icon: <ClipboardMinus />,
             },
             {
               title: '無限練習本',
@@ -148,10 +148,16 @@ const MembershipPage: NextPage = async () => {
               icon: <MegaphoneOff />,
             },
             {
-              title: '未來更新',
-              description: '可以訪問最新功能',
-              icon: <BellPlus />,
+              title: '所有題庫',
+              description: '無限次數使用我們的練習模式，不用擔心次數限制。',
+              icon: <LibraryBig />,
             },
+
+            // {
+            //   title: '未來更新',
+            //   description: '可以訪問最新功能',
+            //   icon: <BellPlus />,
+            // },
           ].map(item => (
             <BenefitsItem key={item.title} title={item.title} description={item.description} icon={item.icon} />
           ))}

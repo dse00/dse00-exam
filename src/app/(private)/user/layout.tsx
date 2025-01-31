@@ -1,4 +1,5 @@
 'use client';
+import { MessageSquareMore } from 'lucide-react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { useState } from 'react';
@@ -49,7 +50,14 @@ export default ({ children }: LayoutProps) => {
       <div className='container justify-center gap-20 flex px-2 items-start min-h-[72vh]'>
         <div className='gap-6 hidden sm:grid'>
           <Calendar mode='single' selected={date} onSelect={setDate} className='rounded-md border' />
-          {menuItems.map((item, index) => (
+          {[
+            ...menuItems,
+            {
+              smallIcon: <MessageSquareMore />,
+              title: '我的討論',
+              href: '/user/discussion',
+            },
+          ].map((item, index) => (
             <Link
               key={item.title}
               href={item.href}

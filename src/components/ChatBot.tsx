@@ -9,19 +9,31 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { useSubscription, useUser } from '@/hooks';
 import { useMediaQuery } from '@/hooks/use-media-query';
+import { useAIConversation } from '@/hooks/useAIConversation';
 import { cn } from '@/lib/utils';
 import services from '@/services';
 import { useAppStore } from '@/store';
+import { AIConversationType } from '@/types/ai-conversation';
 
 import { Card, CardContent, CardFooter, CardHeader } from './ui/card';
 import { Drawer, DrawerContent, DrawerTitle, DrawerTrigger } from './ui/drawer';
 
 export default function ChatBot() {
-  const [messages, setMessages] = useState([{ content: '你有咩唔明都可以問我！', role: 'bot' }]);
+  const [messages, setMessages] = useState<AIConversationType[]>([]);
 
   const triggerButtonClassname = 'fixed bottom-4 right-4 rounded-full overflow-hidden w-16 flex shadow-xl z-50';
 
   const isDesktop = useMediaQuery('(min-width: 768px)');
+
+  // fetch previous conversation and load it to chat
+  const { aiConversationData } = useAIConversation();
+  useEffect(() => {
+    if (aiConversationData) {
+      setMessages(aiConversationData);
+    } else {
+      setMessages([{ content: '你有咩唔明都可以問我！', role: 'bot' }]);
+    }
+  }, [aiConversationData]);
 
   if (isDesktop) {
     return (
@@ -71,6 +83,8 @@ function CardsChat({
 
   const { token } = useUser();
   const { isActiveSubscription } = useSubscription();
+
+  const { aiConversationData } = useAIConversation();
 
   // send message
   const handleSend = async (e: React.FormEvent) => {

@@ -22,5 +22,7 @@ export const usePaperNameMapping = () => {
 
   const getPaperNameByLang = (key: string) => paperNameMappingData?.[key][displayNameKey];
 
-  return { paperNameMappingData, displayNameKey, getPaperNameByLang };
+  const isLoaded = !!paperNameMappingData;
+
+  return { paperNameMappingData, displayNameKey, getPaperNameByLang, isLoaded };
 };

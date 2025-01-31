@@ -26,7 +26,7 @@ const CallForSubscriptionDialog = () => {
         <DialogDescription>
           <span>伺服器資源有限，現時只供</span>
           <span className='typo-round'>DSE00+</span>
-          <span>用戶。</span>
+          <span>用戶。敬請訂閱以支持我們！</span>
         </DialogDescription>
         <DialogFooter>
           <Button onClick={() => onClick('/membership')}>

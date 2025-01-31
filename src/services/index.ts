@@ -1,4 +1,5 @@
 import apiClient from '@/services/ExamApiClient';
+import { AIConversationType } from '@/types/ai-conversation';
 import { CommentType, CreateCommentType } from '@/types/comment';
 import { CreateExerciseDto, ExerciseListItemType, ExerciseType, UpdateExerciseDto } from '@/types/exercise';
 import { MessageType } from '@/types/message';
@@ -74,7 +75,12 @@ export default {
 
   deleteComment: async (commentId: string) => apiClient.delete('/comments/' + commentId),
 
-  getUserAnswers: async (userId: string): Promise<UserAnswerType[]> => apiClient.get('/answers/' + userId),
+  getUserAnswers: async (token: string): Promise<UserAnswerType[]> =>
+    apiClient.get('/answers/user', {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    }),
 
   createUserAnswer: async (createAnswerDto: CreateUserAnswerType) => apiClient.post('/answers', createAnswerDto),
 
@@ -194,4 +200,11 @@ export default {
         },
       }
     ),
+
+  getUserAIConversations: async (token: string): Promise<AIConversationType[]> =>
+    apiClient.get('/ai/user', {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    }),
 };

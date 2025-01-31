@@ -12,14 +12,14 @@ export const useUserAnswer = () => {
 
   const { successToast } = useMyToast();
 
-  const { userData } = useUser();
+  const { userData, token } = useUser();
 
   const { data: userAnswersData } = useQuery({
     queryKey: [QUERY_KEYS.USER_ANSWERS],
     queryFn: () => {
-      return services.getUserAnswers(userData?.user as string);
+      return services.getUserAnswers(token as string);
     },
-    enabled: !!userData?.user,
+    enabled: !!token,
     refetchOnWindowFocus: false,
     staleTime: 1000 * 60 * 5, // 5 mins
   });

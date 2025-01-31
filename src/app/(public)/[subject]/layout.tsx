@@ -2,6 +2,7 @@
 import { useParams } from 'next/navigation';
 
 import LanguageButton from '@/components/LanguageButton';
+import ScoreSheetButton from '@/components/ScoreSheetButton';
 import {
   Breadcrumb,
   BreadcrumbItem,
@@ -22,6 +23,7 @@ export default ({ children }: LayoutProps) => {
   return (
     <div className='flex flex-col'>
       <div className='flex justify-end gap-4'>
+        <ScoreSheetButton />
         <LanguageButton />
       </div>
       <Breadcrumb>

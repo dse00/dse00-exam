@@ -1,15 +1,6 @@
 'use client';
 import Cookies from 'js-cookie';
-import {
-  ArrowBigLeft,
-  Circle,
-  Database,
-  LibraryBig,
-  LogOut,
-  MessageSquareMore,
-  Settings,
-  SquareSigma,
-} from 'lucide-react';
+import { ArrowBigLeft, Circle, Clipboard, Database, LibraryBig, LogOut, Settings, SquareSigma } from 'lucide-react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { usePathname, useRouter } from 'next/navigation';
@@ -34,16 +25,16 @@ export const menuItems = [
     icon: '/images/my-lists.png',
   },
   {
+    smallIcon: <Clipboard />,
+    title: '成績表',
+    href: '/user/score-sheet',
+    icon: '/images/discussion.png',
+  },
+  {
     smallIcon: <SquareSigma />,
     title: '練習本',
     href: '/user/notebook',
     icon: '/images/notebook.png',
-  },
-  {
-    smallIcon: <MessageSquareMore />,
-    title: '討論',
-    href: '/user/discussion',
-    icon: '/images/discussion.png',
   },
 ];
 
