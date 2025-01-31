@@ -35,22 +35,28 @@ export default ({ data, index, isLatest }: { data: UserAnswerType[]; index: numb
           )}
         </div>
       </CollapsibleTrigger>
-      <CollapsibleContent>
+      <CollapsibleContent
+        className={cn({
+          noselect: !canRead,
+        })}
+      >
         {!canRead && (
-          <div className='text-center p-10 leading-10'>
-            <p>
-              <span>伺服器資源有限，非 </span>
-              <span className='typo-round'>DSE00+ </span>
-              <span>用戶只能查閱最新成績表。</span>
-            </p>
-            <p>
-              請
-              <Link className={cn(buttonVariants(), 'mx-2')} href='/membership'>
-                訂閱
-              </Link>
-              支持 DSE00！ <Leaf className='inline' />
-            </p>
-          </div>
+          <>
+            <div className='text-center p-10 leading-10'>
+              <p>
+                <span>伺服器資源有限，非 </span>
+                <span className='typo-round'>DSE00+ </span>
+                <span>用戶只能查閱最新成績表。</span>
+              </p>
+              <p>
+                請
+                <Link className={cn(buttonVariants(), 'mx-2')} href='/membership'>
+                  訂閱
+                </Link>
+                支持 DSE00！ <Leaf className='inline' />
+              </p>
+            </div>
+          </>
         )}
         <div
           className={cn('border p-4 grid gap-12 ', {

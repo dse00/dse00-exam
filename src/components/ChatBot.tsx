@@ -28,7 +28,7 @@ export default function ChatBot() {
   // fetch previous conversation and load it to chat
   const { aiConversationData } = useAIConversation();
   useEffect(() => {
-    if (aiConversationData) {
+    if (aiConversationData?.length) {
       setMessages(aiConversationData);
     } else {
       setMessages([{ content: '你有咩唔明都可以問我！', role: 'bot' }]);
@@ -83,8 +83,6 @@ function CardsChat({
 
   const { token } = useUser();
   const { isActiveSubscription } = useSubscription();
-
-  const { aiConversationData } = useAIConversation();
 
   // send message
   const handleSend = async (e: React.FormEvent) => {
