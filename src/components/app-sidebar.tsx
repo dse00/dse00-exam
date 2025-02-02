@@ -71,12 +71,20 @@ const data = {
       icon: Bot,
       items: [
         {
+          title: 'List',
+          url: '/admin/questions/list',
+        },
+        {
           title: 'Answer',
           url: '/admin/questions/answers',
         },
         {
           title: 'Exercise',
           url: '#',
+        },
+        {
+          title: 'Discussion',
+          url: '/admin/questions/discussion',
         },
       ],
     },

@@ -12,5 +12,13 @@ export const useQuestion = (questionId: string) => {
     refetchOnWindowFocus: false,
   });
 
-  return { questionData };
+  const { data: allQuestionsData } = useQuery({
+    queryKey: [QUERY_KEYS.QUESTIONS],
+    queryFn: () => {
+      return services.getQuestions({});
+    },
+    refetchOnWindowFocus: false,
+  });
+
+  return { questionData, allQuestionsData };
 };

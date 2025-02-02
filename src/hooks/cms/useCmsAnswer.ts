@@ -5,7 +5,7 @@ import cmsServices from '@/services/cms';
 
 export const useCmsAnswer = () => {
   const { data: cmsAnswerData } = useQuery({
-    queryKey: [CMS_QUERY_KEYS.CMS_PAYMENT],
+    queryKey: [CMS_QUERY_KEYS.CMS_ANSWER],
     queryFn: () => {
       return cmsServices.getAllAnswers();
     },

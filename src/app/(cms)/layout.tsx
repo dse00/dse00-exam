@@ -1,16 +1,10 @@
 import { Metadata } from 'next';
 
 import { AppSidebar } from '@/components/app-sidebar';
-import {
-  Breadcrumb,
-  BreadcrumbItem,
-  BreadcrumbLink,
-  BreadcrumbList,
-  BreadcrumbPage,
-  BreadcrumbSeparator,
-} from '@/components/ui/breadcrumb';
 import { Separator } from '@/components/ui/separator';
 import { SidebarInset, SidebarProvider, SidebarTrigger } from '@/components/ui/sidebar';
+
+import CmsBreadcrumb from './_components/CmsBreadcrumb';
 
 export const metadata: Metadata = {
   title: 'DSE00 Exam CMS',
@@ -27,17 +21,7 @@ export default function Page({ children }: { children: React.ReactNode }) {
           <div className='flex items-center gap-2 px-4'>
             <SidebarTrigger className='-ml-1' />
             <Separator orientation='vertical' className='mr-2 h-4' />
-            <Breadcrumb>
-              <BreadcrumbList>
-                <BreadcrumbItem className='hidden md:block'>
-                  <BreadcrumbLink href='#'>Building Your Application</BreadcrumbLink>
-                </BreadcrumbItem>
-                <BreadcrumbSeparator className='hidden md:block' />
-                <BreadcrumbItem>
-                  <BreadcrumbPage>Data Fetching</BreadcrumbPage>
-                </BreadcrumbItem>
-              </BreadcrumbList>
-            </Breadcrumb>
+            <CmsBreadcrumb />
           </div>
         </header>
         <div className='flex flex-1 flex-col gap-4 p-4 pt-0'>{children}</div>
