@@ -21,9 +21,9 @@ import MembershipJoinButton from './_component/MembershipJoinButton';
 const MembershipPage: NextPage = async () => {
   const plans = await services.getPlans();
 
-  const plan1month = plans?.find(plan => plan.key === '1month') as PlanType;
-  const plan3month = plans?.find(plan => plan.key === '3month') as PlanType;
-  const planLifeTime = plans?.find(plan => plan.key === 'lifetime') as PlanType;
+  const plan1 = plans?.find(plan => plan.key === 'plan1') as PlanType;
+  const plan2 = plans?.find(plan => plan.key === 'plan2') as PlanType;
+  const plan3 = plans?.find(plan => plan.key === 'plan3') as PlanType;
 
   return (
     <div className='container sm:py-20 py-10'>
@@ -36,16 +36,16 @@ const MembershipPage: NextPage = async () => {
           {/* 1 month membership */}
           <Card className='px-1 shadow-xl'>
             <CardHeader>
-              <CardTitle className='text-2xl'>{plan1month.name}</CardTitle>
-              <CardDescription>原價 ${plan1month?.originalPrice}/月</CardDescription>
+              <CardTitle className='text-2xl'>{plan1.name}</CardTitle>
+              <CardDescription>原價 ${plan1?.originalPrice}/月</CardDescription>
             </CardHeader>
             <CardContent className='grid gap-4'>
-              <p>{plan1month?.description}</p>
+              <p>{plan1?.description}</p>
 
-              <p className='text-label-1 text-3xl font-semibold'>${plan1month.price}</p>
+              <p className='text-label-1 text-3xl font-semibold'>${plan1.price}</p>
             </CardContent>
             <CardFooter>
-              <MembershipJoinButton plan={plan1month?.key as string} />
+              <MembershipJoinButton plan={plan1?.key as string} />
             </CardFooter>
           </Card>
 
@@ -62,22 +62,22 @@ const MembershipPage: NextPage = async () => {
               <CardTitle className='flex items-center gap-2 justify-between'>
                 <div className='text-2xl items-center flex gap-2'>
                   <Smile />
-                  <span>{plan3month.name}</span>
+                  <span>{plan2.name}</span>
                 </div>
 
                 <div className='text-sm rounded px-3 py-1' style={{ background: 'rgba(255, 255, 255, 0.5)' }}>
                   🎉 最受歡迎
                 </div>
               </CardTitle>
-              <CardDescription>平均每月 ${(plan3month.price / 3).toPrecision(2)}/月</CardDescription>
+              <CardDescription>平均每月 ${(plan2.price / 3).toPrecision(2)}/月</CardDescription>
             </CardHeader>
             <CardContent className='grid gap-4'>
-              <p>{plan3month?.description}</p>
+              <p>{plan2?.description}</p>
 
-              <p className='text-label-1 text-3xl font-semibold'>${plan3month?.price}</p>
+              <p className='text-label-1 text-3xl font-semibold'>${plan2?.price}</p>
             </CardContent>
             <CardFooter>
-              <MembershipJoinButton plan={plan3month?.key as string} />
+              <MembershipJoinButton plan={plan2?.key as string} />
             </CardFooter>
           </Card>
 
@@ -92,20 +92,20 @@ const MembershipPage: NextPage = async () => {
           >
             <CardHeader>
               <CardTitle className='flex items-center gap-2 justify-between'>
-                <span className='text-2xl'>{planLifeTime.name}</span>
+                <span className='text-2xl'>{plan3.name}</span>
 
                 <div className='text-sm rounded px-3 py-1' style={{ background: 'rgba(255, 255, 255, 0.5)' }}>
                   名額有限
                 </div>
               </CardTitle>
-              <CardDescription className='text-gray-300'>原價 ${planLifeTime?.originalPrice}/月</CardDescription>
+              <CardDescription className='text-gray-300'>原價 ${plan3?.originalPrice}/年</CardDescription>
             </CardHeader>
             <CardContent className='grid gap-4 '>
-              <p className='typo-round'>{planLifeTime?.description}</p>
-              <p className='text-label-1 text-3xl font-semibold'>${planLifeTime?.price}</p>
+              <p className='typo-round'>{plan3?.description}</p>
+              <p className='text-label-1 text-3xl font-semibold'>${plan3?.price}</p>
             </CardContent>
             <CardFooter>
-              <MembershipJoinButton plan={planLifeTime?.key as string} />
+              <MembershipJoinButton plan={plan3?.key as string} />
             </CardFooter>
           </Card>
         </div>

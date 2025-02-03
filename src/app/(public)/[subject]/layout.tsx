@@ -1,5 +1,5 @@
 'use client';
-import { useParams } from 'next/navigation';
+import { useParams, usePathname } from 'next/navigation';
 
 import LanguageButton from '@/components/LanguageButton';
 import ScoreSheetButton from '@/components/ScoreSheetButton';
@@ -10,7 +10,9 @@ import {
   BreadcrumbList,
   BreadcrumbSeparator,
 } from '@/components/ui/breadcrumb';
+import { LanguageEnum } from '@/constants';
 import { usePaperNameMapping } from '@/hooks/usePaperNameMapping';
+import { useAppStore } from '@/store';
 
 export type LayoutProps = {
   children: React.ReactNode;
@@ -19,6 +21,50 @@ export type LayoutProps = {
 export default ({ children }: LayoutProps) => {
   const params = useParams();
   const { displayNameKey, paperNameMappingData } = usePaperNameMapping();
+  const { language } = useAppStore();
+  const pathname = usePathname();
+
+  const getNextBreadcrumb = () => {
+    switch (true) {
+      case !!params.exerciseId:
+        return (
+          <>
+            <BreadcrumbSeparator />
+            <BreadcrumbItem>
+              <BreadcrumbLink>Exercise</BreadcrumbLink>
+            </BreadcrumbItem>
+          </>
+        );
+      case !!params.topic:
+        return (
+          <>
+            <BreadcrumbSeparator />
+            <BreadcrumbItem>
+              <BreadcrumbLink>{paperNameMappingData?.[params.topic as string]?.[displayNameKey]}</BreadcrumbLink>
+            </BreadcrumbItem>
+          </>
+        );
+      case !!params.difficulty:
+        return (
+          <>
+            <BreadcrumbSeparator />
+            <BreadcrumbItem>
+              <BreadcrumbLink>{paperNameMappingData?.[params.difficulty as string]?.[displayNameKey]}</BreadcrumbLink>
+            </BreadcrumbItem>
+          </>
+        );
+
+      case pathname.includes('questions'):
+        return (
+          <>
+            <BreadcrumbSeparator />
+            <BreadcrumbItem>
+              <BreadcrumbLink>{language === LanguageEnum.EN ? 'Questions' : '試題'}</BreadcrumbLink>
+            </BreadcrumbItem>
+          </>
+        );
+    }
+  };
 
   return (
     <div className='flex flex-col'>
@@ -37,30 +83,7 @@ export default ({ children }: LayoutProps) => {
               {paperNameMappingData?.[params.subject as string]?.[displayNameKey]}
             </BreadcrumbLink>
           </BreadcrumbItem>
-          {params.exerciseId && (
-            <>
-              <BreadcrumbSeparator />
-              <BreadcrumbItem>
-                <BreadcrumbLink>Exercise</BreadcrumbLink>
-              </BreadcrumbItem>
-            </>
-          )}
-          {params.topic && (
-            <>
-              <BreadcrumbSeparator />
-              <BreadcrumbItem>
-                <BreadcrumbLink>{paperNameMappingData?.[params.topic as string]?.[displayNameKey]}</BreadcrumbLink>
-              </BreadcrumbItem>
-            </>
-          )}
-          {params.difficulty && (
-            <>
-              <BreadcrumbSeparator />
-              <BreadcrumbItem>
-                <BreadcrumbLink>{paperNameMappingData?.[params.difficulty as string]?.[displayNameKey]}</BreadcrumbLink>
-              </BreadcrumbItem>
-            </>
-          )}
+          {getNextBreadcrumb()}
         </BreadcrumbList>
       </Breadcrumb>
 

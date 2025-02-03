@@ -12,15 +12,17 @@ type props = {
 };
 
 const Discussion: FC<props> = ({ questionId, comments }) => {
-  const { commentsData } = useComment(questionId);
+  const { commentsData, isFetching } = useComment(questionId);
   const { userData } = useUser();
 
   const discussionData = commentsData || comments;
   const selfComment = discussionData?.find(comment => (comment.user.user || comment.user) === userData?.user);
 
+  console.log('isFetching', isFetching);
+
   return (
     <div className='grid gap-4 max-w-[640px] pt-4'>
-      {!selfComment && <DiscussionInput questionId={questionId} />}
+      {!selfComment && !isFetching && <DiscussionInput questionId={questionId} />}
 
       <div className='grid gap-4'>
         {discussionData?.map((discussion, index) => (
