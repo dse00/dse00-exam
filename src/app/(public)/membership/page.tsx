@@ -95,7 +95,7 @@ const MembershipPage: NextPage = async () => {
                 <span className='text-2xl'>{plan3.name}</span>
 
                 <div className='text-sm rounded px-3 py-1' style={{ background: 'rgba(255, 255, 255, 0.5)' }}>
-                  名額有限
+                  最優惠
                 </div>
               </CardTitle>
               <CardDescription className='text-gray-300'>原價 ${plan3?.originalPrice}/年</CardDescription>
