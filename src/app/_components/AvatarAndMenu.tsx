@@ -101,9 +101,9 @@ export default function AvatarAndMenu() {
                       {userScore} #{userRank?.rank}
                     </Badge>
                   </HoverCardTrigger>
-                  <HoverCardContent className='text-sm flex items-center'>
+                  <HoverCardContent className='text-xs flex items-center gap-1'>
                     <Circle fill='black' size={8} />
-                    最近60天分數 #排名
+                    最近60天分數 #排名(每小時更新)
                   </HoverCardContent>
                 </HoverCard>
               </div>

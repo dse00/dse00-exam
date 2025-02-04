@@ -1,6 +1,14 @@
+import Script from 'next/script';
+
 const AdSense = () => {
   return (
-    <div>
+    <>
+      <Script
+        async
+        src={'https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6622218753379872'}
+        crossOrigin='anonymous'
+      />
+
       <ins
         className='adsbygoogle'
         style={{ display: 'block' }}
@@ -9,12 +17,12 @@ const AdSense = () => {
         data-ad-format='auto'
         data-full-width-responsive='true'
       />
-      <script>
+      <Script>
         {`
           (adsbygoogle = window.adsbygoogle || []).push({});
         `}
-      </script>
-    </div>
+      </Script>
+    </>
   );
 };
 

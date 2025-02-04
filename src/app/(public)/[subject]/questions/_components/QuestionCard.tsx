@@ -3,6 +3,7 @@ import { LockKeyhole } from 'lucide-react';
 import Link from 'next/link';
 import { FC } from 'react';
 
+import AdSense from '@/components/AdSense';
 import QuestionImage from '@/components/QuestionImage';
 import { buttonVariants } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
@@ -89,7 +90,7 @@ const QuestionCard: FC<props> = ({ question, questionNo }) => {
           <AnswerDiscussion question={question} index={questionNo} />
         </CardFooter>
       </Card>
-      {/* {questionNo % 4 === 0 && <AdSense />} */}
+      {questionNo % 4 === 0 && <AdSense />}
     </>
   );
 };
