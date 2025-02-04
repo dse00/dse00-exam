@@ -17,7 +17,7 @@ export default () => {
     <Breadcrumb>
       <BreadcrumbList>
         <BreadcrumbItem className='hidden md:block'>
-          <BreadcrumbLink href='/admin'>Building Your Application</BreadcrumbLink>
+          <BreadcrumbLink href='/admin'>CMS Home</BreadcrumbLink>
         </BreadcrumbItem>
         {pathname !== '/admin' && (
           <>

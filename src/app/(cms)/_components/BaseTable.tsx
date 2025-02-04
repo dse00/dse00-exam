@@ -11,7 +11,7 @@ import {
 } from '@tanstack/react-table';
 import { ChevronLeft, ChevronRight, Search } from 'lucide-react';
 import Image from 'next/image';
-import React from 'react';
+import React, { useEffect } from 'react';
 
 import { Button } from '@/components/ui/button';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
@@ -26,6 +26,7 @@ export function BaseTable<T>({
   filter,
   table,
   batchActionButton,
+  defaultPage = 10,
 }: {
   data: T[];
   columns: ColumnDef<T>[];
@@ -35,6 +36,7 @@ export function BaseTable<T>({
   };
   table?: TableType<T>;
   batchActionButton?: React.ReactNode;
+  defaultPage?: number;
 }) {
   const { isActiveSubscription } = useSubscription();
   const { setCallForSubscriptionDialogOpen } = useAppStore();
@@ -55,6 +57,10 @@ export function BaseTable<T>({
     }
     table.setPageSize(+value);
   };
+
+  useEffect(() => {
+    table.setPageSize(+defaultPage);
+  }, []);
 
   return (
     <div className='w-full grid gap-4 pb-10'>
@@ -146,7 +152,7 @@ export function BaseTable<T>({
 
         {/* 顯示數目 */}
         <div className='flex items-center space-x-2'>
-          <Select onValueChange={handleOnSelect} defaultValue='10'>
+          <Select onValueChange={handleOnSelect} defaultValue={defaultPage?.toString()}>
             <SelectTrigger className='w-[80px] text-center'>
               <SelectValue placeholder='顯示數目' />
             </SelectTrigger>

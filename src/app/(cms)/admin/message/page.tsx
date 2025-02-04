@@ -3,7 +3,7 @@ import { cookies } from 'next/headers';
 import cmsServices from '@/services/cms';
 
 import { BaseTable } from '../../_components/BaseTable';
-import { columns, UserCoumnType } from './_components/column';
+import { columns } from './_components/column';
 
 const CmsUserListPage = async () => {
   const cookiesStore = await cookies();
@@ -11,16 +11,16 @@ const CmsUserListPage = async () => {
   const token = cookiesStore.get('token')?.value;
 
   if (!token) return null;
-  const users = (await cmsServices.getAllUsers(token)) as UserCoumnType[];
+  const messages = await cmsServices.getMessages(token);
 
   return (
     <div>
       <BaseTable
-        data={users}
+        data={messages}
         columns={columns}
         filter={{
-          key: 'email',
-          name: 'Email',
+          key: 'user',
+          name: 'User ID',
         }}
       />
     </div>

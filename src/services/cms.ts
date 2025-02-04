@@ -3,6 +3,7 @@ import Cookies from 'js-cookie';
 import apiClient from '@/services/ExamApiClient';
 import { CmsCommentType } from '@/types/comment';
 import { DashboardType } from '@/types/dashboard';
+import { MessageType } from '@/types/message';
 import { PaymentType } from '@/types/payment';
 import { QuestionType } from '@/types/question';
 import { SubscriptionType } from '@/types/subscription';
@@ -54,4 +55,13 @@ export default {
   getAllQuestions: async (): Promise<QuestionType[]> => apiClient.get('/questions/cms', getCmsHeader()),
 
   getDashboard: async (): Promise<DashboardType> => apiClient.get('/dashboard', getCmsHeader()),
+
+  searchUserByEmail: async (email: string): Promise<UserType> => apiClient.get(`/users/email/${email}`, getCmsHeader()),
+
+  sendMessage: async (message: { user: string; title: string; message: string }): Promise<any> =>
+    apiClient.post('/messages', message, getCmsHeader()),
+
+  getMessages: async (token: string): Promise<MessageType[]> => apiClient.get('/messages', getCmsHeader(token)),
+
+  getAllRanking: async (token: string): Promise<any> => apiClient.get('/answers/all-ranking', getCmsHeader(token)),
 };

@@ -1,6 +1,6 @@
 'use client';
 import { BaseTable } from '@/app/(cms)/_components/BaseTable';
-import { subscriptionColumn } from '@/app/(cms)/_components/SubscriptionColumn';
+import { subscriptionColumn } from '@/app/(cms)/admin/user/subscription/_components/column';
 import { useCmsSubscription } from '@/hooks/cms/useCmsSubscription';
 
 const AdminUserSubscriptionPage = () => {

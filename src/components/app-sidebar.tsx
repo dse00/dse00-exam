@@ -89,25 +89,28 @@ const data = {
       ],
     },
     {
-      title: 'Documentation',
+      title: 'Message',
       url: '#',
       icon: BookOpen,
       items: [
         {
-          title: 'Introduction',
-          url: '#',
+          title: 'list',
+          url: '/admin/message',
         },
         {
-          title: 'Get Started',
-          url: '#',
+          title: 'Send Message',
+          url: '/admin/message/send',
         },
+      ],
+    },
+    {
+      title: 'Ranking',
+      url: '#',
+      icon: BookOpen,
+      items: [
         {
-          title: 'Tutorials',
-          url: '#',
-        },
-        {
-          title: 'Changelog',
-          url: '#',
+          title: 'All',
+          url: '/admin/ranking',
         },
       ],
     },

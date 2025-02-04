@@ -1,6 +1,6 @@
 'use client';
 import { BaseTable } from '@/app/(cms)/_components/BaseTable';
-import { discussionColumn } from '@/app/(cms)/_components/DiscussionColumn';
+import { discussionColumn } from '@/app/(cms)/admin/questions/discussion/_components/column';
 import { useCmsComment } from '@/hooks/cms/useCmsComment';
 import { CmsCommentType } from '@/types/comment';
 
