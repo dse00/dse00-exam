@@ -44,7 +44,6 @@ const subjects = [
     iconStroke: 'stroke-sky-600',
     buttonFill: 'bg-sky-500',
     textColor: 'text-sky-800',
-    isComing: true,
   },
   {
     name: '生物',
@@ -128,20 +127,12 @@ const HomePage = async () => {
                 <div className='flex'>
                   <Badge variant={'outline'}>共 {subjectsData[subject.key]?.numberOfquestions} 題</Badge>
                 </div>
-                {subject.isComing ? (
-                  <Button size='xl' asChild className={subject.buttonFill} disabled>
-                    <Link href={'/'}>
-                      <span>Is Coming...</span>
-                    </Link>
-                  </Button>
-                ) : (
-                  <Button size='xl' asChild className={subject.buttonFill} disabled>
-                    <Link href={subject.key}>
-                      <span>開始操練</span>
-                      <NotebookPen />
-                    </Link>
-                  </Button>
-                )}
+                <Button size='xl' asChild className={subject.buttonFill} disabled>
+                  <Link href={subject.key}>
+                    <span>開始操練</span>
+                    <NotebookPen />
+                  </Link>
+                </Button>
               </div>
 
               <>
