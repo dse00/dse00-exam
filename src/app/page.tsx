@@ -1,4 +1,14 @@
-import { Atom, BicepsFlexed, History, NotebookPen, Pyramid, Scale, TreePine } from 'lucide-react';
+import {
+  Atom,
+  Banknote,
+  BicepsFlexed,
+  ClipboardList,
+  History,
+  NotebookPen,
+  Pyramid,
+  Scale,
+  TreePine,
+} from 'lucide-react';
 import { cookies } from 'next/headers';
 import Link from 'next/link';
 
@@ -36,6 +46,16 @@ const subjects = [
     textColor: 'text-rose-800',
   },
   {
+    name: '生物',
+    key: 'bio',
+    total: 180,
+    icon: <TreePine />,
+    theme: 'default',
+    iconStroke: 'stroke-emerald-600',
+    buttonFill: 'bg-emerald-500',
+    textColor: 'text-emerald-800',
+  },
+  {
     name: '物理',
     key: 'phys',
     total: 200,
@@ -46,14 +66,26 @@ const subjects = [
     textColor: 'text-sky-800',
   },
   {
-    name: '生物',
-    key: 'bio',
-    total: 180,
-    icon: <TreePine />,
+    name: '經濟',
+    key: 'econ',
+    total: 200,
+    icon: <Banknote />,
     theme: 'default',
-    iconStroke: 'stroke-emerald-600',
-    buttonFill: 'bg-emerald-500',
-    textColor: 'text-emerald-800',
+    iconStroke: 'stroke-yellow-600',
+    buttonFill: 'bg-yellow-500',
+    textColor: 'text-yellow-800',
+    isComing: true,
+  },
+  {
+    name: 'BAFS',
+    key: 'bafs',
+    total: 200,
+    icon: <ClipboardList />,
+    theme: 'default',
+    iconStroke: 'stroke-stone-600',
+    buttonFill: 'bg-stone-500',
+    textColor: 'text-stone-800',
+    isComing: true,
   },
 ];
 
@@ -125,11 +157,11 @@ const HomePage = async () => {
               <div className='sm:p-20 grid gap-10'>
                 <h1 className={cn('text-5xl font-black', subject.textColor)}>{subject.name}</h1>
                 <div className='flex'>
-                  <Badge variant={'outline'}>共 {subjectsData[subject.key]?.numberOfquestions} 題</Badge>
+                  <Badge variant={'outline'}>共 {subjectsData[subject.key]?.numberOfquestions || 0} 題</Badge>
                 </div>
-                <Button size='xl' asChild className={subject.buttonFill} disabled>
+                <Button size='xl' asChild className={subject.buttonFill} disabled={subject.isComing}>
                   <Link href={subject.key}>
-                    <span>開始操練</span>
+                    <span>{subject.isComing ? '即將推出' : '開始操練'}</span>
                     <NotebookPen />
                   </Link>
                 </Button>

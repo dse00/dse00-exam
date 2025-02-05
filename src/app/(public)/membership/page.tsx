@@ -128,6 +128,11 @@ const MembershipPage: NextPage = async () => {
               icon: <ClipboardMinus />,
             },
             {
+              title: '無廣告',
+              description: '更整潔的界面，不會有任何廣告。',
+              icon: <MegaphoneOff />,
+            },
+            {
               title: '無限練習本',
               description: '可以保存無限個練習本，方便你分類練習。',
               icon: <Infinity />,
@@ -141,11 +146,6 @@ const MembershipPage: NextPage = async () => {
               title: '25× 訪問容量',
               description: '訪問更多題目，生成更長試卷。',
               icon: <Database />,
-            },
-            {
-              title: '無廣告',
-              description: '不會有任何廣告打擾你的練習。',
-              icon: <MegaphoneOff />,
             },
             {
               title: '所有題庫',
