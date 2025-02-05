@@ -108,16 +108,16 @@ const HomePage = async () => {
       <div className='bg-main skew-y-6 h-[700px] z-0 -translate-y-60 absolute top-0 right-0 w-full' />
       <div className='bg-light_brown -skew-y-6 h-[450px] z-0  absolute top-[840px] right-0 w-full' />
 
-      <div className='relative text-white mx-auto container sm:py-20 py-10 grid sm:grid-cols-2 sm:gap-20 gap-10 px-2'>
-        <div>
+      <div className='relative text-white mx-auto container sm:py-20 py-10 grid sm:grid-cols-2 gap-10 px-2'>
+        <div className=''>
           {lastQuestions.length ? (
-            <div className='grid gap-10'>
+            <div className='grid gap-10 max-w-screen'>
               <h1 className='sm:text-4xl text-2xl font-bold leading-[4.2rem] flex gap-3 items-center'>
                 <History size={30} />
                 <span>繼續上次...</span>
               </h1>
 
-              <div className='flex opacity-95 gap-4'>
+              <div className='flex opacity-95 gap-4 overflow-x-scroll '>
                 {lastQuestions.map((lastQuestion, i) => (
                   <LastQuestionContinueCard key={lastQuestion.href} lastQuestion={lastQuestion} />
                 ))}
@@ -126,7 +126,7 @@ const HomePage = async () => {
           ) : (
             <div className='flex flex-col gap-6 items-start'>
               <h1 className='sm:text-5xl text-4xl font-bold leading-[4.2rem]'>操卷新方法</h1>
-              <p className='opacity-95 leading-9'>
+              <p className='opacity-95 leading-9 sm:pr-20'>
                 透過不同科目的練習，提升自己的學習能力，並且在操練過程中，即時提供回饋，讓你更了解自己的學習狀況。
               </p>
               <Button variant={'secondary'} asChild size={'xl'}>
