@@ -6,6 +6,7 @@ import { DashboardType } from '@/types/dashboard';
 import { MessageType } from '@/types/message';
 import { PaymentType } from '@/types/payment';
 import { QuestionType } from '@/types/question';
+import { SettingType } from '@/types/settings';
 import { SubscriptionType } from '@/types/subscription';
 import { UserType } from '@/types/user';
 
@@ -64,4 +65,8 @@ export default {
   getMessages: async (token: string): Promise<MessageType[]> => apiClient.get('/messages', getCmsHeader(token)),
 
   getAllRanking: async (token: string): Promise<any> => apiClient.get('/answers/all-ranking', getCmsHeader(token)),
+
+  getSettings: async (): Promise<any> => apiClient.get('/settings'),
+
+  updateSettings: async (dto: SettingType): Promise<any> => apiClient.put('/settings', dto, getCmsHeader()),
 };

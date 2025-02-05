@@ -90,7 +90,7 @@ const QuestionCard: FC<props> = ({ question, questionNo }) => {
           <AnswerDiscussion question={question} index={questionNo} />
         </CardFooter>
       </Card>
-      {questionNo % 4 === 0 && <AdSense />}
+      {(questionNo + 2) % 4 === 0 && <AdSense />}
     </>
   );
 };
