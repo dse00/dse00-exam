@@ -16,7 +16,7 @@ type props = {
 };
 
 const AnswerDiscussion: FC<props> = ({ question, index }) => {
-  const [showAns, setShowAns] = useState(false);
+  const [showAns, setShowAns] = useState(true);
 
   const [showDiscussion, setShowDiscussion] = useState(false);
 
