@@ -94,7 +94,7 @@ const data = {
       icon: BookOpen,
       items: [
         {
-          title: 'list',
+          title: 'List',
           url: '/admin/message',
         },
         {
@@ -138,8 +138,8 @@ const data = {
       icon: PieChart,
     },
     {
-      name: 'Travel',
-      url: '#',
+      name: 'Tutor CMS',
+      url: 'https://admin.dse00.com',
       icon: Map,
     },
   ],

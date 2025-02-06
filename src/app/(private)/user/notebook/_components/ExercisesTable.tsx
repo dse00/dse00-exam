@@ -2,6 +2,7 @@
 
 import { ColumnDef } from '@tanstack/react-table';
 import { CircleX, Clock10, Eye, MoreHorizontal, NotebookPen } from 'lucide-react';
+import moment from 'moment';
 import Link from 'next/link';
 import * as React from 'react';
 
@@ -40,7 +41,17 @@ export const columns: ColumnDef<ExerciseListItemType>[] = [
   {
     accessorKey: 'exerciseName',
     header: '練習本名稱',
-    cell: ({ row }) => <div className='capitalize'>{row.getValue('exerciseName')}</div>,
+    cell: ({ row }) => (
+      <div className='capitalize'>
+        <span>{row.getValue('exerciseName')}</span>
+        {moment().diff(moment(row.getValue('createdAt')), 'm') < 1 && <span className='text-green-600'>*最新</span>}
+      </div>
+    ),
+  },
+  {
+    accessorKey: 'createdAt',
+    header: '',
+    cell: row => '',
   },
   {
     accessorKey: 'exerciseLength',
