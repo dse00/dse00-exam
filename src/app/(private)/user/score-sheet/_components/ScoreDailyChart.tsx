@@ -26,7 +26,7 @@ const chartConfig = {
     label: '化學',
     color: 'hsl(var(--chart-3))',
   },
-  phy: {
+  phys: {
     label: '物理',
     color: 'hsl(var(--chart-4))',
   },
@@ -46,7 +46,7 @@ export function ScoreDailyChart({ answersData }: { answersData: UserAnswerType[]
     total: value?.length,
     maths: value?.filter(({ question }) => question.subject === 'maths').length,
     chem: value?.filter(({ question }) => question.subject === 'chem').length,
-    phy: value?.filter(({ question }) => question.subject === 'phy').length,
+    phys: value?.filter(({ question }) => question.subject === 'phys').length,
     bio: value?.filter(({ question }) => question.subject === 'bio').length,
   }));
 
@@ -58,7 +58,7 @@ export function ScoreDailyChart({ answersData }: { answersData: UserAnswerType[]
       total: chartData.reduce((acc, curr) => acc + (curr.total || 0), 0),
       maths: chartData.reduce((acc, curr) => acc + (curr.maths || 0), 0),
       chem: chartData.reduce((acc, curr) => acc + (curr.chem || 0), 0),
-      phy: chartData.reduce((acc, curr) => acc + (curr.phy || 0), 0),
+      phys: chartData.reduce((acc, curr) => acc + (curr.phys || 0), 0),
       bio: chartData.reduce((acc, curr) => acc + (curr.bio || 0), 0),
     }),
     [chartData]
@@ -84,7 +84,7 @@ export function ScoreDailyChart({ answersData }: { answersData: UserAnswerType[]
               >
                 <span className='text-xs text-muted-foreground'>{chartConfig[chart]?.label}</span>
                 <span className='text-lg font-bold leading-none sm:text-3xl'>
-                  {total[key as keyof typeof total].toLocaleString()}
+                  {total[key as keyof typeof total]?.toLocaleString()}
                 </span>
               </button>
             );

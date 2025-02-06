@@ -14,11 +14,7 @@ export const useQuota = (topic: string) => {
     queryFn: () => {
       return services.getQuotaData(token as string, topic);
     },
-    retry: false,
-    throwOnError: false,
-    refetchOnWindowFocus: false,
     enabled: !!token,
-    staleTime: 1000 * 60 * 60 * 24 * 365, // 1 year
   });
 
   const { mutate: putQuota } = useMutation({

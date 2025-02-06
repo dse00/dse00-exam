@@ -1,10 +1,11 @@
+'use server';
+
 import { ProblemListSidebar } from '@/app/_components/ProblemListSidebar';
 import { QuestionType } from '@/types/question';
 
 import ExportExamPdfButton from './ExportExamPdfButton';
 import PaginationSession from './PaginationSession';
 import QuestionCard from './QuestionCard';
-
 type Props = {
   questions: QuestionType[];
   totalPage?: number;
@@ -12,7 +13,7 @@ type Props = {
   header: string;
 };
 
-export default ({ questions, totalPage, currentPage = 1, header }: Props) => {
+export default async ({ questions, totalPage, currentPage = 1, header }: Props) => {
   return (
     <div className='grid gap-6'>
       <div className='flex sm:items-center sm:gap-10 gap-2 flex-col items-start sm:flex-row'>

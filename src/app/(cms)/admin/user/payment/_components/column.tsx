@@ -7,10 +7,11 @@ import {
   DropdownMenuTrigger,
 } from '@radix-ui/react-dropdown-menu';
 import { ColumnDef } from '@tanstack/react-table';
-import { ArrowUpDown, MoreHorizontal } from 'lucide-react';
+import { ArrowUpDown, Copy, MoreHorizontal } from 'lucide-react';
 import moment from 'moment';
 
 import { Button } from '@/components/ui/button';
+import { useMyToast } from '@/hooks';
 import { useCmsPayment } from '@/hooks/cms/useCmsPayment';
 
 export type PaymentColumn = {
@@ -72,6 +73,26 @@ export const paymentColumn: ColumnDef<PaymentColumn>[] = [
       );
     },
     cell: ({ row }) => <div className='lowercase'>{row.getValue('message')}</div>,
+  },
+  {
+    accessorKey: 'user',
+    header: () => <div>user</div>,
+    cell: ({ row }) => {
+      const { successToast } = useMyToast();
+
+      return (
+        <div className='flex gap-2 items-center'>
+          <Copy
+            size={18}
+            onClick={() => {
+              navigator.clipboard.writeText(row.getValue('user') as string);
+              successToast('Copied to clipboard');
+            }}
+          />
+          <span> {(row.getValue('user') as string).substring(20)}</span>
+        </div>
+      );
+    },
   },
   {
     accessorKey: 'referenceId',

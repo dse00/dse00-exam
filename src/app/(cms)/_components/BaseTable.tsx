@@ -11,6 +11,7 @@ import {
 } from '@tanstack/react-table';
 import { ChevronLeft, ChevronRight, Search } from 'lucide-react';
 import Image from 'next/image';
+import { usePathname } from 'next/navigation';
 import React, { useEffect } from 'react';
 
 import { Button } from '@/components/ui/button';
@@ -39,6 +40,7 @@ export function BaseTable<T>({
   defaultPage?: number;
 }) {
   const { isActiveSubscription } = useSubscription();
+  const pathname = usePathname();
   const { setCallForSubscriptionDialogOpen } = useAppStore();
   table =
     table ||
@@ -52,7 +54,7 @@ export function BaseTable<T>({
     });
 
   const handleOnSelect = (value: string) => {
-    if (!isActiveSubscription && +value > FREE_USER_QUOTA.MAXIMUM_DISPLAY_SELECT_ITEMS) {
+    if (!isActiveSubscription && +value > FREE_USER_QUOTA.MAXIMUM_DISPLAY_SELECT_ITEMS && !pathname.includes('admin')) {
       return setCallForSubscriptionDialogOpen(true);
     }
     table.setPageSize(+value);

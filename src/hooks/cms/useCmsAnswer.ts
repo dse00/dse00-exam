@@ -9,8 +9,6 @@ export const useCmsAnswer = () => {
     queryFn: () => {
       return cmsServices.getAllAnswers();
     },
-    refetchOnWindowFocus: false,
-    staleTime: 1000 * 60 * 60 * 24 * 365, // 1 year
   });
 
   return { cmsAnswerData };

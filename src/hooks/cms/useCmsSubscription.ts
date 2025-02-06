@@ -17,8 +17,6 @@ export const useCmsSubscription = () => {
     queryFn: () => {
       return cmsServices.getAllSubscriptions();
     },
-    refetchOnWindowFocus: false,
-    staleTime: 1000 * 60 * 60 * 24 * 365, // 1 year
   });
 
   const { mutate: deleteSubscription } = useMutation({

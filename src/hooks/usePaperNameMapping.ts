@@ -12,10 +12,6 @@ export const usePaperNameMapping = () => {
     queryFn: () => {
       return services.getPaperNameMapping();
     },
-    retry: false,
-    throwOnError: false,
-    refetchOnWindowFocus: false,
-    staleTime: 1000 * 60 * 60 * 24 * 365, // 1 year
   });
 
   const displayNameKey = language === LanguageEnum.TC ? 'displayNameTc' : 'displayName';

@@ -16,8 +16,6 @@ export const useComment = (questionId: string) => {
     queryFn: () => {
       return services.getCommentsByQuestionId(questionId);
     },
-    refetchOnWindowFocus: false,
-    staleTime: 1000 * 60 * 60 * 24 * 365, // 1 year
   });
 
   const { mutate: createComment } = useMutation({

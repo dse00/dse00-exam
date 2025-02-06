@@ -123,18 +123,6 @@ const data = {
           title: 'General',
           url: '/admin/settings',
         },
-        {
-          title: 'Team',
-          url: '#',
-        },
-        {
-          title: 'Billing',
-          url: '#',
-        },
-        {
-          title: 'Limits',
-          url: '#',
-        },
       ],
     },
   ],

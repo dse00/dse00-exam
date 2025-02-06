@@ -20,11 +20,7 @@ export const useUser = () => {
     queryFn: () => {
       return services.getUserProfile(token as string);
     },
-    retry: false,
-    throwOnError: false,
-    refetchOnWindowFocus: false,
     enabled: !!token,
-    staleTime: 1000 * 60 * 60 * 24 * 365, // 1 year
   });
 
   const { data: userRank } = useQuery({
@@ -32,11 +28,7 @@ export const useUser = () => {
     queryFn: () => {
       return services.getRankingByUser(token as string);
     },
-    retry: false,
-    throwOnError: false,
-    refetchOnWindowFocus: false,
     enabled: !!token,
-    staleTime: 1000 * 60 * 60 * 24 * 365, // 1 year
   });
 
   const { mutate: loginUser } = useMutation({

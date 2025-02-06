@@ -15,11 +15,7 @@ export const useSubscription = () => {
     queryFn: () => {
       return services.getSubscriptionsByUser(token as string);
     },
-    retry: false,
-    throwOnError: false,
-    refetchOnWindowFocus: false,
     enabled: !!token,
-    staleTime: 1000 * 60 * 60 * 24 * 365, // 1 year
   });
 
   const isActiveSubscription = checkISActiveSubscription(subscriptionData as SubscriptionType[]);

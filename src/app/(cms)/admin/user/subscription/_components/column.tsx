@@ -20,6 +20,7 @@ export type SubscriptionColumn = {
   user: string;
   email: string;
   message: string;
+  createdAt: string;
 };
 
 export const subscriptionColumn: ColumnDef<SubscriptionColumn>[] = [
@@ -63,6 +64,13 @@ export const subscriptionColumn: ColumnDef<SubscriptionColumn>[] = [
       );
     },
     cell: ({ row }) => <div className='lowercase'>{row.getValue('message')}</div>,
+  },
+  {
+    accessorKey: 'createdAt',
+    header: () => <div className='text-right'>createdAt</div>,
+    cell: ({ row }) => {
+      return <div className='text-right font-medium'>{moment().from(moment(row.getValue('createdAt')))}</div>;
+    },
   },
   {
     accessorKey: 'endDate',

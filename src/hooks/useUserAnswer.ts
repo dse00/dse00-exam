@@ -12,7 +12,7 @@ export const useUserAnswer = () => {
 
   const { successToast } = useMyToast();
 
-  const { userData, token } = useUser();
+  const { token } = useUser();
 
   const { data: userAnswersData } = useQuery({
     queryKey: [QUERY_KEYS.USER_ANSWERS],

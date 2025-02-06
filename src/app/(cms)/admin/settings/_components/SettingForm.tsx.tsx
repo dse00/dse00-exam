@@ -8,13 +8,17 @@ import { z } from 'zod';
 
 import { Button } from '@/components/ui/button';
 import { Form, FormControl, FormDescription, FormField, FormItem, FormLabel } from '@/components/ui/form';
+import { Input } from '@/components/ui/input';
 import { Switch } from '@/components/ui/switch';
+import { Textarea } from '@/components/ui/textarea';
 import { useMyToast } from '@/hooks';
 import { useCmsSetting } from '@/hooks/cms/useCmsSetting';
 import cmsServices from '@/services/cms';
 
 const FormSchema = z.object({
   showAds: z.boolean(),
+  defaultMessageTitle: z.string(),
+  defaultMessageContent: z.string(),
 });
 
 export function SettingForm() {
@@ -24,6 +28,8 @@ export function SettingForm() {
     resolver: zodResolver(FormSchema),
     defaultValues: {
       showAds: true,
+      defaultMessageTitle: '',
+      defaultMessageContent: '',
     },
   });
 
@@ -56,6 +62,41 @@ export function SettingForm() {
                     </div>
                     <FormControl>
                       <Switch checked={field.value} onCheckedChange={field.onChange} />
+                    </FormControl>
+                  </FormItem>
+                )}
+              />
+            </div>
+          </div>
+          <div>
+            <h3 className='mb-4 text-lg font-medium'>Message</h3>
+            <div className='space-y-4'>
+              <FormField
+                control={form.control}
+                name='defaultMessageTitle'
+                render={({ field }) => (
+                  <FormItem className='flex flex-row items-center justify-between rounded-lg border p-3 shadow-sm'>
+                    <div className='space-y-0.5 min-w-[300px]'>
+                      <FormLabel>Default Title</FormLabel>
+                      <FormDescription>show adsense on website. </FormDescription>
+                    </div>
+                    <FormControl>
+                      <Input {...field} />
+                    </FormControl>
+                  </FormItem>
+                )}
+              />
+              <FormField
+                control={form.control}
+                name='defaultMessageContent'
+                render={({ field }) => (
+                  <FormItem className='flex flex-row items-center justify-between rounded-lg border p-3 shadow-sm'>
+                    <div className='space-y-0.5 min-w-[300px]'>
+                      <FormLabel>Default Content</FormLabel>
+                      <FormDescription>show adsense on website. </FormDescription>
+                    </div>
+                    <FormControl>
+                      <Textarea {...field} />
                     </FormControl>
                   </FormItem>
                 )}

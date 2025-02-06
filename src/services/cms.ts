@@ -57,7 +57,8 @@ export default {
 
   getDashboard: async (): Promise<DashboardType> => apiClient.get('/dashboard', getCmsHeader()),
 
-  searchUserByEmail: async (email: string): Promise<UserType> => apiClient.get(`/users/email/${email}`, getCmsHeader()),
+  searchUserByEmailOrId: async (email: string): Promise<UserType> =>
+    apiClient.get(`/users/emailOrId/${email}`, getCmsHeader()),
 
   sendMessage: async (message: { user: string; title: string; message: string }): Promise<any> =>
     apiClient.post('/messages', message, getCmsHeader()),
