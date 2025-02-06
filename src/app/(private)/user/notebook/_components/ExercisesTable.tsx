@@ -107,11 +107,11 @@ export const columns: ColumnDef<ExerciseListItemType>[] = [
           <DropdownMenuContent align='end'>
             <DropdownMenuItem>
               <Eye />
-              <Link href={`/${exercise.subject}/exercise/${exercise._id}`}>查看題目</Link>
+              <Link href={`/${exercise.subject}/exercise/${exercise._id}`}>查看</Link>
             </DropdownMenuItem>
             <DropdownMenuItem onClick={() => toDeleteRecord(exercise._id)}>
               <CircleX />
-              刪除記錄
+              刪除練習本
             </DropdownMenuItem>
           </DropdownMenuContent>
         </DropdownMenu>

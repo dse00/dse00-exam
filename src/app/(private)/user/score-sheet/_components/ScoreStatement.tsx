@@ -113,7 +113,9 @@ export default ({ data, index, isLatest }: { data: UserAnswerType[]; index: numb
           </div>
           {/* by year */}
           <div>
-            <h2 className='text-lg pb-4'>已完成試題</h2>
+            <h2 className='text-lg pb-4'>
+              已完成試題 <span className='text-sm'>({statement.data.length}/30)</span>
+            </h2>
             <div className='grid grid-cols-1 sm:grid-cols-2 gap-3'>
               {statement.data
                 ?.toSorted((a, b) => a.question.questionNo - b.question.questionNo)

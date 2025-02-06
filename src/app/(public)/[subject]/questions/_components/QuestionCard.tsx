@@ -20,9 +20,10 @@ import AnswerDiscussion from './AnswerDiscussion';
 interface props {
   question: QuestionType;
   questionNo: number;
+  showAnswer?: boolean;
 }
 
-const QuestionCard: FC<props> = ({ question, questionNo }) => {
+const QuestionCard: FC<props> = ({ question, questionNo, showAnswer }) => {
   const { language } = useAppStore();
   const { isActiveSubscription } = useSubscription();
   const { thresholdData } = useThreshold();
@@ -87,7 +88,7 @@ const QuestionCard: FC<props> = ({ question, questionNo }) => {
           <QuestionImage question={question} language={language} />
         </CardContent>
         <CardFooter>
-          <AnswerDiscussion question={question} index={questionNo} />
+          <AnswerDiscussion question={question} index={questionNo} showAnswer={showAnswer} />
         </CardFooter>
       </Card>
       {(questionNo + 2) % 4 === 0 && <AdSense />}

@@ -8,8 +8,6 @@ const AdSense = () => {
   const { isActiveSubscription } = useSubscription();
   const { cmsSettingData } = useCmsSetting();
 
-  console.log('cmsSettingData', cmsSettingData);
-
   // disabled when data is fetching
   if (!cmsSettingData) return null;
 
