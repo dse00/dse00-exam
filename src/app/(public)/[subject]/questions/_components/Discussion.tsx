@@ -3,7 +3,7 @@ import { FC } from 'react';
 import CustomAccordion from '@/components/CustomAccordion';
 import { useComment, useUser } from '@/hooks';
 
-import { useAnswerDiscussionContext } from '../_service-layer/answer_discussion';
+import { useAnswerDiscussionContext } from '../_service-layer/answer-discussion';
 import DiscussionCard from './DiscussionCard';
 import DiscussionInput from './DiscussionInput';
 

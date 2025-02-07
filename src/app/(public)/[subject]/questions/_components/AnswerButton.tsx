@@ -10,22 +10,21 @@ import { logEvent } from '@/lib/ga';
 import { useAppStore } from '@/store';
 import { LastQuestionType } from '@/types/question';
 
-import { useAnswerDiscussionContext } from '../_service-layer/answer_discussion';
+import { useAnswerDiscussionContext } from '../_service-layer/answer-discussion';
 
 type props = {
   answer: string;
 };
 export default ({ answer }: props) => {
-  const { userData } = useUser();
-
+  const { question, index, setSelectedAnswer, state } = useAnswerDiscussionContext();
   const { setLoginDialogOpen } = useAppStore();
-  const { question, userAnswer, index, setSelectedAnswer, state, setIsSkip } = useAnswerDiscussionContext();
+  const { createUserAnswer, userAnswersData } = useUserAnswer();
+  const { userData } = useUser();
+  const pathname = usePathname();
 
   const { isSkep, selectedAnswer } = state;
 
-  const { createUserAnswer } = useUserAnswer();
-
-  const pathname = usePathname();
+  const userAnswer = userAnswersData?.find(userAnswer => userAnswer.question._id === question._id);
 
   useEffect(() => {
     if (userAnswer) {

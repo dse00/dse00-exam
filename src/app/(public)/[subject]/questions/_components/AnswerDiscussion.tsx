@@ -2,18 +2,17 @@
 import { useReducer } from 'react';
 
 import CustomAccordion from '@/components/CustomAccordion';
-import { useUserAnswer } from '@/hooks';
 import { QuestionType } from '@/types/question';
 
 import {
+  ActionType,
   AnswerDiscussionContext,
   answersOptions,
   ButtonControl,
   reducer,
   SkipButton,
-  State,
   useAnswerDiscussionContext,
-} from '../_service-layer/answer_discussion';
+} from '../_service-layer/answer-discussion';
 import AnswerButton from './AnswerButton';
 import CorrectPercentageIndicator from './CorrectPercentageIndicator';
 import Discussion from './Discussion';
@@ -33,23 +32,19 @@ const initialState = {
 
 export const useAnswerDiscussion = () => {
   const [state, dispatch] = useReducer(reducer, initialState);
-  const { userAnswersData } = useUserAnswer();
 
   return {
-    toggleAnswer: () => dispatch({ type: 'TOGGLE_ANSWER' }),
-    toggleDiscussion: () => dispatch({ type: 'TOGGLE_DISCUSSION' }),
     state,
-    userAnswersData,
-    setSelectedAnswer: (selectedAnswer: string) => dispatch({ type: 'SET_SELECTED_ANSWER', payload: selectedAnswer }),
-    setIsSkip: (isSkep: boolean) => dispatch({ type: 'SET_IS_SKIP', payload: isSkep }),
+    toggleAnswer: () => dispatch({ type: ActionType.TOGGLE_ANSWER }),
+    toggleDiscussion: () => dispatch({ type: ActionType.TOGGLE_DISCUSSION }),
+    setSelectedAnswer: (selectedAnswer: string) =>
+      dispatch({ type: ActionType.SET_SELECTED_ANSWER, payload: selectedAnswer }),
+    setIsSkip: (isSkep: boolean) => dispatch({ type: ActionType.SET_IS_SKIP, payload: isSkep }),
   };
 };
 
 export default ({ question, index, showAnswer }: props) => {
-  const { toggleAnswer, state, toggleDiscussion, userAnswersData, setSelectedAnswer, setIsSkip } =
-    useAnswerDiscussion();
-
-  const userAnswer = userAnswersData?.find(userAnswer => userAnswer.question._id === question._id);
+  const { toggleAnswer, state, toggleDiscussion, setSelectedAnswer, setIsSkip } = useAnswerDiscussion();
 
   return (
     <AnswerDiscussionContext.Provider
@@ -58,19 +53,18 @@ export default ({ question, index, showAnswer }: props) => {
         toggleDiscussion,
         state,
         question,
-        userAnswer,
         index,
         showAnswer,
         setSelectedAnswer,
         setIsSkip,
       }}
     >
-      <AnswerDiscussionView state={state} />
+      <AnswerDiscussionView />
     </AnswerDiscussionContext.Provider>
   );
 };
 
-const AnswerDiscussionView = ({ state }: { state: State }) => {
+const AnswerDiscussionView = () => {
   return (
     <div className='grid gap-2 w-full'>
       <div className='flex gap-3'>
@@ -85,7 +79,7 @@ const AnswerDiscussionView = ({ state }: { state: State }) => {
 };
 
 const AnswerButtons = () => {
-  const { state, question } = useAnswerDiscussionContext();
+  const { state } = useAnswerDiscussionContext();
 
   return (
     <CustomAccordion show={state.showAns}>
@@ -96,7 +90,7 @@ const AnswerButtons = () => {
           ))}
           <SkipButton />
         </div>
-        <CorrectPercentageIndicator value={question.correctPercentage} />
+        <CorrectPercentageIndicator />
       </div>
     </CustomAccordion>
   );

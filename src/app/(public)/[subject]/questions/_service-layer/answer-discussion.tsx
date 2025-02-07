@@ -3,7 +3,6 @@ import { createContext, useContext, useEffect } from 'react';
 
 import { Button } from '@/components/ui/button';
 import { QuestionType } from '@/types/question';
-import { UserAnswerType } from '@/types/userAnswer';
 
 //  Types
 export type State = {
@@ -13,11 +12,18 @@ export type State = {
   isSkep?: boolean;
 };
 
+export enum ActionType {
+  TOGGLE_ANSWER = 'TOGGLE_ANSWER',
+  TOGGLE_DISCUSSION = 'TOGGLE_DISCUSSION',
+  SET_SELECTED_ANSWER = 'SET_SELECTED_ANSWER',
+  SET_IS_SKIP = 'SET_IS_SKIP',
+}
+
 type Action =
-  | { type: 'TOGGLE_ANSWER' }
-  | { type: 'TOGGLE_DISCUSSION' }
-  | { type: 'SET_SELECTED_ANSWER'; payload: string }
-  | { type: 'SET_IS_SKIP'; payload: boolean };
+  | { type: ActionType.TOGGLE_ANSWER }
+  | { type: ActionType.TOGGLE_DISCUSSION }
+  | { type: ActionType.SET_SELECTED_ANSWER; payload: string }
+  | { type: ActionType.SET_IS_SKIP; payload: boolean };
 
 export const answersOptions = ['A', 'B', 'C', 'D'];
 
@@ -65,13 +71,13 @@ export const SkipButton = () => {
 // State management
 export const reducer = (state: State, action: Action) => {
   switch (action.type) {
-    case 'TOGGLE_ANSWER':
+    case ActionType.TOGGLE_ANSWER:
       return StateOperation.toggleAnswer(state);
-    case 'TOGGLE_DISCUSSION':
+    case ActionType.TOGGLE_DISCUSSION:
       return StateOperation.toggleDiscussion(state);
-    case 'SET_SELECTED_ANSWER':
+    case ActionType.SET_SELECTED_ANSWER:
       return StateOperation.setSelectedAnswer(state, action.payload);
-    case 'SET_IS_SKIP':
+    case ActionType.SET_IS_SKIP:
       return StateOperation.setIsSkip(state, action.payload);
     default:
       return state;
@@ -102,7 +108,6 @@ export const AnswerDiscussionContext = createContext<{
   toggleAnswer: () => void;
   toggleDiscussion: () => void;
   question: QuestionType;
-  userAnswer?: UserAnswerType;
   index: number;
   showAnswer?: boolean;
   setSelectedAnswer: (selectedAnswer: string) => void;
