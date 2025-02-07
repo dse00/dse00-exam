@@ -1,14 +1,16 @@
 'use client';
 import Cookies from 'js-cookie';
-import { ArrowBigLeft, Database, LibraryBig, LogOut, MessageSquareMore, Settings, SquareSigma } from 'lucide-react';
+import { ArrowBigLeft, Circle, Clipboard, Database, LibraryBig, LogOut, Settings, SquareSigma } from 'lucide-react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { usePathname, useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
 
+import { Badge } from '@/components/ui/badge';
 import { Button, buttonVariants } from '@/components/ui/button';
+import { HoverCard, HoverCardContent, HoverCardTrigger } from '@/components/ui/hover-card';
 import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover';
-import { useSubscription } from '@/hooks';
+import { useSubscription, useUserAnswer } from '@/hooks';
 import { useUser } from '@/hooks/useUser';
 import { cn } from '@/lib/utils';
 import { useAppStore } from '@/store';
@@ -20,24 +22,26 @@ export const menuItems = [
     smallIcon: <LibraryBig />,
     title: '我的記錄',
     href: '/user/my-lists',
-    icon: 'https://assets.leetcode.com/static_assets/public/webpack_bundles/images/list.be52ffc55.png',
+    icon: '/images/my-lists.png',
+  },
+  {
+    smallIcon: <Clipboard />,
+    title: '成績表',
+    href: '/user/score-sheet',
+    icon: '/images/discussion.png',
   },
   {
     smallIcon: <SquareSigma />,
     title: '練習本',
     href: '/user/notebook',
-    icon: 'https://leetcode.com/static/webpack_bundles/images/notebook.44bf4230c.png',
-  },
-  {
-    smallIcon: <MessageSquareMore />,
-    title: '討論',
-    href: '/user/discussion',
-    icon: 'https://leetcode.com/static/webpack_bundles/images/answer.08334763f.png',
+    icon: '/images/notebook.png',
   },
 ];
 
 export default function AvatarAndMenu() {
-  const { userData, isError } = useUser();
+  const { userData, isError, userRank } = useUser();
+
+  const { userScore } = useUserAnswer();
 
   const [isOpen, setIsOpen] = useState(false);
 
@@ -86,14 +90,29 @@ export default function AvatarAndMenu() {
         <div className=' grid gap-4'>
           <div className='flex gap-4'>
             <img src={FAKE_USER_ICON} alt='user_icon' className='w-14 h-14 object-cover rounded-full' />
-            <div className='grid gap-1'>
-              <span className='font-black ml-2'>{userData.name}</span>
+            <div className='grid gap-1 grow'>
+              <div className='flex justify-between'>
+                <span className='font-black ml-2'>{userData.name}</span>
+
+                <HoverCard>
+                  <HoverCardTrigger>
+                    <Badge className='gap-1' variant={'secondary'}>
+                      <Circle fill='black' size={8} />
+                      {userScore} #{userRank?.rank}
+                    </Badge>
+                  </HoverCardTrigger>
+                  <HoverCardContent className='text-xs flex items-center gap-1'>
+                    <Circle fill='black' size={8} />
+                    最近60天分數 #排名(每小時更新)
+                  </HoverCardContent>
+                </HoverCard>
+              </div>
 
               {isActiveSubscription ? (
                 <Button
                   variant={'ghost'}
                   onClick={() => toRedirect('/membership')}
-                  className='text-sm text-primary hover:bg-[#00000009] px-2 py-1 rounded-lg typo-round text-green-500 flex gap-2'
+                  className='text-sm text-primary hover:bg-[#00000009] px-2 py-1 rounded-lg typo-round text-green-500 flex gap-2 justify-start'
                 >
                   <Image src={'/images/leaf.png'} alt='' width={20} height={20} />
                   <span> DSE00+ PLUS 會員</span>
@@ -128,7 +147,7 @@ export default function AvatarAndMenu() {
                 <span>管理員</span>
               </Button>
             )}
-            <Button variant={'ghost'} onClick={() => toRedirect('/config/subscription')} className={'justify-start'}>
+            <Button variant={'ghost'} onClick={() => toRedirect('/config/personal')} className={'justify-start'}>
               <Settings />
               <span>個人檔案</span>
             </Button>

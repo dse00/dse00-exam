@@ -1,6 +1,6 @@
 'use client';
 import { MessageSquareMore, RectangleEllipsis } from 'lucide-react';
-import { FC, useEffect, useState } from 'react';
+import { FC, useState } from 'react';
 
 import CustomAccordion from '@/components/CustomAccordion';
 import { Button } from '@/components/ui/button';
@@ -13,10 +13,11 @@ import Discussion from './Discussion';
 type props = {
   question: QuestionType;
   index: number;
+  showAnswer?: boolean;
 };
 
-const AnswerDiscussion: FC<props> = ({ question, index }) => {
-  const [showAns, setShowAns] = useState(false);
+const AnswerDiscussion: FC<props> = ({ question, index, showAnswer }) => {
+  const [showAns, setShowAns] = useState(showAnswer !== false);
 
   const [showDiscussion, setShowDiscussion] = useState(false);
 
@@ -24,16 +25,15 @@ const AnswerDiscussion: FC<props> = ({ question, index }) => {
 
   const userAnswer = userAnswersData?.find(userAnswer => userAnswer.question._id === question._id);
 
-  useEffect(() => {
-    if (userAnswer) {
-      setShowAns(true);
-    }
-  }, [userAnswersData, userAnswer]);
-
   return (
     <div className='grid gap-2 w-full'>
       <div className='flex gap-3'>
-        <Button size='sm' variant={showAns ? 'outline' : 'default'} onClick={() => setShowAns(!showAns)}>
+        <Button
+          size='sm'
+          variant={showAns ? 'outline' : 'default'}
+          onClick={() => setShowAns(!showAns)}
+          disabled={showAns}
+        >
           <RectangleEllipsis />
           答案
         </Button>

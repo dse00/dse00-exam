@@ -3,7 +3,7 @@ import { cookies } from 'next/headers';
 import cmsServices from '@/services/cms';
 
 import { BaseTable } from '../../_components/BaseTable';
-import { columns, UserCoumnType } from '../../_components/UserColumn';
+import { columns, UserCoumnType } from './_components/column';
 
 const CmsUserListPage = async () => {
   const cookiesStore = await cookies();

@@ -20,11 +20,15 @@ export const useUser = () => {
     queryFn: () => {
       return services.getUserProfile(token as string);
     },
-    retry: false,
-    throwOnError: false,
-    refetchOnWindowFocus: false,
     enabled: !!token,
-    staleTime: 1000 * 60 * 60 * 24 * 365, // 1 year
+  });
+
+  const { data: userRank } = useQuery({
+    queryKey: [QUERY_KEYS.USER_RANK],
+    queryFn: () => {
+      return services.getRankingByUser(token as string);
+    },
+    enabled: !!token,
   });
 
   const { mutate: loginUser } = useMutation({
@@ -50,5 +54,5 @@ export const useUser = () => {
     queryClient.invalidateQueries({ queryKey: [QUERY_KEYS.USER_PROFILE] });
   };
 
-  return { userData, isError, loginUser, invalidateUserQuery };
+  return { userData, userRank, isError, loginUser, invalidateUserQuery, token };
 };

@@ -6,6 +6,7 @@ import * as R from 'ramda';
 import TopicCard from '@/app/_components/TopicCard';
 import { buttonVariants } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
+import { COOKIES_KEY } from '@/constants';
 import services from '@/services';
 
 import FeatureCard from '../../_components/FeatureCard';
@@ -19,7 +20,7 @@ export default async function SubjectPage({ params }: { params: Promise<{ subjec
   const { paperBySubjects, paperByTopic, paperByDifficulty } = await services.getContent(p.subject);
 
   const cookiesStore = await cookies();
-  const lastQuestion = JSON.parse(cookiesStore.get('lastQuestion')?.value || '{}');
+  const lastQuestion = JSON.parse(cookiesStore.get(COOKIES_KEY.LAST_QUESTIONS + p.subject)?.value || '{}');
 
   return (
     <main className='container mx-auto'>

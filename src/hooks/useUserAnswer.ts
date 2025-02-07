@@ -12,14 +12,14 @@ export const useUserAnswer = () => {
 
   const { successToast } = useMyToast();
 
-  const { userData } = useUser();
+  const { token } = useUser();
 
   const { data: userAnswersData } = useQuery({
     queryKey: [QUERY_KEYS.USER_ANSWERS],
     queryFn: () => {
-      return services.getUserAnswers(userData?.user as string);
+      return services.getUserAnswers(token as string);
     },
-    enabled: !!userData?.user,
+    enabled: !!token,
     refetchOnWindowFocus: false,
     staleTime: 1000 * 60 * 5, // 5 mins
   });
@@ -45,5 +45,11 @@ export const useUserAnswer = () => {
 
   const invalidateUserAnswersQuery = () => queryClient.invalidateQueries({ queryKey: [QUERY_KEYS.USER_ANSWERS] });
 
-  return { userAnswersData, createUserAnswer, deleteUserAnswer, invalidateUserAnswersQuery };
+  const userScore = userAnswersData?.reduce((acc, curr) => {
+    if (curr.correct) return acc + (100 - curr.question.correctPercentage);
+
+    return acc;
+  }, 0);
+
+  return { userAnswersData, createUserAnswer, deleteUserAnswer, invalidateUserAnswersQuery, userScore };
 };

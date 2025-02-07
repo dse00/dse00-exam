@@ -2,7 +2,6 @@
 import { NextRequest, NextResponse } from 'next/server';
 
 export function middleware(req: NextRequest) {
-  console.log('middleware.ts');
   // Create a new response object
   let response;
 

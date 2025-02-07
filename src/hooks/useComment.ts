@@ -11,12 +11,11 @@ export const useComment = (questionId: string) => {
 
   const { successToast } = useMyToast();
 
-  const { data: commentsData } = useQuery({
+  const { data: commentsData, isFetching } = useQuery({
     queryKey: [QUERY_KEYS.COMMENTS, questionId],
     queryFn: () => {
       return services.getCommentsByQuestionId(questionId);
     },
-    refetchOnWindowFocus: false,
   });
 
   const { mutate: createComment } = useMutation({
@@ -44,5 +43,5 @@ export const useComment = (questionId: string) => {
     queryClient.invalidateQueries({ queryKey: [QUERY_KEYS.USER_COMMENTS] });
   };
 
-  return { commentsData, createComment, deleteComment };
+  return { commentsData, createComment, deleteComment, isFetching };
 };

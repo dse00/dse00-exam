@@ -1,16 +1,19 @@
 import Link from 'next/link';
 import { FC } from 'react';
 
+import LoginDialog from '@/components/LoginDialog';
+
 import AvatarAndMenu from './AvatarAndMenu';
 import HeaderIcon from './HeaderIcon';
 import MessageDialog from './MessageDialog';
 
 const Header: FC = () => {
   return (
-    <header className='bg-main w-full h-[58px] flex justify-center items-center px-2'>
-      <div className='container flex items-center sm:gap-10 gap-3'>
-        <HeaderIcon />
-        {/* {isExamPage ? (
+    <>
+      <header className='bg-main w-full h-[58px] flex justify-center items-center px-2'>
+        <div className='container flex items-center sm:gap-10 gap-3'>
+          <HeaderIcon />
+          {/* {isExamPage ? (
           <div className='flex items-center gap-3'>
             <Image src='/images/leaf.png' width={34} height={34} alt='icon' />
             <ProblemListSidebar />
@@ -21,27 +24,26 @@ const Header: FC = () => {
           </Link>
         )} */}
 
-        <div className='flex items-center gap-10 grow'>
-          <div className='sm:flex gap-8 hidden'>
-            <Link className={'text-white text-[15px]'} href={'https://www.dse00.com/p/tutor.html'} target='_blank'>
-              DSE00 AI 補習配對
-            </Link>
-            <Link
-              className={'text-white text-[15px]'}
-              href={'https://www.dse00.com/p/core-cutoff.html'}
-              target='_blank'
-            >
-              2024 Cut-off
-            </Link>
-            <Link className={'text-white text-[15px]'} href={'https://www.dse00.com/p/jupas.html'} target='_blank'>
-              JUPAS Cuf-off
-            </Link>
+          <div className='flex items-center gap-10 grow'>
+            <div className='sm:flex gap-10 hidden'>
+              <Link
+                className={'text-white text-[15px]'}
+                href={'https://www.dse00.com/p/core-cutoff.html'}
+                target='_blank'
+              >
+                2024 Cut-off
+              </Link>
+              <Link className={'text-white text-[15px]'} href={'https://www.dse00.com/p/jupas.html'} target='_blank'>
+                JUPAS Cuf-off
+              </Link>
+            </div>
           </div>
+          <AvatarAndMenu />
+          <MessageDialog />
         </div>
-        <AvatarAndMenu />
-        <MessageDialog />
-      </div>
-    </header>
+      </header>
+      <LoginDialog />
+    </>
   );
 };
 

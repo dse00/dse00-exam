@@ -31,11 +31,6 @@ export default async function RootLayout({
             gtag('config', '${GA_TRACKING_ID}');
           `}
         </Script>
-        {/* <Script
-          async
-          src={'https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6622218753379872'}
-          crossOrigin='anonymous'
-        /> */}
       </head>
       <body>
         <RootProvider>{children}</RootProvider>

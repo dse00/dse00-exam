@@ -1,3 +1,4 @@
+import { QuestionType } from './question';
 import { CommentUserType } from './user';
 
 export type CommentType = CreateCommentType & {
@@ -11,4 +12,8 @@ export type CreateCommentType = {
   user: string;
   question: string;
   comment: string;
+};
+
+export type CmsCommentType = CommentType & {
+  question: QuestionType;
 };

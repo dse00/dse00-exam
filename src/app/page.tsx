@@ -1,7 +1,18 @@
-import { Atom, BicepsFlexed, History, NotebookPen, Pyramid, Scale, TreePine } from 'lucide-react';
+import {
+  Atom,
+  Banknote,
+  BicepsFlexed,
+  ClipboardList,
+  History,
+  NotebookPen,
+  Pyramid,
+  Scale,
+  TreePine,
+} from 'lucide-react';
 import { cookies } from 'next/headers';
 import Link from 'next/link';
 
+import ChatBot from '@/components/ChatBot';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { COOKIES_KEY } from '@/constants';
@@ -35,17 +46,6 @@ const subjects = [
     textColor: 'text-rose-800',
   },
   {
-    name: '物理',
-    key: 'phys',
-    total: 200,
-    icon: <Scale />,
-    theme: 'default',
-    iconStroke: 'stroke-sky-600',
-    buttonFill: 'bg-sky-500',
-    textColor: 'text-sky-800',
-    isComing: true,
-  },
-  {
     name: '生物',
     key: 'bio',
     total: 180,
@@ -54,6 +54,37 @@ const subjects = [
     iconStroke: 'stroke-emerald-600',
     buttonFill: 'bg-emerald-500',
     textColor: 'text-emerald-800',
+  },
+  {
+    name: '物理',
+    key: 'phys',
+    total: 200,
+    icon: <Scale />,
+    theme: 'default',
+    iconStroke: 'stroke-sky-600',
+    buttonFill: 'bg-sky-500',
+    textColor: 'text-sky-800',
+  },
+  {
+    name: '經濟',
+    key: 'econ',
+    total: 200,
+    icon: <Banknote />,
+    theme: 'default',
+    iconStroke: 'stroke-yellow-600',
+    buttonFill: 'bg-yellow-500',
+    textColor: 'text-yellow-800',
+    isComing: true,
+  },
+  {
+    name: 'BAFS',
+    key: 'bafs',
+    total: 200,
+    icon: <ClipboardList />,
+    theme: 'default',
+    iconStroke: 'stroke-stone-600',
+    buttonFill: 'bg-stone-500',
+    textColor: 'text-stone-800',
     isComing: true,
   },
 ];
@@ -77,16 +108,16 @@ const HomePage = async () => {
       <div className='bg-main skew-y-6 h-[700px] z-0 -translate-y-60 absolute top-0 right-0 w-full' />
       <div className='bg-light_brown -skew-y-6 h-[450px] z-0  absolute top-[840px] right-0 w-full' />
 
-      <div className='relative text-white mx-auto container sm:py-20 py-10 grid sm:grid-cols-2 sm:gap-20 gap-10 px-2'>
-        <div>
+      <div className='relative text-white mx-auto container sm:py-20 py-10 grid sm:grid-cols-2 gap-10 px-2'>
+        <div className=''>
           {lastQuestions.length ? (
-            <div className='grid gap-10'>
-              <h1 className='sm:text-4xl text-3xl font-bold leading-[4.2rem] flex gap-3 items-center'>
+            <div className='grid gap-10 max-w-screen'>
+              <h1 className='sm:text-4xl text-2xl font-bold leading-[4.2rem] flex gap-3 items-center'>
                 <History size={30} />
                 <span>繼續上次...</span>
               </h1>
 
-              <div className='flex opacity-95 gap-4'>
+              <div className='flex opacity-95 gap-4 overflow-x-scroll '>
                 {lastQuestions.map((lastQuestion, i) => (
                   <LastQuestionContinueCard key={lastQuestion.href} lastQuestion={lastQuestion} />
                 ))}
@@ -95,10 +126,10 @@ const HomePage = async () => {
           ) : (
             <div className='flex flex-col gap-6 items-start'>
               <h1 className='sm:text-5xl text-4xl font-bold leading-[4.2rem]'>操卷新方法</h1>
-              <p className='opacity-95 leading-9'>
+              <p className='opacity-95 leading-9 sm:pr-20'>
                 透過不同科目的練習，提升自己的學習能力，並且在操練過程中，即時提供回饋，讓你更了解自己的學習狀況。
               </p>
-              <Button variant={'secondary'} asChild>
+              <Button variant={'secondary'} asChild size={'xl'}>
                 <Link href='/maths'>
                   <BicepsFlexed />
                   <span>開始操練</span>
@@ -126,22 +157,14 @@ const HomePage = async () => {
               <div className='sm:p-20 grid gap-10'>
                 <h1 className={cn('text-5xl font-black', subject.textColor)}>{subject.name}</h1>
                 <div className='flex'>
-                  <Badge variant={'outline'}>共 {subjectsData[subject.key]?.numberOfquestions} 題</Badge>
+                  <Badge variant={'outline'}>共 {subjectsData[subject.key]?.numberOfquestions || 0} 題</Badge>
                 </div>
-                {subject.isComing ? (
-                  <Button size='xl' asChild className={subject.buttonFill} disabled>
-                    <Link href={'/'}>
-                      <span>Is Coming...</span>
-                    </Link>
-                  </Button>
-                ) : (
-                  <Button size='xl' asChild className={subject.buttonFill} disabled>
-                    <Link href={subject.key}>
-                      <span>開始操練</span>
-                      <NotebookPen />
-                    </Link>
-                  </Button>
-                )}
+                <Button size='xl' asChild className={subject.buttonFill} disabled={subject.isComing}>
+                  <Link href={subject.key}>
+                    <span>{subject.isComing ? '即將推出' : '開始操練'}</span>
+                    <NotebookPen />
+                  </Link>
+                </Button>
               </div>
 
               <>
@@ -157,6 +180,7 @@ const HomePage = async () => {
           </div>
         ))}
       </div>
+      <ChatBot />
     </div>
   );
 };

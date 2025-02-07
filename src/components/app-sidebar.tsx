@@ -71,6 +71,10 @@ const data = {
       icon: Bot,
       items: [
         {
+          title: 'List',
+          url: '/admin/questions/list',
+        },
+        {
           title: 'Answer',
           url: '/admin/questions/answers',
         },
@@ -78,28 +82,35 @@ const data = {
           title: 'Exercise',
           url: '#',
         },
+        {
+          title: 'Discussion',
+          url: '/admin/questions/discussion',
+        },
       ],
     },
     {
-      title: 'Documentation',
+      title: 'Message',
       url: '#',
       icon: BookOpen,
       items: [
         {
-          title: 'Introduction',
-          url: '#',
+          title: 'List',
+          url: '/admin/message',
         },
         {
-          title: 'Get Started',
-          url: '#',
+          title: 'Send Message',
+          url: '/admin/message/send',
         },
+      ],
+    },
+    {
+      title: 'Ranking',
+      url: '#',
+      icon: BookOpen,
+      items: [
         {
-          title: 'Tutorials',
-          url: '#',
-        },
-        {
-          title: 'Changelog',
-          url: '#',
+          title: 'All',
+          url: '/admin/ranking',
         },
       ],
     },
@@ -110,19 +121,7 @@ const data = {
       items: [
         {
           title: 'General',
-          url: '#',
-        },
-        {
-          title: 'Team',
-          url: '#',
-        },
-        {
-          title: 'Billing',
-          url: '#',
-        },
-        {
-          title: 'Limits',
-          url: '#',
+          url: '/admin/settings',
         },
       ],
     },
@@ -139,8 +138,8 @@ const data = {
       icon: PieChart,
     },
     {
-      name: 'Travel',
-      url: '#',
+      name: 'Tutor CMS',
+      url: 'https://admin.dse00.com',
       icon: Map,
     },
   ],

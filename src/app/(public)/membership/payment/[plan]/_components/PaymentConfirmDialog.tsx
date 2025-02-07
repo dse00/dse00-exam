@@ -5,7 +5,15 @@ import { FC, useState } from 'react';
 
 import { Button, buttonVariants } from '@/components/ui/button';
 import { Checkbox } from '@/components/ui/checkbox';
-import { Dialog, DialogContent, DialogFooter, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/dialog';
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogFooter,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from '@/components/ui/dialog';
 import { Input } from '@/components/ui/input';
 import { useMyToast, useUser } from '@/hooks';
 import services from '@/services';
@@ -57,13 +65,13 @@ const PaymentConfirmDialog: FC<props> = ({ currentPlan }) => {
       <DialogContent className='grid gap-4'>
         <DialogHeader>
           <DialogTitle>
-            <h1 className='flex items-center gap-4'>
+            <p className='flex items-center gap-4'>
               <Wallet />
               <span>確認付款</span>
-            </h1>
+            </p>
           </DialogTitle>
         </DialogHeader>
-
+        <DialogDescription> </DialogDescription>
         <div className='grid gap-4'>
           <div className='grid grid-cols-2 items-center gap-2'>
             <span> 1. 你已截圖了嗎？</span>
@@ -82,6 +90,7 @@ const PaymentConfirmDialog: FC<props> = ({ currentPlan }) => {
             />
           </div>
         </div>
+
         <DialogFooter>
           <Button disabled={!answer.screenshot || !answer.email} onClick={toConfirmPayment}>
             <span>確認</span>

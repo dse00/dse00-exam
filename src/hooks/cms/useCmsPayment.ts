@@ -17,8 +17,6 @@ export const useCmsPayment = () => {
     queryFn: () => {
       return cmsServices.getAllPayments();
     },
-    refetchOnWindowFocus: false,
-    staleTime: 1000 * 60 * 60 * 24 * 365, // 1 year
   });
 
   const { mutate: deletePayment } = useMutation({

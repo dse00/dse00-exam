@@ -1,7 +1,9 @@
 'use client';
+import { Angry, RotateCcw, Smile } from 'lucide-react';
 import { useRouter } from 'next/navigation';
-import { FC, useEffect, useState } from 'react';
+import { FC, useEffect, useRef, useState } from 'react';
 
+import AnimateButton from '@/components/AnimateButton';
 import { Button } from '@/components/ui/button';
 import {
   Dialog,
@@ -33,6 +35,7 @@ const ExercisePaper: FC<props> = ({ exercise }) => {
   const { questions, _id: exerciseId, answers: recordedAnswers } = exercise;
 
   const [answers, setAnswers] = useState<string[]>([]);
+  const buttonRef = useRef<HTMLButtonElement>(null);
 
   const [isSubmitted, setIsSubmitted] = useState(false);
 
@@ -81,6 +84,13 @@ const ExercisePaper: FC<props> = ({ exercise }) => {
       router.push('/user/notebook');
     }
   };
+
+  const toResetAnswer = () => {
+    const confirm = window.confirm('確定要重置答案嗎？');
+    if (confirm) {
+      setAnswers([]);
+    }
+  };
   const getDifficultyLabel = (thresholdData: ThresholdType, subject: string, correctPercentage: number) => {
     switch (true) {
       case correctPercentage >= thresholdData[subject].Easy:
@@ -96,8 +106,13 @@ const ExercisePaper: FC<props> = ({ exercise }) => {
 
   return (
     <div className='grid gap-6 items-start'>
-      <div>
+      <div className='flex gap-4'>
         <ExportExamPdfButton questions={questions} />
+
+        <AnimateButton variant={'ghost'} onClick={toResetAnswer}>
+          <RotateCcw />
+          <span>重置答案</span>
+        </AnimateButton>
       </div>
       {questions.map((question, index) => (
         <ExerciseQuestionCard
@@ -135,8 +150,12 @@ const ExercisePaper: FC<props> = ({ exercise }) => {
                   <TableCell>
                     {getDifficultyLabel(thresholdData, question.subject, question.correctPercentage)}
                   </TableCell>
-                  <TableCell className='text-right'>
-                    {question.answer === answers[index] ? Math.round(100 / questions.length) : 0}
+                  <TableCell className='flex justify-end'>
+                    {question.answer === answers[index] ? (
+                      <Smile size={20} color='green' />
+                    ) : (
+                      <Angry size={20} color='red' />
+                    )}
                   </TableCell>
                 </TableRow>
               ))}

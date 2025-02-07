@@ -166,7 +166,7 @@ export function RecordTable({ data }: { data: UserAnswerType[] }) {
             </DropdownMenuTrigger>
             <DropdownMenuContent align='end'>
               {/* <DropdownMenuLabel>Actions</DropdownMenuLabel> */}
-              <Link href={`/${answer.question.subject}/questions/${answer.question._id}`}>
+              <Link href={`/self/${answer.question._id}`}>
                 <DropdownMenuItem>
                   <Eye />
                   <span>查看題目</span>
@@ -228,7 +228,7 @@ export function RecordTable({ data }: { data: UserAnswerType[] }) {
       columns={columns}
       filter={{
         key: 'topic',
-        name: '題號',
+        name: '主題',
       }}
       table={table}
       batchActionButton={
