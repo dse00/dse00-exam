@@ -1,13 +1,21 @@
 'use client';
-import { MessageSquareMore, RectangleEllipsis } from 'lucide-react';
-import { FC, useState } from 'react';
+import { useReducer } from 'react';
 
 import CustomAccordion from '@/components/CustomAccordion';
-import { Button } from '@/components/ui/button';
 import { useUserAnswer } from '@/hooks';
 import { QuestionType } from '@/types/question';
 
-import AnswerButtons from './AnswerButtons';
+import {
+  AnswerDiscussionContext,
+  answersOptions,
+  ButtonControl,
+  reducer,
+  SkipButton,
+  State,
+  useAnswerDiscussionContext,
+} from '../_service-layer/answer_discussion';
+import AnswerButton from './AnswerButton';
+import CorrectPercentageIndicator from './CorrectPercentageIndicator';
 import Discussion from './Discussion';
 
 type props = {
@@ -16,46 +24,80 @@ type props = {
   showAnswer?: boolean;
 };
 
-const AnswerDiscussion: FC<props> = ({ question, index, showAnswer }) => {
-  const [showAns, setShowAns] = useState(showAnswer !== false);
+const initialState = {
+  showAns: true,
+  showDiscussion: false,
+  selectedAnswer: '',
+  isSkep: false,
+};
 
-  const [showDiscussion, setShowDiscussion] = useState(false);
-
+export const useAnswerDiscussion = () => {
+  const [state, dispatch] = useReducer(reducer, initialState);
   const { userAnswersData } = useUserAnswer();
+
+  return {
+    toggleAnswer: () => dispatch({ type: 'TOGGLE_ANSWER' }),
+    toggleDiscussion: () => dispatch({ type: 'TOGGLE_DISCUSSION' }),
+    state,
+    userAnswersData,
+    setSelectedAnswer: (selectedAnswer: string) => dispatch({ type: 'SET_SELECTED_ANSWER', payload: selectedAnswer }),
+    setIsSkip: (isSkep: boolean) => dispatch({ type: 'SET_IS_SKIP', payload: isSkep }),
+  };
+};
+
+export default ({ question, index, showAnswer }: props) => {
+  const { toggleAnswer, state, toggleDiscussion, userAnswersData, setSelectedAnswer, setIsSkip } =
+    useAnswerDiscussion();
 
   const userAnswer = userAnswersData?.find(userAnswer => userAnswer.question._id === question._id);
 
   return (
+    <AnswerDiscussionContext.Provider
+      value={{
+        toggleAnswer,
+        toggleDiscussion,
+        state,
+        question,
+        userAnswer,
+        index,
+        showAnswer,
+        setSelectedAnswer,
+        setIsSkip,
+      }}
+    >
+      <AnswerDiscussionView state={state} />
+    </AnswerDiscussionContext.Provider>
+  );
+};
+
+const AnswerDiscussionView = ({ state }: { state: State }) => {
+  return (
     <div className='grid gap-2 w-full'>
       <div className='flex gap-3'>
-        <Button
-          size='sm'
-          variant={showAns ? 'outline' : 'default'}
-          onClick={() => setShowAns(!showAns)}
-          disabled={showAns}
-        >
-          <RectangleEllipsis />
-          答案
-        </Button>
-        <Button
-          size='sm'
-          variant={showDiscussion ? 'outline' : 'default'}
-          onClick={() => setShowDiscussion(!showDiscussion)}
-        >
-          <MessageSquareMore />
-          討論({question.comments?.length})
-        </Button>
+        <ButtonControl />
       </div>
       <div className='grid'>
-        <CustomAccordion show={showAns}>
-          <AnswerButtons question={question} userAnswer={userAnswer?.answer} index={index} />
-        </CustomAccordion>
-        <CustomAccordion show={showDiscussion}>
-          <Discussion questionId={question._id} comments={question.comments} />
-        </CustomAccordion>
+        <AnswerButtons />
+        <Discussion />
       </div>
     </div>
   );
 };
 
-export default AnswerDiscussion;
+const AnswerButtons = () => {
+  const { state, question } = useAnswerDiscussionContext();
+
+  return (
+    <CustomAccordion show={state.showAns}>
+      <div className='grid gap-3'>
+        <div className='flex gap-3 items-center'>
+          {answersOptions.map(answer => (
+            <AnswerButton key={answer} answer={answer} />
+          ))}
+          <SkipButton />
+        </div>
+        <CorrectPercentageIndicator value={question.correctPercentage} />
+      </div>
+    </CustomAccordion>
+  );
+};

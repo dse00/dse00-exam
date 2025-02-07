@@ -43,28 +43,7 @@ const QuestionCard: FC<props> = ({ question, questionNo, showAnswer }) => {
           <CardDescription className={getDifficultyStyle(questionDifficulty)}>{questionDifficulty}</CardDescription>
         </CardHeader>
         <CardContent>
-          <div className='relative sm:max-w-[720px] max-w-full grid gap-4'>
-            <Skeleton className='h-8 w-full' />
-            <div className='grid gap-4 pl-12'>
-              <Skeleton className='h-8 sm:w-80 max-w-full' />
-              <Skeleton className='h-8 sm:w-80 max-w-full' />
-              <Skeleton className='h-8 sm:w-80 max-w-full' />
-              <Skeleton className='h-8 sm:w-80 max-w-full' />
-            </div>
-            <div className='absolute bg-[#ffffff33] backdrop-blur-sm w-full h-full items-center justify-center rounded-lg flex flex-col gap-4'>
-              <LockKeyhole size={'40'} />
-              <p className='opacity-70 flex gap-1'>
-                <span className='typo-round'>DSE00</span>
-                <span>需要你們的支持</span>
-              </p>
-              <div>
-                <Link href={'/membership'} className={cn(buttonVariants())}>
-                  <span>加入</span>
-                  <span className='typo-round'>DSE00+</span>
-                </Link>
-              </div>
-            </div>
-          </div>
+          <SkeletonCard />
         </CardContent>
         <CardFooter className='flex gap-4'>
           <Skeleton className='h-8 w-12' />
@@ -97,3 +76,28 @@ const QuestionCard: FC<props> = ({ question, questionNo, showAnswer }) => {
 };
 
 export default QuestionCard;
+
+const SkeletonCard = () => (
+  <div className='relative sm:max-w-[720px] max-w-full grid gap-4'>
+    <Skeleton className='h-8 w-full' />
+    <div className='grid gap-4 pl-12'>
+      <Skeleton className='h-8 sm:w-80 max-w-full' />
+      <Skeleton className='h-8 sm:w-80 max-w-full' />
+      <Skeleton className='h-8 sm:w-80 max-w-full' />
+      <Skeleton className='h-8 sm:w-80 max-w-full' />
+    </div>
+    <div className='absolute bg-[#ffffff33] backdrop-blur-sm w-full h-full items-center justify-center rounded-lg flex flex-col gap-4'>
+      <LockKeyhole size={'40'} />
+      <p className='opacity-70 flex gap-1'>
+        <span className='typo-round'>DSE00</span>
+        <span>需要你們的支持</span>
+      </p>
+      <div>
+        <Link href={'/membership'} className={cn(buttonVariants())}>
+          <span>加入</span>
+          <span className='typo-round'>DSE00+</span>
+        </Link>
+      </div>
+    </div>
+  </div>
+);

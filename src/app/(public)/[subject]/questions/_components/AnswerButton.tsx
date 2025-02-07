@@ -1,31 +1,27 @@
 import Cookies from 'js-cookie';
-import { Angry, Meh, Smile } from 'lucide-react';
+import { Angry, Smile } from 'lucide-react';
 import { usePathname } from 'next/navigation';
-import { FC, useEffect, useState } from 'react';
+import { useEffect } from 'react';
 
 import { Button } from '@/components/ui/button';
 import { COOKIES_KEY } from '@/constants';
 import { useUser, useUserAnswer } from '@/hooks';
 import { logEvent } from '@/lib/ga';
 import { useAppStore } from '@/store';
-import { LastQuestionType, QuestionType } from '@/types/question';
+import { LastQuestionType } from '@/types/question';
 
-import CorrectPercentageIndicator from './CorrectPercentageIndicator';
-export const answersOptions = ['A', 'B', 'C', 'D'];
+import { useAnswerDiscussionContext } from '../_service-layer/answer_discussion';
 
 type props = {
-  question: QuestionType;
-  userAnswer?: string;
-  index: number;
+  answer: string;
 };
-const AnswerButtons: FC<props> = ({ question, userAnswer, index }) => {
-  const [selectedAnswer, setSelectedAnswer] = useState<string | null>(null);
-
+export default ({ answer }: props) => {
   const { userData } = useUser();
 
   const { setLoginDialogOpen } = useAppStore();
+  const { question, userAnswer, index, setSelectedAnswer, state, setIsSkip } = useAnswerDiscussionContext();
 
-  const [isSkep, setIsSkip] = useState(false);
+  const { isSkep, selectedAnswer } = state;
 
   const { createUserAnswer } = useUserAnswer();
 
@@ -33,19 +29,19 @@ const AnswerButtons: FC<props> = ({ question, userAnswer, index }) => {
 
   useEffect(() => {
     if (userAnswer) {
-      setSelectedAnswer(userAnswer);
+      setSelectedAnswer(userAnswer.answer);
     }
   }, [userAnswer]);
 
   const getButtonColor = (buttonAnswer: string) => {
     switch (true) {
-      case selectedAnswer === null && !isSkep:
+      case selectedAnswer === '' && !isSkep: // no answer
         return '#eee';
       case question.answer === buttonAnswer: // correct answer
         return '#ecfccb';
-      case selectedAnswer === question.answer && selectedAnswer === buttonAnswer:
+      case selectedAnswer === question.answer && selectedAnswer === buttonAnswer: // correct answer selected
         return '#ecfccb';
-      case selectedAnswer !== question.answer && selectedAnswer === buttonAnswer:
+      case selectedAnswer !== question.answer && selectedAnswer === buttonAnswer: // wrong answer selected
         return '#fecaca';
       default:
         return '#eee';
@@ -86,32 +82,16 @@ const AnswerButtons: FC<props> = ({ question, userAnswer, index }) => {
   };
 
   return (
-    <div className='grid gap-3'>
-      <div className='flex gap-3 items-center'>
-        {answersOptions.map((answer, index) => (
-          <Button
-            style={{ backgroundColor: getButtonColor(answer) }}
-            variant='secondary'
-            key={answer}
-            onClick={() => handleOnClick(answer)}
-          >
-            {selectedAnswer === answer && selectedAnswer === question.answer && <Smile />}
-            {selectedAnswer === answer && selectedAnswer !== question.answer && <Angry />}
+    <Button
+      style={{ backgroundColor: getButtonColor(answer) }}
+      variant='secondary'
+      key={answer}
+      onClick={() => handleOnClick(answer)}
+    >
+      {selectedAnswer === answer && selectedAnswer === question.answer && <Smile />}
+      {selectedAnswer === answer && selectedAnswer !== question.answer && <Angry />}
 
-            {answer}
-          </Button>
-        ))}
-        {!selectedAnswer && !isSkep && (
-          <Button variant='ghost' size={'sm'} onClick={() => setIsSkip(true)}>
-            跳過
-          </Button>
-        )}
-
-        {isSkep && <Meh />}
-      </div>
-      {(selectedAnswer || isSkep) && <CorrectPercentageIndicator value={question.correctPercentage} />}
-    </div>
+      {answer}
+    </Button>
   );
 };
-
-export default AnswerButtons;
