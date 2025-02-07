@@ -4,6 +4,8 @@ import { createContext, useContext, useEffect } from 'react';
 import { Button } from '@/components/ui/button';
 import { QuestionType } from '@/types/question';
 
+import { initialState } from '../_components/AnswerDiscussion';
+
 //  Types
 export type State = {
   showAns: boolean;
@@ -113,7 +115,7 @@ export const AnswerDiscussionContext = createContext<{
   setSelectedAnswer: (selectedAnswer: string) => void;
   setIsSkip: (isSkep: boolean) => void;
 }>({
-  state: { showAns: true, showDiscussion: false },
+  state: initialState,
   toggleAnswer: () => {},
   toggleDiscussion: () => {},
   question: {} as QuestionType,

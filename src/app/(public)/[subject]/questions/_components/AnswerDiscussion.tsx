@@ -23,7 +23,7 @@ type props = {
   showAnswer?: boolean;
 };
 
-const initialState = {
+export const initialState = {
   showAns: true,
   showDiscussion: false,
   selectedAnswer: '',

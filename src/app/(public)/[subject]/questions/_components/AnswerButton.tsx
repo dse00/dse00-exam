@@ -17,8 +17,8 @@ type props = {
 };
 export default ({ answer }: props) => {
   const { question, index, setSelectedAnswer, state } = useAnswerDiscussionContext();
-  const { setLoginDialogOpen } = useAppStore();
   const { createUserAnswer, userAnswersData } = useUserAnswer();
+  const { setLoginDialogOpen } = useAppStore();
   const { userData } = useUser();
   const pathname = usePathname();
 
