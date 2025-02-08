@@ -4,12 +4,10 @@ import { createContext, useContext, useEffect } from 'react';
 import { Button } from '@/components/ui/button';
 import { QuestionType } from '@/types/question';
 
-import { initialState } from '../_components/AnswerDiscussion';
-
 //  Types
 export type State = {
   showAns: boolean;
-  showDiscussion: boolean;
+  showDiscussion?: boolean;
   selectedAnswer?: string;
   isSkep?: boolean;
 };
@@ -113,9 +111,12 @@ export const AnswerDiscussionContext = createContext<{
   index: number;
   showAnswer?: boolean;
   setSelectedAnswer: (selectedAnswer: string) => void;
-  setIsSkip: (isSkep: boolean) => void;
+  setIsSkip: (isSkip: boolean) => void;
 }>({
-  state: initialState,
+  state: {
+    showAns: true,
+    showDiscussion: false,
+  },
   toggleAnswer: () => {},
   toggleDiscussion: () => {},
   question: {} as QuestionType,
