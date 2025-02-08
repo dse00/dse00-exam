@@ -2,19 +2,24 @@ import * as React from 'react';
 
 import { Progress } from '@/components/ui/progress';
 
-type props = {
-  value: number;
-};
+import { useAnswerDiscussionContext } from '../_service-layer/answer-discussion';
 
-export const CorrectPercentageIndicator: React.FC<props> = ({ value }) => {
-  return (
-    <div className='flex items-center gap-4'>
-      <div className='w-40'>
-        <Progress value={value} />
+type props = {};
+
+export const CorrectPercentageIndicator: React.FC<props> = () => {
+  const { state, question } = useAnswerDiscussionContext();
+  const { selectedAnswer, isSkep } = state;
+
+  if (selectedAnswer || isSkep) {
+    return (
+      <div className='flex items-center gap-4'>
+        <div className='w-40'>
+          <Progress value={question.correctPercentage} />
+        </div>
+        <div className='text-sm text-gray-500'>{question.correctPercentage}% 的同學回答正確</div>
       </div>
-      <div className='text-sm text-gray-500'>{value}% 的同學回答正確</div>
-    </div>
-  );
+    );
+  }
 };
 
 export default CorrectPercentageIndicator;
