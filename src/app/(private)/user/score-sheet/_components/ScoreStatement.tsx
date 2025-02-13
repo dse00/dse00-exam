@@ -143,14 +143,19 @@ export default ({ data, index, isLatest }: { data: UserAnswerType[]; index: numb
 
           {/* Total Score */}
           <div>
-            <h2 className='text-lg pb-4'>總成績</h2>
+            <h2 className='text-lg pb-4 flex items-center gap-5'>總成績</h2>
             {statement.isCompleted ? (
               <code className='flex items-center gap-10'>
                 {statement.totalScore} / {statement.fullScore} ({statement.percentage}%)
                 <Badge>{statement.getGrade()}</Badge>
               </code>
             ) : (
-              <code>尚未完成</code>
+              <div>
+                <code className='flex items-center gap-10'>
+                  <span> 尚未完成</span>
+                  <Badge>Lv. ?</Badge>
+                </code>
+              </div>
             )}
           </div>
         </div>

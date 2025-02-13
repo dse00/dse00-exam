@@ -16,7 +16,7 @@ export const usePaperNameMapping = () => {
 
   const displayNameKey = language === LanguageEnum.TC ? 'displayNameTc' : 'displayName';
 
-  const getPaperNameByLang = (key: string) => paperNameMappingData?.[key][displayNameKey];
+  const getPaperNameByLang = (key: string) => paperNameMappingData?.[key]?.[displayNameKey];
 
   const isLoaded = !!paperNameMappingData;
 

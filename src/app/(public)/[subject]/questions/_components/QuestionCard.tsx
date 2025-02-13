@@ -3,6 +3,7 @@ import { LockKeyhole } from 'lucide-react';
 import Link from 'next/link';
 import { FC } from 'react';
 
+import { AddOilSlogan } from '@/app/_components/AddOilSlogan';
 import AdSense from '@/components/AdSense';
 import QuestionImage from '@/components/QuestionImage';
 import { buttonVariants } from '@/components/ui/button';
@@ -71,6 +72,7 @@ const QuestionCard: FC<props> = ({ question, questionNo, showAnswer }) => {
         </CardFooter>
       </Card>
       {(questionNo + 2) % 4 === 0 && <AdSense />}
+      {questionNo % 4 === 0 && <AddOilSlogan className='text-gray-300' />}
     </>
   );
 };

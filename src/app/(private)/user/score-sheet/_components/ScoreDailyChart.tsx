@@ -6,6 +6,7 @@ import { Bar, BarChart, CartesianGrid, XAxis } from 'recharts';
 
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { ChartConfig, ChartContainer, ChartTooltip, ChartTooltipContent } from '@/components/ui/chart';
+import { cn } from '@/lib/utils';
 import { UserAnswerType } from '@/types/userAnswer';
 
 export const description = 'An interactive bar chart';
@@ -34,9 +35,19 @@ const chartConfig = {
     label: '生物',
     color: 'hsl(var(--chart-5))',
   },
+  econ: {
+    label: '經濟',
+    color: 'hsl(var(--chart-1))',
+  },
 } satisfies ChartConfig;
 
-export function ScoreDailyChart({ answersData }: { answersData: UserAnswerType[] }) {
+export function ScoreDailyChart({
+  answersData,
+  simpleMode = false,
+}: {
+  answersData: UserAnswerType[];
+  simpleMode?: boolean;
+}) {
   const [activeChart, setActiveChart] = React.useState<keyof typeof chartConfig>('total');
 
   const chartData = Object.entries(
@@ -48,6 +59,7 @@ export function ScoreDailyChart({ answersData }: { answersData: UserAnswerType[]
     chem: value?.filter(({ question }) => question.subject === 'chem').length,
     phys: value?.filter(({ question }) => question.subject === 'phys').length,
     bio: value?.filter(({ question }) => question.subject === 'bio').length,
+    econ: value?.filter(({ question }) => question.subject === 'econ').length,
   }));
 
   // 只顯示有作答的科目
@@ -60,13 +72,18 @@ export function ScoreDailyChart({ answersData }: { answersData: UserAnswerType[]
       chem: chartData.reduce((acc, curr) => acc + (curr.chem || 0), 0),
       phys: chartData.reduce((acc, curr) => acc + (curr.phys || 0), 0),
       bio: chartData.reduce((acc, curr) => acc + (curr.bio || 0), 0),
+      econ: chartData.reduce((acc, curr) => acc + (curr.econ || 0), 0),
     }),
     [chartData]
   );
 
   return (
     <Card className='border-none shadow-none p-0'>
-      <CardHeader className='flex flex-col items-stretch space-y-0 border-b p-0 sm:flex-row'>
+      <CardHeader
+        className={cn('flex flex-col items-stretch space-y-0 border-b p-0 sm:flex-row', {
+          hidden: simpleMode,
+        })}
+      >
         <div className='flex flex-1 flex-col justify-center gap-1 py-5 sm:py-6'>
           <CardTitle>進度表</CardTitle>
           <CardDescription>記錄你每天的進步</CardDescription>
@@ -91,7 +108,11 @@ export function ScoreDailyChart({ answersData }: { answersData: UserAnswerType[]
           })}
         </div>
       </CardHeader>
-      <CardContent className='px-2 sm:p-6'>
+      <CardContent
+        className={cn('px-2', {
+          'sm:p-6': !simpleMode,
+        })}
+      >
         <ChartContainer config={chartConfig} className='aspect-auto h-[250px] w-full'>
           <BarChart
             accessibilityLayer

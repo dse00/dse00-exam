@@ -47,8 +47,8 @@ const MembershipPaymentPage: NextPage<props> = async ({ params }) => {
               <div className='flex'>
                 <span className='mr-8'>3.</span>
                 <p>
-                  <span> 在信息輸入框中輸入您的</span>
-                  <span className='font-bold'>電子郵件地址</span>
+                  <span> 在 PayMe 信息中輸入您的</span>
+                  <span className='font-bold'> 電子郵件地址</span>
                 </p>
               </div>
               <div className='flex'>

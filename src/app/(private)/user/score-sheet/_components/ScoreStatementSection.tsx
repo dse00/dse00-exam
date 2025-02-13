@@ -5,6 +5,7 @@ import { usePaperNameMapping } from '@/hooks/usePaperNameMapping';
 import { SubejectData } from '@/lib/subject.class';
 import { UserAnswerType } from '@/types/userAnswer';
 
+import ExportAllQuestionButton from './ExportAllQuestionButton';
 import ScoreStatement from './ScoreStatement';
 
 export default ({ answersData }: { answersData: UserAnswerType[] }) => {
@@ -28,6 +29,8 @@ export default ({ answersData }: { answersData: UserAnswerType[] }) => {
           <h2 className='text-lg uppercase py-3'>{getPaperNameByLang(subject.subject)}</h2>
           <div>
             <div className='flex gap-3 flex-col-reverse'>
+              <ExportAllQuestionButton subject={subject.subject} />
+
               {subject.getStatementList().map((data, index) => (
                 <ScoreStatement
                   key={data?.[0]._id}
