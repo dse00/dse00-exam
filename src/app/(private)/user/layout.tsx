@@ -1,5 +1,6 @@
 'use client';
 import { MessageSquareMore } from 'lucide-react';
+import moment from 'moment';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { useState } from 'react';
@@ -18,6 +19,7 @@ import {
 } from '@/components/ui/breadcrumb';
 import { buttonVariants } from '@/components/ui/button';
 import { Calendar } from '@/components/ui/calendar';
+import { useUserAnswer } from '@/hooks';
 import { cn } from '@/lib/utils';
 
 export type LayoutProps = {
@@ -49,7 +51,13 @@ export default ({ children }: LayoutProps) => {
       </div>
       <div className='container justify-center gap-20 flex px-2 items-start min-h-[72vh]'>
         <div className='gap-6 hidden sm:grid'>
-          <Calendar mode='single' selected={date} onSelect={setDate} className='rounded-md border' />
+          <Calendar
+            mode='single'
+            selected={date}
+            onSelect={setDate}
+            className='rounded-md border'
+            components={{ DayContent: CustomDay }}
+          />
           {[
             ...menuItems,
             {
@@ -78,4 +86,14 @@ export default ({ children }: LayoutProps) => {
       <ChatBot />
     </div>
   );
+};
+
+const CustomDay = ({ date, displayMonth }: { date: Date; displayMonth: Date }) => {
+  const { userAnswersData } = useUserAnswer();
+
+  const isSpecialDay = userAnswersData?.find(
+    d => moment(d.createdAt).format('YYYY-MM-DD') === moment(date).format('YYYY-MM-DD')
+  );
+
+  return <span className={isSpecialDay && 'rounded-full border-green-600 border-b-2 w-6'}>{date.getDate()}</span>;
 };

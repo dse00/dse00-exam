@@ -1,13 +1,20 @@
 'use client';
-import { MessageSquareMore, RectangleEllipsis } from 'lucide-react';
-import { FC, useState } from 'react';
+import { useReducer } from 'react';
 
 import CustomAccordion from '@/components/CustomAccordion';
-import { Button } from '@/components/ui/button';
-import { useUserAnswer } from '@/hooks';
 import { QuestionType } from '@/types/question';
 
-import AnswerButtons from './AnswerButtons';
+import {
+  ActionType,
+  AnswerDiscussionContext,
+  answersOptions,
+  ButtonControl,
+  reducer,
+  SkipButton,
+  useAnswerDiscussionContext,
+} from '../_service-layer/answer-discussion';
+import AnswerButton from './AnswerButton';
+import CorrectPercentageIndicator from './CorrectPercentageIndicator';
 import Discussion from './Discussion';
 
 type props = {
@@ -16,46 +23,75 @@ type props = {
   showAnswer?: boolean;
 };
 
-const AnswerDiscussion: FC<props> = ({ question, index, showAnswer }) => {
-  const [showAns, setShowAns] = useState(showAnswer !== false);
+export const initialState = {
+  showAns: true,
+  showDiscussion: false,
+  selectedAnswer: '',
+  isSkep: false,
+};
 
-  const [showDiscussion, setShowDiscussion] = useState(false);
+export const useAnswerDiscussion = () => {
+  const [state, dispatch] = useReducer(reducer, initialState);
 
-  const { userAnswersData } = useUserAnswer();
+  return {
+    state,
+    toggleAnswer: () => dispatch({ type: ActionType.TOGGLE_ANSWER }),
+    toggleDiscussion: () => dispatch({ type: ActionType.TOGGLE_DISCUSSION }),
+    setSelectedAnswer: (selectedAnswer: string) =>
+      dispatch({ type: ActionType.SET_SELECTED_ANSWER, payload: selectedAnswer }),
+    setIsSkip: (isSkep: boolean) => dispatch({ type: ActionType.SET_IS_SKIP, payload: isSkep }),
+  };
+};
 
-  const userAnswer = userAnswersData?.find(userAnswer => userAnswer.question._id === question._id);
+export default ({ question, index, showAnswer }: props) => {
+  const { toggleAnswer, state, toggleDiscussion, setSelectedAnswer, setIsSkip } = useAnswerDiscussion();
 
+  return (
+    <AnswerDiscussionContext.Provider
+      value={{
+        toggleAnswer,
+        toggleDiscussion,
+        state,
+        question,
+        index,
+        showAnswer,
+        setSelectedAnswer,
+        setIsSkip,
+      }}
+    >
+      <AnswerDiscussionView />
+    </AnswerDiscussionContext.Provider>
+  );
+};
+
+const AnswerDiscussionView = () => {
   return (
     <div className='grid gap-2 w-full'>
       <div className='flex gap-3'>
-        <Button
-          size='sm'
-          variant={showAns ? 'outline' : 'default'}
-          onClick={() => setShowAns(!showAns)}
-          disabled={showAns}
-        >
-          <RectangleEllipsis />
-          答案
-        </Button>
-        <Button
-          size='sm'
-          variant={showDiscussion ? 'outline' : 'default'}
-          onClick={() => setShowDiscussion(!showDiscussion)}
-        >
-          <MessageSquareMore />
-          討論({question.comments?.length})
-        </Button>
+        <ButtonControl />
       </div>
       <div className='grid'>
-        <CustomAccordion show={showAns}>
-          <AnswerButtons question={question} userAnswer={userAnswer?.answer} index={index} />
-        </CustomAccordion>
-        <CustomAccordion show={showDiscussion}>
-          <Discussion questionId={question._id} comments={question.comments} />
-        </CustomAccordion>
+        <AnswerButtons />
+        <Discussion />
       </div>
     </div>
   );
 };
 
-export default AnswerDiscussion;
+const AnswerButtons = () => {
+  const { state } = useAnswerDiscussionContext();
+
+  return (
+    <CustomAccordion show={state.showAns}>
+      <div className='grid gap-3'>
+        <div className='flex gap-3 items-center'>
+          {answersOptions.map(answer => (
+            <AnswerButton key={answer} answer={answer} />
+          ))}
+          <SkipButton />
+        </div>
+        <CorrectPercentageIndicator />
+      </div>
+    </CustomAccordion>
+  );
+};

@@ -18,6 +18,6 @@ const ExamMathsDifficultyPage: NextPage<props> = async ({ searchParams, params }
 
   const { data: questions, total }: any = await services.getQuestions({ page, difficulty, subject });
 
-  return <QuestionsDisplay questions={questions} totalPage={total} currentPage={page as number} header={difficulty} />;
+  return <QuestionsDisplay questions={questions} totalPage={total} currentPage={+page as number} header={difficulty} />;
 };
 export default ExamMathsDifficultyPage;

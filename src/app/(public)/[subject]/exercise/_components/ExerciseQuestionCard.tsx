@@ -7,7 +7,7 @@ import { Card, CardContent, CardFooter, CardHeader, CardTitle } from '@/componen
 import { useAppStore } from '@/store';
 import { QuestionType } from '@/types/question';
 
-import { answersOptions } from '../../questions/_components/AnswerButtons';
+import { answersOptions } from '../../questions/_service-layer/answer-discussion';
 
 interface props {
   question: QuestionType;

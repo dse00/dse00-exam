@@ -20,6 +20,7 @@ type props = {
   page: number;
 };
 const PaginationSession: FC<props> = ({ numPages, page }) => {
+  console.log('PaginationSession', numPages, page);
   const pathname = usePathname();
 
   const { isMobile } = useScreen();

@@ -1,6 +1,7 @@
 'use client';
 import { BaseTable } from '@/app/(cms)/_components/BaseTable';
 import { AnswerColumn, answerColumn } from '@/app/(cms)/admin/questions/answers/_components/column';
+import { Badge } from '@/components/ui/badge';
 import { useCmsAnswer } from '@/hooks/cms/useCmsAnswer';
 import { UserAnswerType } from '@/types/userAnswer';
 
@@ -11,6 +12,7 @@ const CmsAnswersListPage = () => {
 
   return (
     <div>
+      <Badge className='mb-2'>{cmsAnswerData.length}</Badge>
       {
         <BaseTable
           data={

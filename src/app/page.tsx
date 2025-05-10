@@ -20,6 +20,7 @@ import { cn } from '@/lib/utils';
 import services from '@/services';
 import { LastQuestionType } from '@/types/question';
 
+import { AddOilSlogan } from './_components/AddOilSlogan';
 import Header from './_components/Header';
 import LastQuestionContinueCard from './_components/LastQuestionContinueCard';
 import LeaderBoards from './_components/LeaderBoards';
@@ -74,7 +75,6 @@ const subjects = [
     iconStroke: 'stroke-yellow-600',
     buttonFill: 'bg-yellow-500',
     textColor: 'text-yellow-800',
-    isComing: true,
   },
   {
     name: 'BAFS',
@@ -179,6 +179,7 @@ const HomePage = async () => {
             </div>
           </div>
         ))}
+        <AddOilSlogan className='text-gray-500 pb-10' />
       </div>
       <ChatBot />
     </div>

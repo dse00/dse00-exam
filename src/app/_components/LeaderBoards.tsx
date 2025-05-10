@@ -54,7 +54,7 @@ const LeaderBoard: FC<{ rankings: RankingType[]; readOnly?: boolean }> = ({ rank
             <Anvil />
             <span>排名</span>
           </div>
-          <span className='col-span-2'>DSEJJ</span>
+          <span className='col-span-2' />
           <span className='text-end'>分數</span>
         </div>
         <ScrollArea className={cn('rounded-md h-[180px]')}>

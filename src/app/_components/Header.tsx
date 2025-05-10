@@ -5,6 +5,7 @@ import LoginDialog from '@/components/LoginDialog';
 
 import AvatarAndMenu from './AvatarAndMenu';
 import HeaderIcon from './HeaderIcon';
+import HeaderScoreChartButton from './HeaderScoreChartButton';
 import MessageDialog from './MessageDialog';
 
 const Header: FC = () => {
@@ -38,6 +39,7 @@ const Header: FC = () => {
               </Link>
             </div>
           </div>
+          <HeaderScoreChartButton />
           <AvatarAndMenu />
           <MessageDialog />
         </div>
